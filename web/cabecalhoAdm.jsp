@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="shortcut icon" href="images/favicon-32x32.png"> 
+        <link rel="shortcut icon" href="resources-freezer/img/ic_launcher.png"> 
         <title>Area administrador</title>
         <!-- Bootstrap Core CSS -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -66,11 +66,11 @@
                                 <a href="adm.jsp"><i class="fa fa-fw fa-home"></i> Supermercados</a>
                             </li>
                             <li>
-                                <a href="produtos.jsp"><i class="fa fa-fw fa-tencent-weibo"></i> Produtos</a>
+                                <a href="produto?acao=listar"><i class="fa fa-fw fa-tencent-weibo"></i> Produtos</a>
                             </li>
 
                             <li>
-                                <a href="#"><i class="fa fa-fw fa-leaf"></i> Marcas</a>
+                                <a href="marca?acao=listar"><i class="fa fa-fw fa-leaf"></i> Marcas</a>
                             </li>
 
                             <li>

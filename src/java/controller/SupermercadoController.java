@@ -1,55 +1,49 @@
 package controller;
 
-import dao.MarcaDAO;
-import dao.ProdutoDAO;
+import dao.SupermercadoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.Marca;
-import models.Produto;
+import models.Supermercado;
 
-public class ProdutoController extends HttpServlet {
+public class SupermercadoController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
-            MarcaDAO mDao = new MarcaDAO();
-            Marca m = new Marca();
-            ProdutoDAO pDao = new ProdutoDAO();
-            Produto p = new Produto();
+            SupermercadoDAO sDao = new SupermercadoDAO();
+            Supermercado s = new Supermercado();
 
-            String codigo = null, nome = null, marca;
+            String codigo = null, nome = null, endereco = null;
 
             try {
 
                 if (request.getParameter("txtnome") != null) {
                     nome = request.getParameter("txtnome").trim();
                 }
-                if (request.getParameter("selmarca") != null) {
-                    marca = request.getParameter("selmarca");
-                    m = mDao.getPorCodigo(Integer.valueOf(marca));
+                if (request.getParameter("txtendereco") != null) {
+                    endereco = request.getParameter("txtendereco").trim();
                 }
 
                 String acao = request.getParameter("acao");
 
-                if (acao.equals("criarProduto")) {
-                    p.setNome(nome);
-                    p.setMarcacod(m);
-                    pDao.salvar(p);
+                if (acao.equals("criarSupermercado")) {
+                    s.setNome(nome);
+                    s.setEndereco(endereco);
+                    sDao.salvar(s);
                 } else {
-                   request.getRequestDispatcher("produtos.jsp").forward(request, response);
                 }
 
-            } catch (Exception e) {
-                out.print("Erro ao salvar " + e.getMessage());
-            } 
-            
+                request.getRequestDispatcher("adm.jsp").forward(request, response);
 
+            } catch (Exception e) {
+                out.print("Erro " + e.getMessage());
+            }
         }
     }
 
@@ -68,5 +62,6 @@ public class ProdutoController extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
+    }// </editor-fold>
+
 }

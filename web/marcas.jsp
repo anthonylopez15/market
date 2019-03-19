@@ -10,14 +10,14 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Produtos</h1>
+            <h1 class="page-header">Marcas</h1>
         </div>
         <!-- /.col-lg-12 -->
 
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                 <!--Cadastrar-->
                 <i class="fa fa-plus"></i>
@@ -25,27 +25,15 @@
             <br>
             <br>
             <div class="collapse" id="collapseExample">
-                <form action="produto" method="post"  class="form-horizontal" >
+                <form action="marca" method="post"  class="form-horizontal" >
                     <div class="well well-sm">
 
                         <p>
                             <input type="text" class="form-control" name="txtnome"required placeholder="Nome"/>
                         </p>
 
-                        <select class="form-control" required id="marca" name="selmarca">
-                            <option value="" selected> Selecione a marca </option>
-                            <%
-                                MarcaDAO mDao = new MarcaDAO();
-                                List<Marca> list = mDao.listaMarcas();
-                                for (Marca m : list) {
-                            %>
-                            <option value="<%=m.getCodigo()%>" ><%=m.getNome()%></option>
-
-                            <%}%>
-
-                        </select>
                         </p>
-                        <p><button type="submit" name="acao" value="criarProduto" class="btn btn-info"> Salvar</button></p>
+                        <p><button type="submit" name="acao" value="criarMarca" class="btn btn-info"> Salvar</button></p>
 
                     </div>
                 </form>
@@ -56,7 +44,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Lista de Produtos
+                    Lista de Marcas
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -65,21 +53,19 @@
                             <tr>
                                 <th>Codigo</th>
                                 <th>Nome</th>
-                                <th>Marca</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
                             <%
-                                ProdutoDAO pDao = new ProdutoDAO();
-                                List<Produto> listar = pDao.listar();
-                                for (Produto p : listar) {
+                                MarcaDAO mDao = new MarcaDAO();
+                                List<Marca> listar = mDao.listaMarcas();
+                                for (Marca m : listar) {
                             %>
 
                             <tr class="odd gradeX">
-                                <td><%=p.getCodigo()%></td>
-                                <td><%=p.getNome()%></td>
-                                <td><%=p.getMarcacod()%></td>
+                                <td><%=m.getCodigo()%></td>
+                                <td><%=m.getNome()%></td>
                                 <td class="text-center">
                                     <a href="#"><i class="fa fa-user fa-file-text"></i> Abrir</a>
                                 </td>

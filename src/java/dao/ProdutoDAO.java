@@ -15,7 +15,7 @@ import models.Produto;
 public class ProdutoDAO {
 
     private String sql;
-    private Connection con;
+    private final Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
 
@@ -41,13 +41,16 @@ public class ProdutoDAO {
     }
 
     public List<Produto> listar() {
-        sql = "SELECT * FROM produto p inner join marca m on m.codigo = p.marcacod";
+        sql = "SELECT * FROM produto p left join marca m on m.codigo = p.marcacod";
         List<Produto> list = new ArrayList<>();
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Marca m = new Marca(rs.getInt("m.codigo"), rs.getString("m.nome"));
+                if (m.getNome() == null) {
+                    m.setNome("Indefinido");
+                }
                 Produto p = new Produto();
                 p.setCodigo(rs.getInt("p.codigo"));
                 p.setNome(rs.getString("p.nome"));
@@ -65,7 +68,7 @@ public class ProdutoDAO {
     public static void main(String[] args) {
         ProdutoDAO dao = new ProdutoDAO();
         List<Produto> list = dao.listar();
-        
+
         if (list.size() > 0) {
             for (Produto p : list) {
                 System.out.println(p);

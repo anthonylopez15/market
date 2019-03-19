@@ -4,9 +4,25 @@
         <servlet-name>ProdutoController</servlet-name>
         <servlet-class>controller.ProdutoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MarcaController</servlet-name>
+        <servlet-class>controller.MarcaController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SupermercadoController</servlet-name>
+        <servlet-class>controller.SupermercadoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProdutoController</servlet-name>
         <url-pattern>/produto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarcaController</servlet-name>
+        <url-pattern>/marca</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SupermercadoController</servlet-name>
+        <url-pattern>/supermercado</url-pattern>
     </servlet-mapping>
     <session-config>
         <!--        <session-timeout>
