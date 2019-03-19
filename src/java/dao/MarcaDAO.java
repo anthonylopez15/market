@@ -14,7 +14,7 @@ import models.Marca;
 public class MarcaDAO {
     
     private String sql;
-    private Connection con;
+    private final Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
     

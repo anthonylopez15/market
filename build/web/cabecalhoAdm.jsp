@@ -42,10 +42,10 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
                         <ul class="dropdown-menu dropdown-user">
-                            
-                           
+
+
                             <li>
-                                <a href="sair"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                <a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                             </li>
                         </ul>
                         <!-- /.dropdown-user -->
@@ -53,8 +53,8 @@
                     <!-- /.dropdown -->
                 </ul>
                 <!-- /.navbar-top-links -->
-               
-                
+
+
                 <div class="navbar-default sidebar " role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
@@ -63,53 +63,35 @@
                                 </div>
                             </li>
                             <li>
-                                <a href="adm.jsp"><i class="fa fa-fw fa-home"></i> Agendamentos</a>
+                                <a href="adm.jsp"><i class="fa fa-fw fa-home"></i> Supermercados</a>
                             </li>
                             <li>
-                                <a href="funcionario.jsp"><i class="fa fa-fw fa-users"></i> Funcionários</a>
+                                <a href="produtos.jsp"><i class="fa fa-fw fa-tencent-weibo"></i> Produtos</a>
                             </li>
 
                             <li>
-                                <a href="servico.jsp"><i class="fa fa-fw fa-leaf"></i> Serviços</a>
+                                <a href="#"><i class="fa fa-fw fa-leaf"></i> Marcas</a>
                             </li>
 
                             <li>
-                                <a href="aparelho.jsp"><i class="fa fa-fw fa-tencent-weibo"></i> Aparelhos</a>
+                                <a href="#"><i class="fa fa-fw fa-users"></i> Colaboradores</a>
                             </li>
-                            <li>
-                                <a href="marca.jsp"><i class="fa fa-fw fa-fire"></i> Marcas</a>
-                            </li>
-                            <li>
-                                <a href="bairro.jsp"><i class="fa fa-fw fa-map-o"></i> Bairros</a>
-                            </li>
+                            
                             <li>
                                 <a href="#"><i class="fa fa-fw fa-pencil"></i> Gerar Relatórios<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level fa-ul">
                                     <li>
                                         <a href="report_for_id.jsp"><i class="fa fa-fw fa-edit"></i> Ordem de serviço </a>
                                     </li>
-                                    
+
                                 </ul>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <!--Barra para tecnico-->
-                <div class="navbar-default sidebar " role="navigation">
-                    <div class="sidebar-nav navbar-collapse">
-                        <ul class="nav" id="side-menu">
-                            <li class="sidebar-search">
-                                <div class="input-group custom-search-form">
-                                </div>
-                            </li>
-                            <li>
-                                <a href="tecnico.jsp"><i class="fa fa-fw fa-home"></i> Agendamentos</a>
-                            </li>
 
-                        </ul>
-                    </div>
-                </div>
+
                 <!-- /.navbar-header -->
                 <!-- /.navbar-top-links -->
                 <!-- /.navbar-static-side -->

@@ -8,7 +8,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Agendamentos</h1>
+            <h1 class="page-header">Supermercados</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -96,18 +96,18 @@
                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                             <tr>
-                                <th>Ordem nº</th>
-                                <th>Situação</th>
-                                <th>Cliente</th>
-                                <th>Valor estimado</th>
-                                <th>Agendado</th>
-                                <th>Acão</th>
+                                <th>Codigo</th>
+                                <th>Nome</th>
+                                <th>Endereço</th>
+                             
                             </tr>
                         </thead>
                         <tbody>
-
-
-
+                            <tr class="odd gradeX">
+                                <td>31234</td>
+                                <td>Nome teste</td>
+                                <td>Endereco lameda teste</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
