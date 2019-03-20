@@ -15,14 +15,17 @@ public class SupermercadoController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            request.setCharacterEncoding("UTF-8");
 
             SupermercadoDAO sDao = new SupermercadoDAO();
             Supermercado s = new Supermercado();
 
-            String codigo = null, nome = null, endereco = null;
+            String codigo = null, nome = null, endereco = null, msg = null, alerta = "alert-success";
 
             try {
-
+                if (request.getParameter("txtcod") != null) {
+                    codigo = request.getParameter("txtcod");
+                }
                 if (request.getParameter("txtnome") != null) {
                     nome = request.getParameter("txtnome").trim();
                 }
@@ -32,17 +35,29 @@ public class SupermercadoController extends HttpServlet {
 
                 String acao = request.getParameter("acao");
 
-                if (acao.equals("criarSupermercado")) {
+                if (acao.equals("criar")) {
                     s.setNome(nome);
                     s.setEndereco(endereco);
                     sDao.salvar(s);
-                } else {
+                    msg = "Supermercado criado com sucesso!";
+                }else if(acao.equals("alterar")){
+                    s.setCodigo(Integer.parseInt(codigo));
+                    s.setNome(nome);
+                    s.setEndereco(endereco);
+                    sDao.alterar(s);
+                    msg = "Alterado com sucesso!";
+                } 
+                else {
+                    
                 }
-
+                request.setAttribute("msg", msg);
+                request.setAttribute("alert", alerta);
                 request.getRequestDispatcher("adm.jsp").forward(request, response);
 
             } catch (Exception e) {
-                out.print("Erro " + e.getMessage());
+                request.setAttribute("alert", "alert-danger");
+                request.setAttribute("msg", "Um erro acontenceu " +e.fillInStackTrace());
+                request.getRequestDispatcher("adm.jsp").forward(request, response);
             }
         }
     }

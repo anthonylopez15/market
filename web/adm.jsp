@@ -9,84 +9,30 @@
 <c:import url="cabecalhoAdm.jsp"/>
 
 <div id="page-wrapper">
+
+
     <div class="row">
         <div class="col-lg-12">
+            <div class='form-label alert 
+                 <%
+                     if (request.getAttribute("alert") != null) {
+                         out.print(request.getAttribute("alert"));
+                     }
+                 %>
+                 <%
+                     if (request.getAttribute("msg") == null) {
+                         out.print("hidden");
+                     }
+                 %>
+                 '>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%=request.getAttribute("msg")%>
+            </div>
+
             <h1 class="page-header">Supermercados</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    <!-- /.row -->
-    <!--    <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="panel panel-yellow">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-5x fa-calendar-minus-o"></i>
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">5</div>
-                                <div>Details 1</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">Mais Detalhes</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="panel panel-green">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-5x fa-calendar-check-o"></i>
-                            </div>
-                            <div class="col-xs-9 text-right">
-    
-                                <div class="huge"> 40 </div>
-                                <div>Details 2</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">Mais Detalhes</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-5x fa-calendar-times-o"></i>
-                            </div>
-                            <div class="col-xs-9 text-right">
-    
-                                <div class="huge">34</div>
-                                <div>Details 3</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">Mais Detalhes</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>-->
-    <!-- /.row -->
 
     <div class="row">
         <div class="col-sm-6">
@@ -108,7 +54,7 @@
                         </p>
 
                         </p>
-                        <p><button type="submit" name="acao" value="criarSupermercado" class="btn btn-info"> Salvar</button></p>
+                        <p><button type="submit" name="acao" value="criar" class="btn btn-info"> Salvar</button></p>
 
                     </div>
                 </form>
@@ -131,7 +77,6 @@
                                 <th>Nome</th>
                                 <th>Endereço</th>
                                 <th>Ação</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -145,11 +90,11 @@
                                 <td><%=s.getNome()%></td>
                                 <td><%=s.getEndereco()%></td>
                                 <td class="text-center">
-                                    <a href="#" data-toggle="modal" data-cod="<%=s.getCodigo()%>" data-target="#<%=s.getCodigo()%>" >
-                                        <i class="fa fa-user fa-file-text"> </i> 
-                                        Abrir
-                                    </a>
+                                    <a href="#" data-toggle="modal" data-cod="<%=s.getCodigo()%>"
+                                       data-target="#<%=s.getCodigo()%>" >Abrir</a>
                                 </td>
+
+                            </tr>
                         <div class="modal fade" id="<%=s.getCodigo()%>"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
@@ -159,32 +104,33 @@
                                         </button>
                                         <h3 class="modal-title" id="myModalLabel">Dados Supermercado</h3>
                                     </div>
-                                    <div class="modal-body">
-
-                                        <div class="row form-group">
-                                            <div class="  col-sm-6 ">
-                                                <label for="cNome" class="form-label">Nome</label>
-                                                <input type="text" class="form-control" required name="txtNome" id="cNome" placeholder="Preencha seu nome completo"
-                                                       value="<%=s.getNome()%>" data-bv-notempty-message="Nome completo obrigatório." />
+                                    <form action="supermercado" method="POST">
+                                        <div class="modal-body">
+                                            <div class="row form-group">
+                                                <div class="  col-sm-6 ">
+                                                    <label for="cNome" class="form-label">Nome</label>
+                                                    <input type="text" class="form-control" required name="txtnome" id="cNome" 
+                                                           placeholder="Nome do supermercado" value="<%=s.getNome()%>"  />
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="  col-sm-6 ">
+                                                    <label for="cEnd" class="form-label">Endereço</label>
+                                                    <input type="text" class="form-control" required name="txtendereco" id="cEnd" 
+                                                           placeholder="Preencha seu nome completo" value="<%=s.getEndereco()%>" />
+                                                    <input type="hidden" value="<%=s.getCodigo()%>" name="txtcod"/>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row form-group">
-                                            <div class="  col-sm-6 ">
-                                                <label for="cNome" class="form-label">Endereço</label>
-                                                <input type="text" class="form-control" required name="txtNome" id="cNome" placeholder="Preencha seu nome completo"
-                                                       value="<%=s.getEndereco()%>" data-bv-notempty-message="Nome completo obrigatório." />
-                                            </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn" id="sombrabtn" data-dismiss="modal">Fechar</button>
+                                            <button type="submit" class="btn btn-primary" id="sombrabtn" 
+                                                    value="alterar" name="acao">Alterar</button>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn" id="sombrabtn" data-dismiss="modal">Fechar</button>
-                                        <input type="hidden" name="acao" value="solicitar" />
-                                        <button type="sumit" class="btn btn-primary" id="sombrabtn" href="#<%=s.getCodigo()%>" > Solicitar</button>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        </tr>
                         <%}%>
                         </tbody>
                     </table>
@@ -195,33 +141,16 @@
 </div>
 
 </body>
-<script type="text/javascript">
-    $(function () {
-        $('[data-toggle="popover"]').popover();
-    });
-    $(function () {
-        $("#dialog-message").dialog({
-            modal: true,
-            buttons: {
-                Ok: function () {
-                    $(this).dialog("close");
-                    history.back();
-                }
-            }
-        });
-    });
-</script>
 
 <script src="resources-freezer/js/jquery.min.js"></script>
-<!-- Bootstrap Core JavaScript -->
 <script src="resources-freezer/js/bootstrap.min.js"></script>
 <script src="resources-freezer/js/metisMenu.min.js"></script>
+<script src="resources-freezer/js/sb-admin-2.js"></script>
 
 <script src="resources-freezer/js/jquery.dataTables.min.js"></script>
 <script src="resources-freezer/js/dataTables.bootstrap.min.js"></script>
 <script src="resources-freezer/js/dataTables.responsive.js"></script>
-<!-- Custom Theme JavaScript -->
-<script src="resources-freezer/js/sb-admin-2.js"></script>
+
 <script>
     $(document).ready(function () {
         $('#dataTables-example').DataTable({

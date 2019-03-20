@@ -22,7 +22,7 @@
         <link href="resources-freezer/css/sb-admin-2.css" rel="stylesheet">
         <!-- Custom Fonts -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <!--<link href="style.css" rel="stylesheet" type="text/css">-->
+        <link href="style.css" rel="stylesheet" type="text/css">
 
     </head>
     <body>
@@ -36,7 +36,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html">Dashboard</a>
+                    <a class="navbar-brand" href="#">Dashboard</a>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li class="dropdown">
@@ -63,7 +63,7 @@
                                 </div>
                             </li>
                             <li>
-                                <a href="adm.jsp"><i class="fa fa-fw fa-home"></i> Supermercados</a>
+                                <a href="supermercado?acao=listar"><i class="fa fa-fw fa-home"></i> Supermercados</a>
                             </li>
                             <li>
                                 <a href="produto?acao=listar"><i class="fa fa-fw fa-tencent-weibo"></i> Produtos</a>

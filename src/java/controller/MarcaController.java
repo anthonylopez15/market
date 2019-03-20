@@ -15,11 +15,12 @@ public class MarcaController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            request.setCharacterEncoding("UTF-8");
 
             Marca m = new Marca();
             MarcaDAO mDao = new MarcaDAO();
 
-            String codigo = null, nome = null;
+            String codigo = null, nome = null, msg = null, alerta = "alert-success";
 
             try {
                 if (request.getParameter("txtnome") != null) {
@@ -33,29 +34,29 @@ public class MarcaController extends HttpServlet {
                 } else {
 
                 }
+                request.setAttribute("msg", msg);
+                request.setAttribute("alert", alerta);
+                request.getRequestDispatcher("marcas.jsp").forward(request, response);
             } catch (Exception e) {
-                out.printf("Deu erro" + e.getMessage());
-            } finally {
+                request.setAttribute("alert", "alert-danger");
+                request.setAttribute("msg", "Um erro acontenceu " + e.fillInStackTrace());
                 request.getRequestDispatcher("marcas.jsp").forward(request, response);
             }
         }
     }
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     public String getServletInfo() {
         return "Short description";

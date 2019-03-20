@@ -67,10 +67,40 @@
                                 <td><%=m.getCodigo()%></td>
                                 <td><%=m.getNome()%></td>
                                 <td class="text-center">
-                                    <a href="#"><i class="fa fa-user fa-file-text"></i> Abrir</a>
+                                   <a href="#" data-toggle="modal" data-cod="<%=m.getCodigo()%>"
+                                       data-target="#<%=m.getCodigo()%>" >Abrir</a>
                                 </td>
                             </tr>
-                            <% }%>
+                        <div class="modal fade" id="<%=m.getCodigo()%>"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h3 class="modal-title" id="myModalLabel">Dados Marca</h3>
+                                    </div>
+                                    <form action="marca" method="POST">
+                                        <div class="modal-body">
+                                            <div class="row form-group">
+                                                <div class="  col-sm-6 ">
+                                                    <label for="cNome" class="form-label">Nome</label>
+                                                    <input type="text" class="form-control" required name="txtnome" id="cNome" 
+                                                           placeholder="Nome do supermercado" value="<%=m.getNome()%>"  />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn" id="sombrabtn" data-dismiss="modal">Fechar</button>
+                                            <button type="submit" class="btn btn-primary" id="sombrabtn" 
+                                                    value="alterar" name="acao">Alterar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <% }%>
                         </tbody>
                     </table>
                 </div>

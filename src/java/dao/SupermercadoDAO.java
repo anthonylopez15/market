@@ -42,6 +42,22 @@ public class SupermercadoDAO {
         }
         return s;
     }
+    public Supermercado alterar(Supermercado s) {
+        sql = "update supermercado set nome = ?, endereco = ? WHERE codigo = ? ";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, s.getNome());
+            ps.setString(2, s.getEndereco());
+            ps.setInt(3, s.getCodigo());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(SupermercadoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.close(con, ps);
+        }
+        return s;
+    }
     
     public Supermercado getProCodigo(int cod){
         sql = "select * from supermercado where codigo = ? ";
