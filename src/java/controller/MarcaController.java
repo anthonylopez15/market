@@ -23,14 +23,23 @@ public class MarcaController extends HttpServlet {
             String codigo = null, nome = null, msg = null, alerta = "alert-success";
 
             try {
+                if (request.getParameter("codigo") != null) {
+                    codigo = request.getParameter("codigo");
+                }
                 if (request.getParameter("txtnome") != null) {
                     nome = request.getParameter("txtnome").trim();
                 }
 
                 String acao = request.getParameter("acao");
-                if (acao.equals("criarMarca")) {
+                if (acao.equals("criar")) {
                     m.setNome(nome);
                     mDao.salvar(m);
+                    msg = "A marca '" + m + "' foi criado com sucesso.";
+                } else if (acao.equals("alterar")) {
+                    m.setCodigo(Integer.parseInt(codigo));
+                    m.setNome(nome);
+                    mDao.alterar(m);
+                    msg = "A marca '" + m + "' foi alterado com sucesso.";
                 } else {
 
                 }

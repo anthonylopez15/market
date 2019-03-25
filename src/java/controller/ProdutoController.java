@@ -24,10 +24,12 @@ public class ProdutoController extends HttpServlet {
             ProdutoDAO pDao = new ProdutoDAO();
             Produto p = new Produto();
 
-            String codigo = null, nome = null, marca;
+            String codigo = null, nome = null, marca, msg = null, alerta = "alert-success";
 
             try {
-
+                if (request.getParameter("codigo") != null) {
+                    codigo = request.getParameter("codigo");
+                }
                 if (request.getParameter("txtnome") != null) {
                     nome = request.getParameter("txtnome").trim();
                 }
@@ -42,14 +44,26 @@ public class ProdutoController extends HttpServlet {
                     p.setNome(nome);
                     p.setMarcacod(m);
                     pDao.salvar(p);
+                    msg = "Produto criado com sucesso";
+                } else if (acao.equals("alterar")) {
+                    p.setCodigo(Integer.parseInt(codigo));
+                    p.setNome(nome);
+                    pDao.alterar(p);
+                    System.out.println("nome "+nome);
+                    msg = "Produto alterar com sucesso";
                 } else {
-                   request.getRequestDispatcher("produtos.jsp").forward(request, response);
+
                 }
 
+                request.setAttribute("msg", msg);
+                request.setAttribute("alert", alerta);
+                request.getRequestDispatcher("produtos.jsp").forward(request, response);
+
             } catch (Exception e) {
-                out.print("Erro ao salvar " + e.getMessage());
-            } 
-            
+                request.setAttribute("alert", "alert-danger");
+                request.setAttribute("msg", "Um erro acontenceu " + e.fillInStackTrace());
+                request.getRequestDispatcher("produtos.jsp").forward(request, response);
+            }
 
         }
     }

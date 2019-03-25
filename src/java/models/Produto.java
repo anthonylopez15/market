@@ -6,6 +6,20 @@ public class Produto {
     private String nome;
     private Marca marcacod;
 
+    public Produto() {
+    }
+
+    public Produto(Integer codigo, String nome) {
+        this.codigo = codigo;
+        this.nome = nome;
+    }
+
+    public Produto(Integer codigo, String nome, Marca marcacod) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.marcacod = marcacod;
+    }
+
     public Integer getCodigo() {
         return codigo;
     }
@@ -32,7 +46,7 @@ public class Produto {
 
     @Override
     public String toString() {
-        return nome + " - " + marcacod.getNome();
+        return nome + " - " + marcacod;
     }
 
 }

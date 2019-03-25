@@ -23,7 +23,7 @@ public class ProdutoDAO {
         this.con = ConnectionFactory.conecta();
     }
 
-    public boolean salvar(Produto p) {
+    public Produto salvar(Produto p) {
         sql = "INSERT INTO produto(nome, marcacod) values (?, ?)";
 
         try {
@@ -31,13 +31,29 @@ public class ProdutoDAO {
             ps.setString(1, p.getNome());
             ps.setInt(2, p.getMarcacod().getCodigo());
             ps.execute();
-            return true;
         } catch (SQLException ex) {
             System.out.println("Erro ao salvar produto" + ex.getMessage());
         } finally {
             ConnectionFactory.close(con, ps);
         }
-        return false;
+        return p;
+    }
+    
+    public Produto alterar(Produto p) {
+        sql = "UPDATE produto set nome = ? where codigo = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, p.getNome());
+            ps.setInt(2, p.getCodigo());
+            ps.executeUpdate();
+            System.out.println("Produto altera ok");
+        } catch (SQLException ex) {
+            System.out.println("Erro ao alterar produto" + ex.getMessage());
+        } finally {
+            ConnectionFactory.close(con, ps);
+        }
+        return p;
     }
 
     public List<Produto> listar() {
@@ -66,16 +82,7 @@ public class ProdutoDAO {
     }
 
     public static void main(String[] args) {
-        ProdutoDAO dao = new ProdutoDAO();
-        List<Produto> list = dao.listar();
 
-        if (list.size() > 0) {
-            for (Produto p : list) {
-                System.out.println(p);
-            }
-        } else {
-            System.out.println("Lista vazia");
-        }
     }
 
 }
