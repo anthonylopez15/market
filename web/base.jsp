@@ -1,9 +1,11 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
     <head>
         <meta charset="utf-8">
-        <title>Django E-Commerce</title>
+        <title>DSPM Sistema de Pesquisa de Mercadoria</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="resources/img/ic_launcher.png"> 
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="stylesheet" href="assets/bootstrap.min.css" media="screen" />
         <link rel="stylesheet" href="assets/custom.min.css" media="screen" />
@@ -12,7 +14,7 @@
         <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="../" class="navbar-brand">Django E-Commerce</a>
+                    <a href="#" class="navbar-brand">Pesquisa de Mercadoria</a>
                     <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -22,42 +24,18 @@
                 <div class="navbar-collapse collapse" id="navbar-main">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#">Início</a>
-                        </li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Categorias <span class="caret"></span></a>
-                            <ul class="dropdown-menu" aria-labelledby="download">
-                                <li><a href="">Notebooks</a></li>
-                                <li><a href="">Acessórios</a></li>
-                                <li><a href="">Celulares</a></li>
-                            </ul>
+                            <a href="#">InÃ­cio</a>
                         </li>
                         <li>
-                            <a href="contact.html">Contato</a>
+                            <a href="#">Pesquisar</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Minha Conta</a></li>
+                        <li><a href="#">Entrar</a></li>
+                        <li><a href="#">Registrar-se</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="container">
-            <footer>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <ul class="list-unstyled">
-                            <li class="pull-right"><a href="#top">Voltar ao Topo</a></li>
-                            <li><a href="">Início</a></li>
-                            <li><a href="">Produtos</a></li>
-                            <li><a href="">Contato</a></li>
-                            <li><a href="">Termos e Privacidade</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </footer>
-        </div>
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="assets/bootstrap.min.js"></script>
-    </body>
-</html>
+            

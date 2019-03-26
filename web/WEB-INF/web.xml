@@ -12,6 +12,14 @@
         <servlet-name>SupermercadoController</servlet-name>
         <servlet-class>controller.SupermercadoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UsuarioController</servlet-name>
+        <servlet-class>controller.UsuarioController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BairroController</servlet-name>
+        <servlet-class>controller.BairroController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProdutoController</servlet-name>
         <url-pattern>/produto</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>SupermercadoController</servlet-name>
         <url-pattern>/supermercado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuarioController</servlet-name>
+        <url-pattern>/usuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BairroController</servlet-name>
+        <url-pattern>/bairro</url-pattern>
     </servlet-mapping>
     <session-config>
         <!--        <session-timeout>
