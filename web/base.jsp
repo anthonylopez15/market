@@ -8,7 +8,9 @@
         <link rel="shortcut icon" href="resources/img/ic_launcher.png"> 
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="stylesheet" href="assets/bootstrap.min.css" media="screen" />
-        <link rel="stylesheet" href="assets/custom.min.css" media="screen" />
+        <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link  href="assets/custom.min.css" media="screen" rel="stylesheet"/>
+        
     </head>
     <body>
         <div class="navbar navbar-default navbar-fixed-top">
@@ -23,11 +25,17 @@
                 </div>
                 <div class="navbar-collapse collapse" id="navbar-main">
                     <ul class="nav navbar-nav">
+                        
                         <li>
                             <a href="#">Início</a>
                         </li>
-                        <li>
-                            <a href="#">Pesquisar</a>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Pesquisar <span class="caret"></span></a>
+                            <ul class="dropdown-menu" aria-labelledby="download">
+                                <li><a href="">Lista de compras</a></li>
+                                <li><a href="">Produto</a></li>
+                                <li><a href="">Supermercados</a></li>
+                            </ul>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -38,4 +46,3 @@
             </div>
         </div>
         <div class="container margin-top">
-            

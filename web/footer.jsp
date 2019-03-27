@@ -13,6 +13,14 @@
             </footer>
         </div>
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="resources/js/bootstrapValidator.js" type="text/javascript" ></script>
+        <script type="text/javascript" src="resources/js/jquery.mask.js"></script>
         <script src="assets/bootstrap.min.js"></script>
+        
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#defaultForm').bootstrapValidator();
+            });
+        </script>
     </body>
 </html>

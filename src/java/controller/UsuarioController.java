@@ -80,6 +80,8 @@ public class UsuarioController extends HttpServlet {
                     u.setCodigo(Integer.parseInt(codigo));
                     udao.alterar(u);
                     msg = "Usuário foi alterado com sucesso.";
+                }else if(acao.equals("criarCliente")){
+                    
                 } else {
 
                 }

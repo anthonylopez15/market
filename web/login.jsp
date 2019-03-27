@@ -4,9 +4,7 @@
 
 
 <div class="row">
-
     <div class="col-md-8 col-md-offset-2">
-
         <div class="page-header">
             <h1>Entrar</h1>
         </div>
@@ -22,22 +20,20 @@
                     out.print(request.getAttribute("msg"));
                 }
             %>
-
-
         </div>
 
-        <form action="session" method="get" class="form-horizontal">
+        <form action="session" method="post" class="form-horizontal">
             <fieldset>
                 <div class="form-group">
                     <label for="id_username" class="col-md-3 control-label">Usuário</label>
                     <div class="col-md-8">
-                        <input type="text" name="login" autofocus class="form-control" id="id_username" placeholder="Usuário" />
+                        <input type="text" name="login" required autofocus class="form-control" id="id_username" placeholder="Usuário" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="id_password" class="col-md-3 control-label">Senha</label>
                     <div class="col-md-8">
-                        <input type="password" name="senha" class="form-control" id="id_password" placeholder="Senha" />
+                        <input type="password" required name="senha" class="form-control" id="id_password" placeholder="Senha" />
                     </div>
                 </div>
                 <div class="form-group">
