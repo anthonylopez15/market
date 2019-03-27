@@ -20,6 +20,10 @@
         <servlet-name>BairroController</servlet-name>
         <servlet-class>controller.BairroController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SessionController</servlet-name>
+        <servlet-class>controller.SessionController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProdutoController</servlet-name>
         <url-pattern>/produto</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>BairroController</servlet-name>
         <url-pattern>/bairro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SessionController</servlet-name>
+        <url-pattern>/session</url-pattern>
     </servlet-mapping>
     <session-config>
         <!--        <session-timeout>

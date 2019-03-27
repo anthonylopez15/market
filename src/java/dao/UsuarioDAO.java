@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.Marca;
 import models.Usuario;
 
 public class UsuarioDAO {
@@ -99,17 +98,51 @@ public class UsuarioDAO {
         }
     }
 
+    public Usuario logar(Usuario u){
+        sql = "SELECT * FROM usuario WHERE login = ? and senha = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, u.getLogin());
+            ps.setString(2, u.getSenha());
+            rs = ps.executeQuery();
+            if(rs.next()){
+                int codigo = rs.getInt("codigo");
+                u = getForId(codigo);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionFactory.closeAll(con, ps, rs);
+        }
+        return u;
+    }
+    
+    public Usuario getForId(int cod){
+        sql = "SELECT * FROM usuario WHERE codigo = ?";
+        Usuario u = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, cod);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                u = new Usuario();
+                u.setCodigo(rs.getInt("codigo"));
+                u.setNome(rs.getString("nome"));
+                u.setLogin(rs.getString("login"));
+                u.setTipocod(rs.getInt("tipocod"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return u;
+    }
     public static void main(String[] args) {
         UsuarioDAO d = new UsuarioDAO();
         Usuario u = new Usuario();
-        u.setNome("Anthony teste");
-        u.setLogin("emaill@hotmail.com");
-        u.setCodigo(7);
-        d.alterar(u);
-//        List<Usuario> l = d.listar();
-//        for (Usuario u : l) {
-//            System.out.println(u);
-//        }
+        u.setSenha("senhaetal");
+        u.setLogin("paulo.silva");
+        u = d.logar(u);
+        System.out.println(u);
     }
 
 }
