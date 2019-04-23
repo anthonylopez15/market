@@ -25,6 +25,7 @@ public class SupermercadoController extends HttpServlet {
             Produto p = null;
 
             String supermercadoCod = null, nome = null, endereco = null, msg = null, produtoCod = null, preco = null;
+            String numero = null, bairro = null, cep = null, status = null;
             String alerta = "alert-success", url = "supermercado.jsp";
 
             try {
@@ -37,7 +38,18 @@ public class SupermercadoController extends HttpServlet {
                 if (request.getParameter("txtendereco") != null) {
                     endereco = request.getParameter("txtendereco").trim();
                 }
-
+                if (request.getParameter("numero") != null) {
+                    numero = request.getParameter("numero").trim();
+                }
+                if (request.getParameter("cep") != null) {
+                    cep = request.getParameter("cep").trim();
+                }
+                if (request.getParameter("bairro") != null) {
+                    bairro = request.getParameter("bairro").trim();
+                }
+                if (request.getParameter("status") != null) {
+                    status = request.getParameter("status");
+                }
                 if (request.getParameter("produtocod") != null) {
                     produtoCod = request.getParameter("produtocod");
                 }
@@ -50,12 +62,16 @@ public class SupermercadoController extends HttpServlet {
                 if (acao.equals("criar")) {
                     s.setNome(nome);
                     s.setEndereco(endereco);
+                    s.setNumero(numero);
+                    s.setBairro(bairro);
+                    s.setCep(cep);
                     sDao.salvar(s);
                     msg = "Supermercado criado com sucesso!";
                 } else if (acao.equals("alterar")) {
                     s.setCodigo(Integer.parseInt(supermercadoCod));
                     s.setNome(nome);
                     s.setEndereco(endereco);
+                    s.setStatus(status);
                     sDao.alterar(s);
                     msg = "O supermercado '" + s + "' foi alterado com sucesso.";
                 } else if (acao.equals("addProdutos")) {
@@ -90,7 +106,7 @@ public class SupermercadoController extends HttpServlet {
 
             } catch (Exception ex) {
                 request.setAttribute("alert", "alert-danger");
-                request.setAttribute("msg", "Um erro acontenceu " + ex.fillInStackTrace());
+                request.setAttribute("msg", "Um erro acontenceu " + ex.getMessage());
                 request.getRequestDispatcher("supermercado.jsp").forward(request, response);
             }
         }

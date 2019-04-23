@@ -69,7 +69,7 @@
                             <tbody>
                                 <%
                                     ProdutoDAO pDao = new ProdutoDAO();
-                                    List<Produto> listar = pDao.listar();
+                                    List<Produto> listar = pDao.listar("Ativo");
                                     for (Produto p : listar) {
                                 %>
 

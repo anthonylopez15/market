@@ -23,7 +23,7 @@ public class UsuarioDAO {
     }
 
     public void salvar(Usuario u) {
-        sql = "INSERT INTO usuario(nome, login, senha, tipocod, cpf, telefone, endereco, cep, bairrocod) VALUES (?,?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO usuario(nome, login, senha, tipocod, cpf, email, endereco, cep, bairrocod) VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, u.getNome());
@@ -31,7 +31,7 @@ public class UsuarioDAO {
             ps.setString(3, u.getSenha());
             ps.setInt(4, u.getTipocod());
             ps.setString(5, u.getCpf());
-            ps.setString(6, u.getTelefone());
+            ps.setString(6, u.getEmail());
             ps.setString(7, u.getEndereco());
             ps.setString(8, u.getCep());
             ps.setString(9, u.getBairrocod());
@@ -61,7 +61,7 @@ public class UsuarioDAO {
                 u.setTipoDesc(rs.getString("t.descricao"));
                 u.setTipocod(rs.getInt("t.codigo"));
                 u.setCpf(rs.getString("u.cpf"));
-                u.setTelefone(rs.getString("u.telefone"));
+                u.setEmail(rs.getString("u.email"));
                 u.setEndereco(rs.getString("u.endereco"));
                 u.setCep(rs.getString("u.cep"));
                 u.setBairrocod(rs.getString("b.codigo"));
@@ -78,14 +78,14 @@ public class UsuarioDAO {
 
     public void alterar(Usuario u) {
         sql = "UPDATE usuario SET nome = ?, login = ?, senha = ?, bairrocod = ?, "
-                + " telefone = ?, endereco = ?, cep = ? WHERE codigo = ?";
+                + " email = ?, endereco = ?, cep = ? WHERE codigo = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, u.getNome());
             ps.setString(2, u.getLogin());
             ps.setString(3, u.getSenha());
             ps.setString(4, u.getBairrocod());
-            ps.setString(5, u.getTelefone());
+            ps.setString(5, u.getEmail());
             ps.setString(6, u.getEndereco());
             ps.setString(7, u.getCep());
             ps.setInt(8, u.getCodigo());

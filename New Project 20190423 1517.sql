@@ -29,18 +29,20 @@ DROP TABLE IF EXISTS `bairro`;
 CREATE TABLE `bairro` (
   `codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
+  `status` varchar(45) DEFAULT 'Ativo',
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `bairro`
 --
 
 /*!40000 ALTER TABLE `bairro` DISABLE KEYS */;
-INSERT INTO `bairro` (`codigo`,`nome`) VALUES 
- (1,'Centro'),
- (2,'Centro 2'),
- (3,'Cachoeirinha 2');
+INSERT INTO `bairro` (`codigo`,`nome`,`status`) VALUES 
+ (1,'Centro','Ativo'),
+ (2,'Centro 2','Ativo'),
+ (3,'Cachoeirinha 2','Ativo'),
+ (4,'Cidade nova','Ativo');
 /*!40000 ALTER TABLE `bairro` ENABLE KEYS */;
 
 
@@ -66,7 +68,7 @@ CREATE TABLE `estoque` (
 
 /*!40000 ALTER TABLE `estoque` DISABLE KEYS */;
 INSERT INTO `estoque` (`supermercado`,`produto`,`preco`,`porcentagem_desconto`) VALUES 
- (1,3,'12.00',NULL),
+ (1,3,'13.00',NULL),
  (1,4,'16.50',NULL),
  (1,6,'6.50',NULL),
  (1,7,'23.40',NULL),
@@ -91,6 +93,7 @@ DROP TABLE IF EXISTS `marca`;
 CREATE TABLE `marca` (
   `codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
+  `status` varchar(45) DEFAULT 'Ativo',
   PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
@@ -99,11 +102,11 @@ CREATE TABLE `marca` (
 --
 
 /*!40000 ALTER TABLE `marca` DISABLE KEYS */;
-INSERT INTO `marca` (`codigo`,`nome`) VALUES 
- (1,'ITAMBE 2'),
- (4,'Nestle 2'),
- (7,'bauduco'),
- (8,'Nova marca');
+INSERT INTO `marca` (`codigo`,`nome`,`status`) VALUES 
+ (1,'ITAMBE 2','Ativo'),
+ (4,'Nestle 2','Ativo'),
+ (7,'bauduco','Desativado'),
+ (8,'Nova marca','Ativo');
 /*!40000 ALTER TABLE `marca` ENABLE KEYS */;
 
 
@@ -116,6 +119,7 @@ CREATE TABLE `produto` (
   `codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   `marcacod` int(10) unsigned DEFAULT NULL,
+  `status` varchar(45) DEFAULT 'Ativo',
   PRIMARY KEY (`codigo`),
   KEY `FK_produto_marca` (`marcacod`),
   CONSTRAINT `FK_produto_marca` FOREIGN KEY (`marcacod`) REFERENCES `marca` (`codigo`) ON DELETE SET NULL
@@ -126,17 +130,17 @@ CREATE TABLE `produto` (
 --
 
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` (`codigo`,`nome`,`marcacod`) VALUES 
- (3,'Leite modal 2',1),
- (4,'Leite',4),
- (6,'Leite Desnatado',1),
- (7,'Leite condensado',4),
- (8,'Bolacha Crack',4),
- (9,'aeddased',NULL),
- (10,'Testando template',4),
- (11,'Teste 2 MODAL',7),
- (12,'ITAMBE 2',4),
- (13,'ITAMBE 2',4);
+INSERT INTO `produto` (`codigo`,`nome`,`marcacod`,`status`) VALUES 
+ (3,'Leite modal 2',1,'Ativo'),
+ (4,'Leite',4,'Ativo'),
+ (6,'Leite Desnatado',1,'Ativo'),
+ (7,'Leite condensado',4,'Ativo'),
+ (8,'Bolacha Crack',4,'Ativo'),
+ (9,'aeddased',NULL,'Ativo'),
+ (10,'Testando template',4,'Ativo'),
+ (11,'Teste 2 MODAL',7,'Ativo'),
+ (12,'ITAMBE 2',4,'Ativo'),
+ (13,'ITAMBE 2',4,'Ativo');
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 
 
@@ -150,30 +154,35 @@ CREATE TABLE `supermercado` (
   `nome` varchar(45) NOT NULL,
   `endereco` varchar(45) DEFAULT NULL,
   `bairrocod` int(10) unsigned DEFAULT NULL,
-  `telefone` varchar(45) DEFAULT NULL,
+  `cep` varchar(45) DEFAULT NULL,
+  `numero` varchar(45) DEFAULT NULL,
+  `status` varchar(45) DEFAULT 'Ativo',
   PRIMARY KEY (`codigo`),
   KEY `FK_supermercado_bairro` (`bairrocod`),
   CONSTRAINT `FK_supermercado_bairro` FOREIGN KEY (`bairrocod`) REFERENCES `bairro` (`codigo`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `supermercado`
 --
 
 /*!40000 ALTER TABLE `supermercado` DISABLE KEYS */;
-INSERT INTO `supermercado` (`codigo`,`nome`,`endereco`,`bairrocod`,`telefone`) VALUES 
- (1,'Supermercado DB','coração da minha vìda MODAL',NULL,''),
- (2,'Supermercado Carrefour','TESTE MODALL SUPER 2',NULL,''),
- (3,'Supermercado Nova Era','endereco modal 3',NULL,''),
- (4,'sdfasdfadsf','TESTE MODALL SUPER 2',NULL,''),
- (5,'NOME MODAL','00000000',NULL,''),
- (6,'Nestle','endereco modal 3',NULL,''),
- (7,'Nestle','endereco modal 3',NULL,''),
- (8,'Teste 2 MODAL SDFGSF','ENDEReçõ MODAL',NULL,''),
- (9,'teste','endereco modal 3',NULL,''),
- (10,'teste 3','we4rwfsdf',NULL,''),
- (11,'tewrtwer','TESTE MODALL SUPER 2',NULL,NULL),
- (12,'Teste 2 MODAL','TESTE MODALL SUPER 2',NULL,NULL);
+INSERT INTO `supermercado` (`codigo`,`nome`,`endereco`,`bairrocod`,`cep`,`numero`,`status`) VALUES 
+ (1,'Supermercado DB','coração da minha vìda MODAL',1,'',NULL,'Ativo'),
+ (2,'Supermercado Carrefour','TESTE MODALL SUPER 2',2,'',NULL,'Ativo'),
+ (3,'Supermercado Nova Era','endereco modal 3',3,'',NULL,'Ativo'),
+ (4,'sdfasdfadsf','TESTE MODALL SUPER 2',4,'',NULL,'Ativo'),
+ (5,'NOME MODAL','00000000',1,'',NULL,'Ativo'),
+ (6,'Nestle','endereco modal 3',2,'',NULL,'Ativo'),
+ (7,'Nestle','endereco modal 3',3,'',NULL,'Ativo'),
+ (8,'Teste 2 MODAL SDFGSF','ENDEReçõ MODAL',4,'',NULL,'Ativo'),
+ (9,'teste','endereco modal 3',2,'',NULL,'Ativo'),
+ (10,'teste 3','we4rwfsdf',2,'',NULL,'Ativo'),
+ (11,'tewrtwer','TESTE MODALL SUPER 2',1,NULL,NULL,'Ativo'),
+ (12,'Teste 2 MODAL','TESTE MODALL SUPER 2',2,NULL,NULL,'Ativo'),
+ (13,'teste 2','Avenida Joaquim Nabuco',2,NULL,NULL,'Ativo'),
+ (14,'teste 2','Avenida Joaquim Nabuco',2,NULL,NULL,'Ativo'),
+ (15,'Supermercado DB','Avenina Timbiras',4,'12234-123','123k','Ativo');
 /*!40000 ALTER TABLE `supermercado` ENABLE KEYS */;
 
 
@@ -186,7 +195,7 @@ CREATE TABLE `tipo_usuario` (
   `codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `descricao` varchar(45) NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tipo_usuario`
@@ -194,7 +203,8 @@ CREATE TABLE `tipo_usuario` (
 
 /*!40000 ALTER TABLE `tipo_usuario` DISABLE KEYS */;
 INSERT INTO `tipo_usuario` (`codigo`,`descricao`) VALUES 
- (1,'Adminstrador');
+ (1,'Adminstrador'),
+ (2,'Cliente');
 /*!40000 ALTER TABLE `tipo_usuario` ENABLE KEYS */;
 
 
@@ -210,7 +220,7 @@ CREATE TABLE `usuario` (
   `senha` varchar(45) NOT NULL,
   `tipocod` int(10) unsigned DEFAULT NULL,
   `cpf` varchar(45) DEFAULT NULL,
-  `telefone` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
   `endereco` varchar(45) DEFAULT NULL,
   `cep` varchar(45) DEFAULT NULL,
   `bairrocod` int(10) unsigned DEFAULT NULL,
@@ -219,17 +229,23 @@ CREATE TABLE `usuario` (
   KEY `FK_usuario_bairro` (`bairrocod`),
   CONSTRAINT `FK_usuario_bairro` FOREIGN KEY (`bairrocod`) REFERENCES `bairro` (`codigo`) ON DELETE SET NULL,
   CONSTRAINT `FK_usuario_tipo` FOREIGN KEY (`tipocod`) REFERENCES `tipo_usuario` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `usuario`
 --
 
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` (`codigo`,`nome`,`login`,`senha`,`tipocod`,`cpf`,`telefone`,`endereco`,`cep`,`bairrocod`) VALUES 
- (1,'Anthony Lopez Santillan','tonylsllan','senhaetal',1,'123.412.341-23','(99) 99999-9999','rua teste','12345-345',3),
- (2,'Maria da Silvav','mariadasilva','1234rfsfdsg',1,'234.523.452-12','(13) 41234-1234','Parque Residencial Manaus','69020-045',1),
- (3,'Jõao Paulo silva','joaopaulo','joaopaulosenha',1,'234.523.452-12','(19) 23000-0000','joaopaulo endereco','00000-033',2);
+INSERT INTO `usuario` (`codigo`,`nome`,`login`,`senha`,`tipocod`,`cpf`,`email`,`endereco`,`cep`,`bairrocod`) VALUES 
+ (1,'Pedro araujo','pedroaraujo','senhaetal',1,'123.412.341-23','teste12@gmail.com','rua teste','44444-444',3),
+ (2,'Maria da Silvav','mariadasilva','1234rfsfdsg',1,'234.523.452-12','teste@gmail.com','Parque Residencial Manaus','69020-045',1),
+ (3,'Jõao Paulo silva','joaopaulo','joaopaulosenha',1,'234.523.452-12','teste@gmail.com','joaopaulo endereco','89999-999',2),
+ (4,'Anthony Lopez','lopezsantillan','132421',1,'234.523.452-34','teste@gmail.com','Avenida Joaquim Nabuco','69020-030',1),
+ (5,'Anthony Lopez','lopezsantillan','132421',1,'234.523.452-34','teste@gmail.com','Avenida Joaquim Nabuco','69020-030',1),
+ (6,'Teste','mariadasilva','45234523452345',1,'243.523.452-34','teste@gmail.com','TESTE MODALL SUPER 2','69020-045',3),
+ (7,'Teste','mariadasilva','45234523452345',1,'243.523.452-34','teste@gmail.com','TESTE MODALL SUPER 2','99999-999',3),
+ (8,'marlon','23pwg','11234',1,'132.431.212-34','teste2@gmail.com','Parque Residencial Manaus','69020-045',2),
+ (9,'Registro br','registrobr','1234!@#$',2,'412.923.459-23','emaill444@hotmail.com','Avenida Joaquim Nabuco','69020-030',2);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 

@@ -22,7 +22,7 @@ public class BairroController extends HttpServlet {
             Bairro b = new Bairro();
             BairroDAO bDao = new BairroDAO();
 
-            String codigo = null, nome = null, msg = null, alerta = "alert-success";
+            String codigo = null, nome = null, msg = null, alerta = "alert-success", status = null;
 
             try {
                 if (request.getParameter("codigo") != null) {
@@ -30,6 +30,9 @@ public class BairroController extends HttpServlet {
                 }
                 if (request.getParameter("txtnome") != null) {
                     nome = request.getParameter("txtnome").trim();
+                }
+                if (request.getParameter("status") != null) {
+                    status = request.getParameter("status").trim();
                 }
 
                 String acao = request.getParameter("acao");
@@ -40,6 +43,7 @@ public class BairroController extends HttpServlet {
                 } else if (acao.equals("alterar")) {
                     b.setCodigo(Integer.parseInt(codigo));
                     b.setNome(nome);
+                    b.setStatus(status);
                     bDao.alterar(b);
                     msg = "Bairro foi alterado com sucesso.";
                 } else {

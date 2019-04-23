@@ -20,7 +20,7 @@ public class MarcaController extends HttpServlet {
             Marca m = new Marca();
             MarcaDAO mDao = new MarcaDAO();
 
-            String codigo = null, nome = null, msg = null, alerta = "alert-success";
+            String codigo = null, nome = null, msg = null, alerta = "alert-success", status = null;
 
             try {
                 if (request.getParameter("codigo") != null) {
@@ -28,6 +28,9 @@ public class MarcaController extends HttpServlet {
                 }
                 if (request.getParameter("txtnome") != null) {
                     nome = request.getParameter("txtnome").trim();
+                }
+                if (request.getParameter("status") != null) {
+                    status = request.getParameter("status").trim();
                 }
 
                 String acao = request.getParameter("acao");
@@ -38,6 +41,7 @@ public class MarcaController extends HttpServlet {
                 } else if (acao.equals("alterar")) {
                     m.setCodigo(Integer.parseInt(codigo));
                     m.setNome(nome);
+                    m.setStatus(status);
                     mDao.alterar(m);
                     msg = "A marca '" + m + "' foi alterado com sucesso.";
                 } else {
@@ -48,7 +52,7 @@ public class MarcaController extends HttpServlet {
                 request.getRequestDispatcher("marcas.jsp").forward(request, response);
             } catch (Exception e) {
                 request.setAttribute("alert", "alert-danger");
-                request.setAttribute("msg", "Um erro acontenceu " + e.fillInStackTrace());
+                request.setAttribute("msg", "Um erro acontenceu " + e.getMessage());
                 request.getRequestDispatcher("marcas.jsp").forward(request, response);
             }
         }

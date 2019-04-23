@@ -1,3 +1,5 @@
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="models.Bairro"%>
 <%@page import="dao.BairroDAO"%>
 <%@page import="models.Produto"%>
@@ -71,6 +73,7 @@
                                 <tr>
                                     <th>Codigo</th>
                                     <th>Nome</th>
+                                    <th>Status</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
@@ -84,6 +87,7 @@
                                 <tr class="odd gradeX">
                                     <td><%=b.getCodigo()%></td>
                                     <td><%=b.getNome()%></td>
+                                    <td><%=b.getStatus()%></td>
                                     <td class="text-center">
                                         <a href="#" data-toggle="modal" data-cod="<%=b.getCodigo()%>"
                                            data-target="#<%=b.getCodigo()%>" >Abrir</a>
@@ -106,6 +110,27 @@
                                                         <input type="text" class="form-control" required name="txtnome" id="cNome" 
                                                                placeholder="Nome do supermercado" value="<%=b.getNome()%>"  />
                                                         <input type="hidden" name="codigo" value="<%=b.getCodigo()%>"  />
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-lg-12">
+                                                        <label for="txtbairro" class="form-label">Status</label>
+                                                        <select class="form-control" required name="status" id="status">
+                                                            <option value="" selected="" disabled="" class="sr-only">Selecione</option>
+                                                            <%
+                                                                String selected = "selected";
+                                                                List<String> listarStatus = new ArrayList<>();
+                                                                listarStatus.addAll(Arrays.asList(new String("Ativo"), new String("Desativado")));
+                                                                for (String str : listarStatus) {
+                                                                    if (b.getStatus().equals(str)) {
+                                                                        selected = "selected";
+                                                                    } else {
+                                                                        selected = "";
+                                                                    }
+                                                            %>
+                                                            <option <%=selected%> ><%=str%></option>
+                                                            <%}%>
+                                                        </select>
                                                     </div>
                                                 </div>
 

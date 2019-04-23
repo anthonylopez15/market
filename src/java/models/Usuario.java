@@ -10,7 +10,7 @@ public class Usuario {
     private Integer tipocod;
     private String tipoDesc;
     private String cpf;
-    private String telefone;
+    private String email;
     private String endereco;
     private String bairroNome;
     private String bairrocod;
@@ -75,12 +75,12 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getBairrocod() {

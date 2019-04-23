@@ -7,7 +7,7 @@
         <div class="page-header">
             <h1>Registro</h1>
         </div>
-        <form action="usuario" method="get" id="defaultForm" method="post" action="#"  class="form-horizontal" 
+        <form action="cliente" method="post" id="defaultForm" method="post" action="#"  class="form-horizontal" 
                >
 
             <div class="row form-group">
@@ -47,9 +47,8 @@
                     </select>
                 </div>
                 <div class="col-sm-6">
-                    <label for="txttelefone" class="form-label">Telefone</label>
-                    <input type="text" class="form-control"  required name="txttelefone" id="txttelefone" data-bv-notempty-message="Campo obrigatório."
-                           placeholder="(99) 99999-9999" data-mask="(99) 99999-9999" pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}"/>
+                    <label for="txtemail" class="form-label">E-mail</label>
+                    <input type="email" class="form-control"  required name="txtemail" id="txtemail"  placeholder="E-mail" />
                 </div>
             </div>
             <div class="row form-group">
@@ -69,7 +68,7 @@
             <div class="row form-group">
                 <div class="col-sm-6">
                     <button type="submit" class="btn btn-primary" id="sombrabtn" 
-                            value="criarCliente" name="acao">Salvar</button>
+                            value="cadastrar" name="acao">Salvar</button>
                 </div>
             </div>
     </div>

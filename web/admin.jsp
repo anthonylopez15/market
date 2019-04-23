@@ -58,31 +58,30 @@
                                 <div class="modal-body">
                                     <div class="row form-group">
                                         <div class="col-sm-6">
-                                            <label for="cNome" class="form-label">Nome</label>
-                                            <input type="text" class="form-control" required name="txtnome" id="cNome" 
-                                                   placeholder="Nome completo"  />
+                                            <label  class="form-label">Nome</label>
+                                            <input type="text" class="form-control" required name="txtnome" placeholder="Nome completo"  />
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="cCpf" class="form-label">CPF</label>
-                                            <input type="text" class="form-control" required name="txtcpf" id="cCpf" 
+                                            <label  class="form-label">CPF</label>
+                                            <input type="text" class="form-control" required name="txtcpf" 
                                                    placeholder="999.999.999-99"  data-bv-notempty-message="CPF obrigatório." data-mask="999.999.999-99"/>
                                         </div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col-sm-6">
-                                            <label for="txtlogin" class="form-label">Login</label>
-                                            <input type="text" class="form-control" required name="txtlogin" id="txtlogin" placeholder="Login"/>
+                                            <label  class="form-label">Login</label>
+                                            <input type="text" class="form-control" required name="txtlogin" placeholder="Login"/>
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="txtsenha" class="form-label">Senha</label>
-                                            <input type="password" class="form-control" required name="txtsenha" id="txtsenha" placeholder="Senha" minlength="5"/>
+                                            <label  class="form-label">Senha</label>
+                                            <input type="password" class="form-control" required name="txtsenha"  placeholder="Senha" minlength="5"/>
                                         </div>
                                     </div>
                                     <!--cpf, telefone, endereço, bairro, cep-->
                                     <div class="row form-group">
                                         <div class="col-sm-6">
-                                            <label for="txtbairro" class="form-label">Bairro</label>
-                                            <select class="form-control" required name="txtbairro" id="txtbairro">
+                                            <label  class="form-label">Bairro</label>
+                                            <select class="form-control" required name="txtbairro" >
                                                 <option value="" selected="" disabled="" class="sr-only">Selecione</option>
                                                 <%
                                                     BairroDAO bDao = new BairroDAO();
@@ -93,28 +92,26 @@
                                             </select>
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="txttelefone" class="form-label">Telefone</label>
-                                            <input type="text" class="form-control" required name="txttelefone" id="txttelefone" 
-                                                   placeholder="(99) 99999-9999" data-mask="(99) 99999-9999" pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}"/>
+                                            <label  class="form-label">E-mail</label>
+                                            <input type="email" class="form-control" required name="email"  placeholder="Email..."/>
                                         </div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col-sm-6">
-                                            <label for="txtendereco" class="form-label">Endereço</label>
-                                            <input type="text" class="form-control" required name="txtendereco" id="txtendereco" placeholder="Endereço"/>
+                                            <label class="form-label">Endereço</label>
+                                            <input type="text" class="form-control" required name="txtendereco" placeholder="Endereço"/>
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <label for="txtcep" class="form-label">CEP</label>
-                                            <input type="text" class="form-control" required name="txtcep" id="txtcep" placeholder="CEP"
+                                            <label class="form-label">CEP</label>
+                                            <input type="text" class="form-control" required name="txtcep" placeholder="CEP"
                                                    data-mask="99999-999" pattern="[0-9]{5}-[0-9]{3}"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn" id="sombrabtn" data-dismiss="modal">Fechar</button>
-                                    <button type="submit" class="btn btn-primary" id="sombrabtn" 
-                                            value="criar" name="acao">Cadastrar</button>
+                                    <button type="submit" class="btn btn-primary" value="criar" name="acao">Cadastrar</button>
                                 </div>
                             </form>
                         </div>
@@ -139,6 +136,7 @@
                                     <th>Nome</th>
                                     <th>Tipo</th>
                                     <th>Login</th>
+                                    <th>Email</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
@@ -154,6 +152,7 @@
                                     <td><%=u.getNome()%></td>
                                     <td><%=u.getTipoDesc()%></td>
                                     <td><%=u.getLogin()%></td>
+                                    <td><%=u.getEmail()%></td>
                                     <td class="text-center">
                                         <a href="#" data-toggle="modal" data-cod="<%=u.getCodigo()%>"
                                            data-target="#<%=u.getCodigo()%>" >Abrir</a>
@@ -172,13 +171,13 @@
                                             <div class="modal-body">
                                                 <div class="row form-group">
                                                     <div class="col-sm-6">
-                                                        <label for="cNome" class="form-label">Nome</label>
-                                                        <input type="text" value="<%=u.getNome()%>" class="form-control" required name="txtnome" id="cNome" 
+                                                        <label class="form-label">Nome</label>
+                                                        <input type="text" value="<%=u.getNome()%>" class="form-control" required name="txtnome" 
                                                                placeholder="Nome completo"  />
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <label class="form-label">CPF</label>
-                                                        <input type="text" value="<%=u.getCpf()%>" readonly class="form-control" required />
+                                                        <label  class="form-label">CPF</label>
+                                                        <input type="text" value="<%=u.getCpf()%>"  readonly class="form-control" required />
                                                     </div>
                                                 </div>
                                                 <div class="row form-group">
@@ -187,15 +186,15 @@
                                                         <input type="text" value="<%=u.getLogin()%>" class="form-control" required name="txtlogin"   placeholder="Login"/>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <label for="txtsenha" class="form-label">Senha</label>
-                                                        <input type="password" value="<%=u.getSenha()%>" class="form-control" required name="txtsenha" id="txtsenha" placeholder="Senha" minlength="5"/>
+                                                        <label class="form-label">Senha</label>
+                                                        <input type="password" value="<%=u.getSenha()%>" class="form-control" required name="txtsenha" placeholder="Senha" minlength="5"/>
                                                     </div>
                                                 </div>
 
                                                 <div class="row form-group">
                                                     <div class="col-sm-6">
-                                                        <label for="txtbairro" class="form-label">Bairro</label>
-                                                        <select class="form-control" required name="txtbairro" id="txtbairro">
+                                                        <label  class="form-label">Bairro</label>
+                                                        <select class="form-control" required name="txtbairro" >
                                                             <option value="" selected="" disabled="" class="sr-only">Selecione</option>
                                                             <%
                                                                 String selected = "selected";
@@ -211,15 +210,14 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <% String telefone = u.getTelefone().replace("(", "").replace(")", "").replace(" ", "").replace("-", "");%>
-                                                        <label for="txttelefone" class="form-label">Telefone</label>
-                                                        <input type="text" value="<%=telefone%>" class="form-control" required name="txttelefone" id="txttelefone" 
-                                                               placeholder="(99) 99999-9999" data-mask="(99) 99999-9999" pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}"/>
+                                                        <label  class="form-label">Email</label>
+                                                        <input type="text" value="<%=u.getEmail()%>" class="form-control" required name="email"
+                                                               placeholder="Email" />
                                                     </div>
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col-sm-6">
-                                                        <label  class="form-label">Endereço</label>
+                                                        <label  class="form-label">Rua</label>
                                                         <input type="text" value="<%=u.getEndereco()%>" class="form-control" required name="txtendereco" placeholder="Endereço"/>
                                                     </div>
 
@@ -235,9 +233,10 @@
 
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn" id="sombrabtn" data-dismiss="modal">Fechar</button>
-                                                <button type="submit" class="btn btn-primary" id="sombrabtn" 
-                                                        value="alterar" name="acao">Alterar</button>
+                                                <a type="submit" class="btn btn-danger" id="sombrabtn"
+                                                   href="usuario?acao=desativar&txtcod=<%=u.getCodigo()%>" name="acao">Desativar</a>
+                                                <button type="button" class="btn"  data-dismiss="modal">Fechar</button>
+                                                <button type="submit" class="btn btn-primary" value="alterar" name="acao">Alterar</button>
                                             </div>
                                         </form>
                                     </div>

@@ -38,12 +38,13 @@ public class MarcaDAO {
     }
 
     public Marca alterar(Marca m) {
-        sql = "UPDATE marca SET nome = ? WHERE codigo = ? ";
+        sql = "UPDATE marca SET nome = ?, status = ? WHERE codigo = ? ";
 
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, m.getNome());
-            ps.setInt(2, m.getCodigo());
+            ps.setString(2, m.getStatus());
+            ps.setInt(3, m.getCodigo());
             ps.execute();
             System.out.println("alterar ok ");
         } catch (SQLException ex) {
@@ -64,6 +65,28 @@ public class MarcaDAO {
                 Marca m = new Marca();
                 m.setCodigo(rs.getInt("codigo"));
                 m.setNome(rs.getString("nome"));
+                m.setStatus(rs.getString("status"));
+                list.add(m);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao listar marca " + ex.getMessage());
+        } finally {
+            ConnectionFactory.closeAll(con, ps, rs);
+        }
+        return list;
+    }
+
+    public List<Marca> listaPorStatus(String status) {
+        sql = "SELECT * FROM marca where status = '" + status + "' ";
+        List<Marca> list = new ArrayList<>();
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Marca m = new Marca();
+                m.setCodigo(rs.getInt("codigo"));
+                m.setNome(rs.getString("nome"));
+                m.setStatus(rs.getString("status"));
                 list.add(m);
             }
         } catch (SQLException ex) {

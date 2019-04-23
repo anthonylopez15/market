@@ -40,12 +40,13 @@ public class BairroDAO {
     }
 
     public Bairro alterar(Bairro b) {
-        sql = "UPDATE bairro SET nome = ? WHERE codigo = ? ";
+        sql = "UPDATE bairro SET nome = ?, status = ? WHERE codigo = ? ";
 
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, b.getNome());
-            ps.setInt(2, b.getCodigo());
+            ps.setString(2, b.getStatus());
+            ps.setInt(3, b.getCodigo());
             ps.execute();
             System.out.println("alterar ok ");
         } catch (SQLException ex) {
@@ -66,6 +67,7 @@ public class BairroDAO {
                 Bairro b = new Bairro();
                 b.setCodigo(rs.getInt("codigo"));
                 b.setNome(rs.getString("nome"));
+                b.setStatus(rs.getString("status"));
                 list.add(b);
             }
         } catch (SQLException ex) {

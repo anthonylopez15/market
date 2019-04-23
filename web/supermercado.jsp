@@ -1,4 +1,8 @@
 
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.Bairro"%>
+<%@page import="dao.BairroDAO"%>
 <%@page import="models.Marca"%>
 <%@page import="dao.MarcaDAO"%>
 <%@page import="models.Supermercado"%>
@@ -51,10 +55,28 @@
                                 <input type="text" class="form-control" name="txtnome"required placeholder="Nome"/>
                             </p>
                             <p>
-                                <input type="text" class="form-control" name="txtendereco"required placeholder="Endereço "/>
+                                <input type="text" class="form-control" name="txtendereco"required placeholder="Rua "/>
                             </p>
+                            <p>
+                                <input type="text" class="form-control" name="numero"required placeholder="Número "/>
+                            </p>
+                            <p>
+                                <input type="text" class="form-control" name="cep"required placeholder="CEP "
+                                       data-bv-notempty-message="Campo obrigatório." data-mask="99999-999" pattern="[0-9]{5}-[0-9]{3}"/>
+                            </p>
+                            <select class="form-control" required id="marca" name="bairro">
+                                <option value="" selected> Selecione a Bairro </option>
+                                <%
+                                    BairroDAO bDao = new BairroDAO();
+                                    List<Bairro> listB = bDao.listar();
+                                    for (Bairro b : listB) {
+                                %>
+                                <option value="<%=b.getCodigo()%>" ><%=b.getNome()%></option>
 
-                            </p>
+                                <%}%>
+
+                            </select>
+                            <br>
                             <p><button type="submit" name="acao" value="criar" class="btn btn-info"> Salvar</button></p>
 
                         </div>
@@ -76,7 +98,9 @@
                                 <tr>
                                     <th>Codigo</th>
                                     <th>Nome</th>
-                                    <th>Endereço</th>
+                                    <th>Rua</th>
+                                    <th>Bairro</th>
+                                    <th>Status</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
@@ -89,7 +113,9 @@
                                 <tr class="odd gradeX">
                                     <td><%=s.getCodigo()%></td>
                                     <td><%=s.getNome()%></td>
-                                    <td><%=s.getEndereco()%></td>
+                                    <td><%=s.getRuaNumero()%></td>
+                                    <td><%=s.getBairro()%></td>
+                                    <td><%=s.getStatus()%></td>
                                     <td class="text-center">
                                         <a href="#" data-toggle="modal" data-cod="<%=s.getCodigo()%>"
                                            data-target="#<%=s.getCodigo()%>" >Abrir</a>
@@ -120,6 +146,27 @@
                                                         <input type="text" class="form-control" required name="txtendereco" id="cEnd" 
                                                                placeholder="Preencha seu nome completo" value="<%=s.getEndereco()%>" />
                                                         <input type="hidden" value="<%=s.getCodigo()%>" name="txtcod"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-sm-6">
+                                                        <label for="txtbairro" class="form-label">Status</label>
+                                                        <select class="form-control" required name="status" id="status">
+                                                            <option value="" selected="" disabled="" class="sr-only">Selecione</option>
+                                                            <%
+                                                                String selected = "selected";
+                                                                List<String> listarStatus = new ArrayList<>();
+                                                                listarStatus.addAll(Arrays.asList(new String("Ativo"), new String("Desativado")));
+                                                                for (String str : listarStatus) {
+                                                                    if (s.getStatus().equals(str)) {
+                                                                        selected = "selected";
+                                                                    } else {
+                                                                        selected = "";
+                                                                    }
+                                                            %>
+                                                            <option <%=selected%> ><%=str%></option>
+                                                            <%}%>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -154,6 +201,7 @@
 <script src="resources/js/jquery.dataTables.min.js"></script>
 <script src="resources/js/dataTables.bootstrap.min.js"></script>
 <script src="resources/js/dataTables.responsive.js"></script>
+<script type="text/javascript" src="resources/js/jquery.mask.js"></script>
 
 <script>
     $(document).ready(function () {

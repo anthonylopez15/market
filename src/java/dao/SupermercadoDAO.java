@@ -27,12 +27,15 @@ public class SupermercadoDAO {
     }
     
     public Supermercado salvar(Supermercado s) {
-        sql = "insert into supermercado (nome, endereco) values (?,?) ";
+        sql = "insert into supermercado (nome, endereco, numero, bairrocod, cep) values (?,?,?,?,?) ";
         
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, s.getNome());
             ps.setString(2, s.getEndereco());
+            ps.setString(3, s.getNumero());
+            ps.setString(4, s.getBairro());
+            ps.setString(5, s.getCep());
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -47,13 +50,14 @@ public class SupermercadoDAO {
     }
     
     public Supermercado alterar(Supermercado s) {
-        sql = "update supermercado set nome = ?, endereco = ? WHERE codigo = ? ";
+        sql = "update supermercado set nome = ?, endereco = ?, status = ? WHERE codigo = ? ";
         
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, s.getNome());
             ps.setString(2, s.getEndereco());
-            ps.setInt(3, s.getCodigo());
+            ps.setString(3, s.getStatus());
+            ps.setInt(4, s.getCodigo());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SupermercadoDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -145,16 +149,18 @@ public class SupermercadoDAO {
     }
     
     public List<Supermercado> listar() {
-        sql = "SELECT * FROM supermercado ";
+        sql = "SELECT * FROM supermercado s inner join bairro b on s.bairrocod = b.codigo";
         List<Supermercado> list = new ArrayList<>();
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Supermercado s = new Supermercado();
-                s.setCodigo(rs.getInt("codigo"));
-                s.setNome(rs.getString("nome"));
-                s.setEndereco(rs.getString("endereco"));
+                s.setCodigo(rs.getInt("s.codigo"));
+                s.setNome(rs.getString("s.nome"));
+                s.setEndereco(rs.getString("s.endereco"));
+                s.setBairro(rs.getString("b.nome"));
+                s.setStatus(rs.getString("s.status"));
                 list.add(s);
             }
         } catch (SQLException ex) {

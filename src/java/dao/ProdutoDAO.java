@@ -40,12 +40,13 @@ public class ProdutoDAO {
     }
     
     public Produto alterar(Produto p) {
-        sql = "UPDATE produto set nome = ? where codigo = ?";
+        sql = "UPDATE produto set nome = ?, status = ? where codigo = ?";
 
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, p.getNome());
-            ps.setInt(2, p.getCodigo());
+            ps.setString(2, p.getStatus());
+            ps.setInt(3, p.getCodigo());
             ps.executeUpdate();
             System.out.println("Produto altera ok");
         } catch (SQLException ex) {
@@ -56,7 +57,32 @@ public class ProdutoDAO {
         return p;
     }
 
-    public List<Produto> listar() {
+    public List<Produto> listar(String status) {
+        sql = "SELECT * FROM produto p left join marca m on m.codigo = p.marcacod where p.status = '"+ status +"' ";
+        List<Produto> list = new ArrayList<>();
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Marca m = new Marca(rs.getInt("m.codigo"), rs.getString("m.nome"));
+                if (m.getNome() == null) {
+                    m.setNome("Indefinido");
+                }
+                Produto p = new Produto();
+                p.setCodigo(rs.getInt("p.codigo"));
+                p.setNome(rs.getString("p.nome"));
+                p.setStatus(rs.getString("p.status"));
+                p.setMarcacod(m);
+                list.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeAll(con, ps, rs);
+        }
+        return list;
+    }
+    public List<Produto> listAll() {
         sql = "SELECT * FROM produto p left join marca m on m.codigo = p.marcacod";
         List<Produto> list = new ArrayList<>();
         try {
@@ -70,6 +96,7 @@ public class ProdutoDAO {
                 Produto p = new Produto();
                 p.setCodigo(rs.getInt("p.codigo"));
                 p.setNome(rs.getString("p.nome"));
+                p.setStatus(rs.getString("p.status"));
                 p.setMarcacod(m);
                 list.add(p);
             }

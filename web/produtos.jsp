@@ -1,3 +1,5 @@
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="models.Produto"%>
 <%@page import="dao.ProdutoDAO"%>
 <%@page import="dao.MarcaDAO"%>
@@ -49,7 +51,7 @@
                                 <option value="" selected> Selecione a marca </option>
                                 <%
                                     MarcaDAO mDao = new MarcaDAO();
-                                    List<Marca> list = mDao.listaMarcas();
+                                    List<Marca> list = mDao.listaPorStatus("Ativo");
                                     for (Marca m : list) {
                                 %>
                                 <option value="<%=m.getCodigo()%>" ><%=m.getNome()%></option>
@@ -79,13 +81,14 @@
                                     <th>Codigo</th>
                                     <th>Nome</th>
                                     <th>Marca</th>
+                                    <th>Status</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <%
                                     ProdutoDAO pDao = new ProdutoDAO();
-                                    List<Produto> listar = pDao.listar();
+                                    List<Produto> listar = pDao.listAll();
                                     for (Produto p : listar) {
                                 %>
 
@@ -93,6 +96,7 @@
                                     <td><%=p.getCodigo()%></td>
                                     <td><%=p.getNome()%></td>
                                     <td><%=p.getMarcacod()%></td>
+                                    <td><%=p.getStatus()%></td>
                                     <td class="text-center">
                                         <a href="#" data-toggle="modal" data-cod="<%=p.getCodigo()%>"
                                            data-target="#<%=p.getCodigo()%>" >Abrir</a>
@@ -115,6 +119,27 @@
                                                         <input type="text" class="form-control" required name="txtnome" id="cNome" 
                                                                placeholder="Nome do supermercado" value="<%=p.getNome()%>"  />
                                                         <input type="hidden" name="codigo" value="<%=p.getCodigo()%>"  />
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-lg-12">
+                                                        <label for="txtbairro" class="form-label">Status</label>
+                                                        <select class="form-control" required name="status" id="status">
+                                                            <option value="" selected="" disabled="" class="sr-only">Selecione</option>
+                                                            <%
+                                                                String selected = "selected";
+                                                                List<String> listarStatus = new ArrayList<>();
+                                                                listarStatus.addAll(Arrays.asList(new String("Ativo"), new String("Desativado")));
+                                                                for (String str : listarStatus) {
+                                                                    if (p.getStatus().equals(str)) {
+                                                                        selected = "selected";
+                                                                    } else {
+                                                                        selected = "";
+                                                                    }
+                                                            %>
+                                                            <option <%=selected%> ><%=str%></option>
+                                                            <%}%>
+                                                        </select>
                                                     </div>
                                                 </div>
 

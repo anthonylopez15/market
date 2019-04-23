@@ -5,6 +5,7 @@ public class Produto {
     private Integer codigo;
     private String nome;
     private Marca marcacod;
+    private String status;
 
     public Produto() {
     }
@@ -20,6 +21,14 @@ public class Produto {
         this.marcacod = marcacod;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
     public Integer getCodigo() {
         return codigo;
     }
