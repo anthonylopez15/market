@@ -38,7 +38,7 @@ public class SessionController extends HttpServlet {
                     u = udao.logar(u);
                     if (u.getNome() != null && u.getTipocod() == 1) {
                         System.out.println("Usuario " + u);
-                        url = "principal.jsp";
+                        url = "admin.jsp";
                         msg = u.getNome() + ", seja bem-vindo ao sistema.";
                     } else if (u.getNome() != null && u.getTipocod() == 2) {
                         System.out.println("Usuario " + u);
