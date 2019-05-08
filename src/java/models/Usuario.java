@@ -1,4 +1,3 @@
-
 package models;
 
 public class Usuario {
@@ -11,11 +10,59 @@ public class Usuario {
     private String tipoDesc;
     private String cpf;
     private String email;
-    private String endereco;
+    private String telefone;
+    private String rua;
     private String bairroNome;
     private String bairrocod;
     private String cep;
+    private String rg;
+    private String status;
+    private String numero;
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
     
+    
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+    
+    
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     
     public Integer getCodigo() {
         return codigo;
@@ -32,8 +79,6 @@ public class Usuario {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-   
 
     public String getLogin() {
         return login;
@@ -99,13 +144,7 @@ public class Usuario {
         this.cep = cep;
     }
 
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
+    
 
     public String getBairroNome() {
         return bairroNome;
@@ -115,11 +154,9 @@ public class Usuario {
         this.bairroNome = bairroNome;
     }
 
-    
     @Override
     public String toString() {
         return nome;
     }
-    
-    
+
 }

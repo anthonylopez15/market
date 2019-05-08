@@ -4,6 +4,7 @@ public class Produto {
 
     private Integer codigo;
     private String nome;
+    private String descricao;
     private Marca marcacod;
     private String status;
 
@@ -19,6 +20,14 @@ public class Produto {
         this.codigo = codigo;
         this.nome = nome;
         this.marcacod = marcacod;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getStatus() {

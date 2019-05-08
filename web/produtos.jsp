@@ -42,9 +42,11 @@
                 <div class="collapse" id="collapseExample">
                     <form action="produto" method="post"  class="form-horizontal" >
                         <div class="well well-sm">
-
                             <p>
                                 <input type="text" class="form-control" name="txtnome"required placeholder="Nome"/>
+                            </p>
+                            <p>
+                                <input type="text" class="form-control" name="txtdescricao"required placeholder="Descrição"/>
                             </p>
 
                             <select class="form-control" required id="marca" name="selmarca">
@@ -80,6 +82,7 @@
                                 <tr>
                                     <th>Codigo</th>
                                     <th>Nome</th>
+                                    <th>Descrição</th>
                                     <th>Marca</th>
                                     <th>Status</th>
                                     <th>Ação</th>
@@ -95,6 +98,7 @@
                                 <tr class="odd gradeX">
                                     <td><%=p.getCodigo()%></td>
                                     <td><%=p.getNome()%></td>
+                                    <td><%=p.getDescricao()%></td>
                                     <td><%=p.getMarcacod()%></td>
                                     <td><%=p.getStatus()%></td>
                                     <td class="text-center">
@@ -117,7 +121,10 @@
                                                     <div class="  col-lg-12">
                                                         <label for="cNome" class="form-label">Nome</label>
                                                         <input type="text" class="form-control" required name="txtnome" id="cNome" 
-                                                               placeholder="Nome do supermercado" value="<%=p.getNome()%>"  />
+                                                               placeholder="Nome do produto" value="<%=p.getNome()%>"  />
+                                                        <label for="cDesc" class="form-label">Descrição</label>
+                                                        <input type="text" class="form-control" required name="txtdescricao" id="cDesc" 
+                                                               placeholder="Descrição do produto" value="<%=p.getDescricao()%>"  />
                                                         <input type="hidden" name="codigo" value="<%=p.getCodigo()%>"  />
                                                     </div>
                                                 </div>

@@ -22,7 +22,7 @@
 <div class="row">
     <%
         ProdutoDAO sDao = new ProdutoDAO();
-        List<Produto> list = sDao.listar();
+        List<Produto> list = sDao.listar("Ativo");
         for (Produto s : list) {
     %>
     <div class="col-sm-6">

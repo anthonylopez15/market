@@ -22,11 +22,11 @@ public class ClienteController extends HttpServlet {
             Usuario u = new Usuario();
             UsuarioDAO udao = new UsuarioDAO();
             
-            String codigo = null, nome = null, login = null, senha = null;
-            String cpf = null, email = null, endereço = null, cep = null, bairro = null;
+            String codigo = null, nome = null, login = null, senha = null, telefone = null;
+            String email = null, rua = null,  numero = null, cep = null, bairro = null;
             
             String msg = null, alerta = "alert-success", url = "";
-
+  //        Nome, telefone, e-mail, endereço(rua, número e cep) e Bairro
             try {
                 if (request.getParameter("codigo") != null) {
                     codigo = request.getParameter("codigo");
@@ -34,20 +34,23 @@ public class ClienteController extends HttpServlet {
                 if (request.getParameter("txtnome") != null) {
                     nome = request.getParameter("txtnome").trim();
                 }
+                if (request.getParameter("txttelefone") != null) {
+                    telefone = request.getParameter("txttelefone").trim();
+                }
+                if (request.getParameter("txtemail") != null) {
+                    email = request.getParameter("txtemail").trim();
+                }
                 if (request.getParameter("txtlogin") != null) {
                     login = request.getParameter("txtlogin").trim();
                 }
                 if (request.getParameter("txtsenha") != null) {
                     senha = request.getParameter("txtsenha").trim();
                 }
-                if (request.getParameter("txtcpf") != null) {
-                    cpf = request.getParameter("txtcpf");
+                if (request.getParameter("txtrua") != null) {
+                    rua = request.getParameter("txtrua").trim();
                 }
-                if (request.getParameter("txtemail") != null) {
-                    email = request.getParameter("txtemail").trim();
-                }
-                if (request.getParameter("txtendereco") != null) {
-                    endereço = request.getParameter("txtendereco").trim();
+                if (request.getParameter("txtnumero") != null) {
+                    numero = request.getParameter("txtnumero").trim();
                 }
                 if (request.getParameter("txtcep") != null) {
                     cep = request.getParameter("txtcep").trim();
@@ -62,9 +65,10 @@ public class ClienteController extends HttpServlet {
                     u.setLogin(login);
                     u.setSenha(senha);
                     u.setTipocod(2);
-                    u.setCpf(cpf);
                     u.setEmail(email);
-                    u.setEndereco(endereço);
+                    u.setTelefone(telefone);
+                    u.setRua(rua);
+                    u.setNumero(numero);
                     u.setCep(cep);
                     u.setBairrocod(bairro);
                     udao.salvar(u);
@@ -75,7 +79,7 @@ public class ClienteController extends HttpServlet {
                     u.setLogin(login);
                     u.setSenha(senha);
                     u.setEmail(email);
-                    u.setEndereco(endereço);
+                    u.setRua(rua);
                     u.setCep(cep);
                     u.setBairrocod(bairro);
                     u.setCodigo(Integer.parseInt(codigo));

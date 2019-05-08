@@ -32,7 +32,7 @@
                     <%=request.getAttribute("msg")%>
                 </div>
 
-                <h1 class="page-header">Marcas</h1>
+                <h1 class="page-header">Bairros</h1>
             </div>
 
         </div>
@@ -64,7 +64,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Lista de Marcas
+                        Lista de Bairros
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">

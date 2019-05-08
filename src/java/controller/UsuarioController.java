@@ -22,8 +22,8 @@ public class UsuarioController extends HttpServlet {
 
             //    cpf, telefone, endereço, bairro, cep
             
-            String codigo = null, nome = null, login = null, senha = null;
-            String cpf = null, email = null, endereço = null, cep = null, bairro = null;
+            String codigo = null, nome = null, login = null, senha = null, numero = null, telefone = null;
+            String cpf = null, rg = null, email = null, rua = null, cep = null, bairro = null;
             
             String msg = null, alerta = "alert-success", url = "";
 
@@ -43,11 +43,20 @@ public class UsuarioController extends HttpServlet {
                 if (request.getParameter("txtcpf") != null) {
                     cpf = request.getParameter("txtcpf");
                 }
+                if (request.getParameter("txtrg") != null) {
+                    rg = request.getParameter("txtrg");
+                }
                 if (request.getParameter("email") != null) {
                     email = request.getParameter("email").trim();
                 }
-                if (request.getParameter("txtendereco") != null) {
-                    endereço = request.getParameter("txtendereco").trim();
+                if (request.getParameter("txttelefone") != null) {
+                    telefone = request.getParameter("txttelefone").trim();
+                }
+                if (request.getParameter("txtrua") != null) {
+                    rua = request.getParameter("txtrua").trim();
+                }
+                if (request.getParameter("txtnumero") != null) {
+                    numero = request.getParameter("txtnumero").trim();
                 }
                 if (request.getParameter("txtcep") != null) {
                     cep = request.getParameter("txtcep").trim();
@@ -63,8 +72,11 @@ public class UsuarioController extends HttpServlet {
                     u.setSenha(senha);
                     u.setTipocod(1);
                     u.setCpf(cpf);
+                    u.setRg(rg);
                     u.setEmail(email);
-                    u.setEndereco(endereço);
+                    u.setTelefone(telefone);
+                    u.setRua(rua);
+                    u.setNumero(numero);
                     u.setCep(cep);
                     u.setBairrocod(bairro);
                     udao.salvar(u);
@@ -74,13 +86,26 @@ public class UsuarioController extends HttpServlet {
                     u.setLogin(login);
                     u.setSenha(senha);
                     u.setEmail(email);
-                    u.setEndereco(endereço);
+                    u.setTelefone(telefone);
+                    u.setRua(rua);
+                    u.setNumero(numero);
                     u.setCep(cep);
                     u.setBairrocod(bairro);
                     u.setCodigo(Integer.parseInt(codigo));
                     udao.alterar(u);
                     msg = "Usuário foi alterado com sucesso.";   
-                } else {
+                } else if(acao.equals("desativar")){
+                    u.setStatus("Desativado");
+                    u.setCodigo(Integer.parseInt(codigo));
+                    udao.alterarStatus(u);
+                    msg = "Status alterado.";   
+                } else if(acao.equals("ativar")){
+                    u.setStatus("Ativado");
+                    u.setCodigo(Integer.parseInt(codigo));
+                    udao.alterarStatus(u);
+                    msg = "Status alterado.";
+                } 
+                else {
 
                 }
                 request.setAttribute("msg", msg);

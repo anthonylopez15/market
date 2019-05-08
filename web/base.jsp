@@ -27,7 +27,7 @@
                     <ul class="nav navbar-nav">
                         
                         <li>
-                            <a href="#">Início</a>
+                            <a href="principal.jsp">Início</a>
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Pesquisar <span class="caret"></span></a>
@@ -39,8 +39,8 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Entrar</a></li>
-                        <li><a href="#">Registrar-se</a></li>
+                        <li><a href="login.jsp">Entrar</a></li>
+                        <li><a href="cadastrar-se.jsp">Registrar-se</a></li>
                     </ul>
                 </div>
             </div>

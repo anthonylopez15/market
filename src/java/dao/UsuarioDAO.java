@@ -23,7 +23,7 @@ public class UsuarioDAO {
     }
 
     public void salvar(Usuario u) {
-        sql = "INSERT INTO usuario(nome, login, senha, tipocod, cpf, email, endereco, cep, bairrocod) VALUES (?,?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO usuario(nome, login, senha, tipocod, cpf, email, rua, cep, bairrocod, rg, telefone, numero) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, u.getNome());
@@ -32,9 +32,12 @@ public class UsuarioDAO {
             ps.setInt(4, u.getTipocod());
             ps.setString(5, u.getCpf());
             ps.setString(6, u.getEmail());
-            ps.setString(7, u.getEndereco());
+            ps.setString(7, u.getRua());
             ps.setString(8, u.getCep());
             ps.setString(9, u.getBairrocod());
+            ps.setString(10, u.getRg());
+            ps.setString(11, u.getTelefone());
+            ps.setString(12, u.getNumero());
             ps.execute();
             System.out.println("Usuario ok");
         } catch (SQLException ex) {
@@ -62,8 +65,12 @@ public class UsuarioDAO {
                 u.setTipocod(rs.getInt("t.codigo"));
                 u.setCpf(rs.getString("u.cpf"));
                 u.setEmail(rs.getString("u.email"));
-                u.setEndereco(rs.getString("u.endereco"));
+                u.setTelefone(rs.getString("u.telefone"));
+                u.setRua(rs.getString("u.rua"));
+                u.setNumero(rs.getString("u.numero"));
                 u.setCep(rs.getString("u.cep"));
+                u.setRg(rs.getString("u.rg"));
+                u.setStatus(rs.getString("u.status"));
                 u.setBairrocod(rs.getString("b.codigo"));
                 u.setBairroNome(rs.getString("b.nome"));
                 list.add(u);
@@ -78,7 +85,7 @@ public class UsuarioDAO {
 
     public void alterar(Usuario u) {
         sql = "UPDATE usuario SET nome = ?, login = ?, senha = ?, bairrocod = ?, "
-                + " email = ?, endereco = ?, cep = ? WHERE codigo = ?";
+                + " email = ?, rua = ?, cep = ?, numero = ?, telefone = ? WHERE codigo = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, u.getNome());
@@ -86,9 +93,26 @@ public class UsuarioDAO {
             ps.setString(3, u.getSenha());
             ps.setString(4, u.getBairrocod());
             ps.setString(5, u.getEmail());
-            ps.setString(6, u.getEndereco());
+            ps.setString(6, u.getRua());
             ps.setString(7, u.getCep());
-            ps.setInt(8, u.getCodigo());
+            ps.setString(8, u.getNumero());
+            ps.setString(9, u.getTelefone());
+            ps.setInt(10, u.getCodigo());
+            ps.executeUpdate();
+            System.out.println("Usuario alterado");
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.close(con, ps);
+        }
+    }
+    
+    public void alterarStatus(Usuario u) {
+        sql = "UPDATE usuario SET status = ? WHERE codigo = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, u.getStatus());
+            ps.setInt(2, u.getCodigo());
             ps.executeUpdate();
             System.out.println("Usuario alterado");
         } catch (SQLException ex) {

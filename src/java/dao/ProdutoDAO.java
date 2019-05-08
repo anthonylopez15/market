@@ -24,12 +24,13 @@ public class ProdutoDAO {
     }
 
     public Produto salvar(Produto p) {
-        sql = "INSERT INTO produto(nome, marcacod) values (?, ?)";
+        sql = "INSERT INTO produto(nome, marcacod) values (?, ?, ?)";
 
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, p.getNome());
-            ps.setInt(2, p.getMarcacod().getCodigo());
+            ps.setString(2, p.getDescricao());
+            ps.setInt(3, p.getMarcacod().getCodigo());
             ps.execute();
         } catch (SQLException ex) {
             System.out.println("Erro ao salvar produto" + ex.getMessage());
@@ -40,13 +41,14 @@ public class ProdutoDAO {
     }
     
     public Produto alterar(Produto p) {
-        sql = "UPDATE produto set nome = ?, status = ? where codigo = ?";
+        sql = "UPDATE produto set nome = ?,  descricao = ?, status = ? where codigo = ?";
 
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, p.getNome());
-            ps.setString(2, p.getStatus());
-            ps.setInt(3, p.getCodigo());
+            ps.setString(2, p.getDescricao());
+            ps.setString(3, p.getStatus());
+            ps.setInt(4, p.getCodigo());
             ps.executeUpdate();
             System.out.println("Produto altera ok");
         } catch (SQLException ex) {
@@ -71,6 +73,7 @@ public class ProdutoDAO {
                 Produto p = new Produto();
                 p.setCodigo(rs.getInt("p.codigo"));
                 p.setNome(rs.getString("p.nome"));
+                p.setDescricao(rs.getString("p.descricao"));
                 p.setStatus(rs.getString("p.status"));
                 p.setMarcacod(m);
                 list.add(p);
@@ -96,6 +99,7 @@ public class ProdutoDAO {
                 Produto p = new Produto();
                 p.setCodigo(rs.getInt("p.codigo"));
                 p.setNome(rs.getString("p.nome"));
+                p.setDescricao(rs.getString("p.descricao"));
                 p.setStatus(rs.getString("p.status"));
                 p.setMarcacod(m);
                 list.add(p);

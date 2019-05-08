@@ -24,7 +24,7 @@ public class ProdutoController extends HttpServlet {
             ProdutoDAO pDao = new ProdutoDAO();
             Produto p = new Produto();
 
-            String codigo = null, nome = null, marca, msg = null, alerta = "alert-success", status = null;
+            String codigo = null, nome = null, descricao = null, marca, msg = null, alerta = "alert-success", status = null;
 
             try {
                 if (request.getParameter("codigo") != null) {
@@ -32,6 +32,9 @@ public class ProdutoController extends HttpServlet {
                 }
                 if (request.getParameter("txtnome") != null) {
                     nome = request.getParameter("txtnome").trim();
+                }
+                if (request.getParameter("txtdescricao") != null) {
+                    descricao = request.getParameter("txtdescricao").trim();
                 }
                  if (request.getParameter("status") != null) {
                     status = request.getParameter("status");
@@ -45,12 +48,14 @@ public class ProdutoController extends HttpServlet {
 
                 if (acao.equals("criarProduto")) {
                     p.setNome(nome);
+                    p.setDescricao(descricao);
                     p.setMarcacod(m);
                     pDao.salvar(p);
                     msg = "Produto criado com sucesso";
                 } else if (acao.equals("alterar")) {
                     p.setCodigo(Integer.parseInt(codigo));
                     p.setNome(nome);
+                    p.setDescricao(descricao);
                     p.setStatus(status);
                     pDao.alterar(p);
                     System.out.println("nome "+nome);
