@@ -39,7 +39,7 @@ public class EnderecoDAO {
         } catch (SQLException ex) {
             Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeAll(con, ps, rs);
+//            ConnectionFactory.closeAll(con, ps, rs);
         }
         return cod;
     }
@@ -48,7 +48,7 @@ public class EnderecoDAO {
         sql = "UPDATE endereco SET rua = ?, numero = ?, cep = ?, bairrocod = ? WHERE codigo = ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, e.getNumero());
+            ps.setString(1, e.getRua());
             ps.setString(2, e.getNumero());
             ps.setString(3, e.getCep());
             ps.setString(4, e.getBairrocod());

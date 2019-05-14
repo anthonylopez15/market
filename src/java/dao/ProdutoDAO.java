@@ -112,8 +112,4 @@ public class ProdutoDAO {
         return list;
     }
 
-    public static void main(String[] args) {
-
-    }
-
 }

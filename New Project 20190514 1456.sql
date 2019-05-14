@@ -60,7 +60,7 @@ CREATE TABLE `endereco` (
   PRIMARY KEY (`codigo`),
   KEY `FK_endereco_bairro` (`bairrocod`),
   CONSTRAINT `FK_endereco_bairro` FOREIGN KEY (`bairrocod`) REFERENCES `bairro` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `endereco`
@@ -70,7 +70,14 @@ CREATE TABLE `endereco` (
 INSERT INTO `endereco` (`codigo`,`rua`,`numero`,`cep`,`bairrocod`) VALUES 
  (1,'Endereco numero lat','Endereco numero lat','69020-000',1),
  (2,'opa','opa','69020-030',3),
- (3,'rua do cara porra','12123kdf','13249-912',4);
+ (3,'rua do cara porra','12123kdf','13249-912',4),
+ (4,'rua super','numero super','21343-123',4),
+ (5,'rua super','numero super','21343-123',4),
+ (6,'rua super','numero super','21343-123',4),
+ (7,'rua super','numero super','21343-123',4),
+ (8,'rua super','numero super','21343-123',4),
+ (9,'Avenida Maceió','L-327','21343-123',3),
+ (10,'Rua Igarape manaus','12','21343-123',1);
 /*!40000 ALTER TABLE `endereco` ENABLE KEYS */;
 
 
@@ -109,7 +116,10 @@ INSERT INTO `estoque` (`supermercado`,`produto`,`preco`,`porcentagem_desconto`) 
  (5,9,'2.34',NULL),
  (7,4,'87.00',NULL),
  (7,9,'8.09',NULL),
- (9,3,'3.24',NULL);
+ (9,3,'3.24',NULL),
+ (16,3,'14.00',NULL),
+ (16,4,'12.50',NULL),
+ (16,8,'55.05',NULL);
 /*!40000 ALTER TABLE `estoque` ENABLE KEYS */;
 
 
@@ -183,37 +193,36 @@ DROP TABLE IF EXISTS `supermercado`;
 CREATE TABLE `supermercado` (
   `codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
-  `endereco` varchar(45) DEFAULT NULL,
-  `bairrocod` int(10) unsigned DEFAULT NULL,
-  `cep` varchar(45) DEFAULT NULL,
-  `numero` varchar(45) DEFAULT NULL,
   `status` varchar(45) DEFAULT 'Ativo',
+  `enderecocod` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`codigo`),
-  KEY `FK_supermercado_bairro` (`bairrocod`),
-  CONSTRAINT `FK_supermercado_bairro` FOREIGN KEY (`bairrocod`) REFERENCES `bairro` (`codigo`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+  KEY `FK_supermercado_endereco` (`enderecocod`),
+  CONSTRAINT `FK_supermercado_endereco` FOREIGN KEY (`enderecocod`) REFERENCES `endereco` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `supermercado`
 --
 
 /*!40000 ALTER TABLE `supermercado` DISABLE KEYS */;
-INSERT INTO `supermercado` (`codigo`,`nome`,`endereco`,`bairrocod`,`cep`,`numero`,`status`) VALUES 
- (1,'Supermercado DB','coração da minha vìda MODAL',1,'',NULL,'Ativo'),
- (2,'Supermercado Carrefour','TESTE MODALL SUPER 2',2,'',NULL,'Ativo'),
- (3,'Supermercado Nova Era','endereco modal 3',3,'',NULL,'Ativo'),
- (4,'sdfasdfadsf','TESTE MODALL SUPER 2',4,'',NULL,'Ativo'),
- (5,'NOME MODAL','00000000',1,'',NULL,'Ativo'),
- (6,'Nestle','endereco modal 3',2,'',NULL,'Ativo'),
- (7,'Nestle','endereco modal 3',3,'',NULL,'Ativo'),
- (8,'Teste 2 MODAL SDFGSF','ENDEReçõ MODAL',4,'',NULL,'Ativo'),
- (9,'teste','endereco modal 3',2,'',NULL,'Ativo'),
- (10,'teste 3','we4rwfsdf',2,'',NULL,'Ativo'),
- (11,'tewrtwer','TESTE MODALL SUPER 2',1,NULL,NULL,'Ativo'),
- (12,'Teste 2 MODAL','TESTE MODALL SUPER 2',2,NULL,NULL,'Ativo'),
- (13,'teste 2','Avenida Joaquim Nabuco',2,NULL,NULL,'Ativo'),
- (14,'teste 2','Avenida Joaquim Nabuco',2,NULL,NULL,'Ativo'),
- (15,'Supermercado DB','Avenina Timbiras',4,'12234-123','123k','Ativo');
+INSERT INTO `supermercado` (`codigo`,`nome`,`status`,`enderecocod`) VALUES 
+ (1,'Supermercado DB','Ativo',NULL),
+ (2,'Supermercado Carrefour','Ativo',NULL),
+ (3,'Supermercado Nova Era','Ativo',NULL),
+ (4,'sdfasdfadsf','Ativo',NULL),
+ (5,'NOME MODAL','Ativo',NULL),
+ (6,'Nestle','Ativo',NULL),
+ (7,'Nestle','Ativo',NULL),
+ (8,'Teste 2 MODAL SDFGSF','Ativo',NULL),
+ (9,'teste','Ativo',NULL),
+ (10,'teste 3','Ativo',NULL),
+ (11,'tewrtwer','Ativo',NULL),
+ (12,'Teste 2 MODAL','Ativo',NULL),
+ (13,'teste 2','Ativo',NULL),
+ (14,'teste 2','Ativo',NULL),
+ (15,'Supermercado DB','Ativo',NULL),
+ (16,'Carefur','Ativo',9),
+ (17,'Supermercado DB','Ativo',10);
 /*!40000 ALTER TABLE `supermercado` ENABLE KEYS */;
 
 

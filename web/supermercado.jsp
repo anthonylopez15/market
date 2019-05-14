@@ -55,7 +55,7 @@
                                 <input type="text" class="form-control" name="txtnome"required placeholder="Nome"/>
                             </p>
                             <p>
-                                <input type="text" class="form-control" name="txtendereco"required placeholder="Rua "/>
+                                <input type="text" class="form-control" name="txtrua"required placeholder="Rua "/>
                             </p>
                             <p>
                                 <input type="text" class="form-control" name="numero"required placeholder="Número "/>
@@ -98,8 +98,7 @@
                                 <tr>
                                     <th>Codigo</th>
                                     <th>Nome</th>
-                                    <th>Rua</th>
-                                    <th>Bairro</th>
+                                    <th>Endereço</th>
                                     <th>Status</th>
                                     <th>Ação</th>
                                 </tr>
@@ -113,8 +112,7 @@
                                 <tr class="odd gradeX">
                                     <td><%=s.getCodigo()%></td>
                                     <td><%=s.getNome()%></td>
-                                    <td><%=s.getRuaNumero()%></td>
-                                    <td><%=s.getBairro()%></td>
+                                    <td><%=s.getEnderecoM()%></td>
                                     <td><%=s.getStatus()%></td>
                                     <td class="text-center">
                                         <a href="#" data-toggle="modal" data-cod="<%=s.getCodigo()%>"
@@ -131,7 +129,7 @@
                                             </button>
                                             <h3 class="modal-title" id="myModalLabel">Dados Supermercado</h3>
                                         </div>
-                                        <form action="supermercado" method="post">
+                                        <form action="supermercado" method="get">
                                             <div class="modal-body">
                                                 <div class="row form-group">
                                                     <div class="  col-sm-6 ">
@@ -139,16 +137,47 @@
                                                         <input type="text" class="form-control" required name="txtnome" id="cNome" 
                                                                placeholder="Nome do supermercado" value="<%=s.getNome()%>"  />
                                                     </div>
-                                                </div>
-                                                <div class="row form-group">
                                                     <div class="  col-sm-6 ">
-                                                        <label for="cEnd" class="form-label">Endereço</label>
-                                                        <input type="text" class="form-control" required name="txtendereco" id="cEnd" 
-                                                               placeholder="Preencha seu nome completo" value="<%=s.getEndereco()%>" />
-                                                        <input type="hidden" value="<%=s.getCodigo()%>" name="txtcod"/>
+                                                        <label for="cEnd" class="form-label">Rua</label>
+                                                        <input type="text" class="form-control" required name="txtrua" id="cEnd" 
+                                                               placeholder="Rua, lougradouro..." value="<%=s.getEnderecoM().getRua()%>" />
                                                     </div>
                                                 </div>
                                                 <div class="row form-group">
+                                                    <div class="  col-sm-6 ">
+                                                        <label for="cEnd" class="form-label">Número</label>
+                                                        <input type="text" class="form-control" required name="txtnumero" id="cEnd" 
+                                                               placeholder="Rua, lougradouro..." value="<%=s.getEnderecoM().getNumero()%>" />
+                                                        <input type="hidden" value="<%=s.getCodigo()%>" name="txtcod"/>
+                                                        <input type="hidden" value="<%=s.getEnderecocod()%>" name="end_cod"/>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label  class="form-label">Bairro</label>
+                                                        <select class="form-control" required name="txtbairro" >
+                                                            <option value="" selected="" disabled="" class="sr-only">Selecione</option>
+                                                            <%
+                                                                String selected1 = "selected";
+                                                                for (Bairro b : bDao.listar()) {
+                                                                    if (s.getEnderecoM().getBairrocod().equals(b.getNome())) {
+                                                                        selected1 = "selected";
+                                                                    } else {
+                                                                        selected1 = "";
+                                                                    }
+                                                            %>
+                                                            <option value="<%=b.getCodigo()%>" <%=selected1%> ><%=b.getNome()%></option>
+                                                            <%}%>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                                <div class="row form-group">
+                                                    <div class="col-sm-6">
+                                                        <% String cep = s.getEnderecoM().getCep().replace("-", "");%>
+                                                        <label class="form-label">CEP</label>
+                                                        <input type="text" value="<%=cep%>" class="form-control" required name="txtcep" placeholder="CEP"
+                                                               data-mask="99999-999" pattern="[0-9]{5}-[0-9]{3}"/>
+                                                    </div>
                                                     <div class="col-sm-6">
                                                         <label for="txtbairro" class="form-label">Status</label>
                                                         <select class="form-control" required name="status" id="status">
