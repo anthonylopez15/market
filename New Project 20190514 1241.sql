@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.7.17-log
+-- Server version	5.6.23-log
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -44,6 +44,34 @@ INSERT INTO `bairro` (`codigo`,`nome`,`status`) VALUES
  (3,'Cachoeirinha 2','Ativo'),
  (4,'Cidade nova','Ativo');
 /*!40000 ALTER TABLE `bairro` ENABLE KEYS */;
+
+
+--
+-- Definition of table `endereco`
+--
+
+DROP TABLE IF EXISTS `endereco`;
+CREATE TABLE `endereco` (
+  `codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rua` varchar(45) DEFAULT NULL,
+  `numero` varchar(45) DEFAULT NULL,
+  `cep` varchar(45) DEFAULT NULL,
+  `bairrocod` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `FK_endereco_bairro` (`bairrocod`),
+  CONSTRAINT `FK_endereco_bairro` FOREIGN KEY (`bairrocod`) REFERENCES `bairro` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `endereco`
+--
+
+/*!40000 ALTER TABLE `endereco` DISABLE KEYS */;
+INSERT INTO `endereco` (`codigo`,`rua`,`numero`,`cep`,`bairrocod`) VALUES 
+ (1,'Endereco numero lat','Endereco numero lat','69020-000',1),
+ (2,'opa','opa','69020-030',3),
+ (3,'rua do cara porra','12123kdf','13249-912',4);
+/*!40000 ALTER TABLE `endereco` ENABLE KEYS */;
 
 
 --
@@ -224,39 +252,39 @@ CREATE TABLE `usuario` (
   `tipocod` int(10) unsigned DEFAULT NULL,
   `cpf` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `rua` varchar(45) DEFAULT NULL,
-  `cep` varchar(45) DEFAULT NULL,
-  `bairrocod` int(10) unsigned DEFAULT NULL,
   `rg` varchar(45) DEFAULT NULL,
   `status` varchar(45) DEFAULT 'Ativado',
   `telefone` varchar(45) DEFAULT NULL,
-  `numero` varchar(45) DEFAULT NULL,
+  `enderecocod` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`codigo`),
   KEY `FK_usuario_tipo` (`tipocod`),
-  KEY `FK_usuario_bairro` (`bairrocod`),
-  CONSTRAINT `FK_usuario_bairro` FOREIGN KEY (`bairrocod`) REFERENCES `bairro` (`codigo`) ON DELETE SET NULL,
+  KEY `FK_usuario_endereco` (`enderecocod`),
+  CONSTRAINT `FK_usuario_endereco` FOREIGN KEY (`enderecocod`) REFERENCES `endereco` (`codigo`),
   CONSTRAINT `FK_usuario_tipo` FOREIGN KEY (`tipocod`) REFERENCES `tipo_usuario` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `usuario`
 --
 
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` (`codigo`,`nome`,`login`,`senha`,`tipocod`,`cpf`,`email`,`rua`,`cep`,`bairrocod`,`rg`,`status`,`telefone`,`numero`) VALUES 
- (1,'Pedro araujo','pedroaraujo','senhaetal',1,'123.412.341-23','teste12@gmail.com','rua teste logradoro','11111-111',3,'1234','Ativado','(92) 99149-5555','1234sgfd numeroo'),
- (2,'Maria da Silvav','mariadasilva','1234rfsfdsg',1,'234.523.452-12','teste@gmail.com','Parque Residencial Manaus','69020-045',1,'','Ativado','(92) 00001-3241','90'),
- (3,'Jõao Paulo silva','joaopaulo','joaopaulosenha',1,'234.523.452-12','teste@gmail.com','joaopaulo endereco','89999-999',2,'','Ativado',NULL,NULL),
- (4,'Anthony Lopez','lopezsantillan123','132421',1,'234.523.452-34','teste@gmail.com','Avenida Joaquim Nabuco','69020-030',1,'','Ativado',NULL,'9002'),
- (5,'Anthony Lopez','lopezsantillan','132421',1,'234.523.452-34','teste@gmail.com','Avenida Joaquim Nabuco','69020-030',1,'','Ativado',NULL,NULL),
- (6,'Teste2222','mariadasilva','45234523452345',1,'243.523.452-34','teste@gmail.com','TESTE MODALL SUPER 2','69020-045',3,'','Ativado',NULL,NULL),
- (7,'Teste','mariadasilva','45234523452345',1,'243.523.452-34','teste@gmail.com','TESTE MODALL SUPER 2','99999-999',3,'','Desativado',NULL,NULL),
- (8,'marlon','23pwg','11234',1,'132.431.212-34','teste2@gmail.com','Parque Residencial Manaus','69020-045',2,'','Ativado',NULL,NULL),
- (9,'Registro br','registrobr','1234!@#$',2,'412.923.459-23','emaill444@hotmail.com','Avenida Joaquim Nabuco','69020-030',2,'','Ativado',NULL,NULL),
- (10,'carlos','calors123','carlos123',1,'241.234.012-34','carlos@gmail.com','rua mangarataia','23939-929',2,'2134032-1','Ativado','(23) 91234-0000',NULL),
- (11,'carlos','calors123','carlos123',1,'241.234.012-34','carlos@gmail.com','rua mangarataia','23939-929',2,'2134032-1','Ativado','(23) 91234-0000','7u'),
- (12,'marcelo silva','marcelo1234','marcelo123',1,'912.349.321-34','marcelo@gmail.com','rua marcelo','92034-392',4,'0912390-0','Ativado','(92) 91234-9919','9a'),
- (13,'usuario cliente','usuariocliente','usuariocliente',2,NULL,'usuario@gmail.com','rua cliente e tal','93400-234',2,NULL,'Ativado','(92) 30340-0324','7t');
+INSERT INTO `usuario` (`codigo`,`nome`,`login`,`senha`,`tipocod`,`cpf`,`email`,`rg`,`status`,`telefone`,`enderecocod`) VALUES 
+ (1,'Pedro araujo','pedroaraujo','senhaetal',1,'123.412.341-23','teste12@gmail.com','1234','Ativado','(92) 99149-5555',NULL),
+ (2,'Maria da Silvav','mariadasilva','1234rfsfdsg',1,'234.523.452-12','teste@gmail.com','','Ativado','(92) 00001-3241',NULL),
+ (3,'Jõao Paulo silva','joaopaulo','joaopaulosenha',1,'234.523.452-12','teste@gmail.com','','Ativado',NULL,NULL),
+ (4,'Anthony Lopez','lopezsantillan123','132421',1,'234.523.452-34','teste@gmail.com','','Ativado',NULL,NULL),
+ (5,'Anthony Lopez','lopezsantillan','132421',1,'234.523.452-34','teste@gmail.com','','Ativado',NULL,NULL),
+ (6,'Teste2222','mariadasilva','45234523452345',1,'243.523.452-34','teste@gmail.com','','Ativado',NULL,NULL),
+ (7,'Teste','mariadasilva','45234523452345',1,'243.523.452-34','teste@gmail.com','','Desativado',NULL,NULL),
+ (8,'marlon','23pwg','11234',1,'132.431.212-34','teste2@gmail.com','','Ativado',NULL,NULL),
+ (9,'Registro br','registrobr','1234!@#$',2,'412.923.459-23','emaill444@hotmail.com','','Ativado',NULL,NULL),
+ (10,'carlos','calors123','carlos123',1,'241.234.012-34','carlos@gmail.com','2134032-1','Ativado','(23) 91234-0000',NULL),
+ (11,'carlos','calors123','carlos123',1,'241.234.012-34','carlos@gmail.com','2134032-1','Ativado','(23) 91234-0000',NULL),
+ (12,'marcelo silva','marcelo1234','marcelo123',1,'912.349.321-34','marcelo@gmail.com','0912390-0','Ativado','(92) 91234-9919',NULL),
+ (13,'usuario cliente','usuariocliente','usuariocliente',2,NULL,'usuario@gmail.com',NULL,'Ativado','(92) 30340-0324',NULL),
+ (15,'Nome com endereco alt','login enderoco alt','senha enderocoalt',2,'912.349.321-34','marceloalt@gmail.com','0912390-0','Ativado','(23) 91234-2123',1),
+ (16,'manolo teste','poqwer1234','poqwer1324',1,'234.912.394-12','teste345@gmail.com','9239412-9','Ativado','(99) 12340-3210',2),
+ (17,'criando cliente','opa1234123l','1234918234',2,NULL,'clientealt@gmail.com',NULL,'Ativado','(12) 39412-9341',3);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 

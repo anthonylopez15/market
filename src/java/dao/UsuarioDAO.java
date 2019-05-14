@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Endereco;
 import models.Usuario;
 
 public class UsuarioDAO {
@@ -23,7 +24,7 @@ public class UsuarioDAO {
     }
 
     public void salvar(Usuario u) {
-        sql = "INSERT INTO usuario(nome, login, senha, tipocod, cpf, email, rua, cep, bairrocod, rg, telefone, numero) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO usuario(nome, login, senha, tipocod, cpf, email, rg, telefone, enderecocod) VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, u.getNome());
@@ -32,12 +33,9 @@ public class UsuarioDAO {
             ps.setInt(4, u.getTipocod());
             ps.setString(5, u.getCpf());
             ps.setString(6, u.getEmail());
-            ps.setString(7, u.getRua());
-            ps.setString(8, u.getCep());
-            ps.setString(9, u.getBairrocod());
-            ps.setString(10, u.getRg());
-            ps.setString(11, u.getTelefone());
-            ps.setString(12, u.getNumero());
+            ps.setString(7, u.getRg());
+            ps.setString(8, u.getTelefone());
+            ps.setString(9, u.getEndereco());
             ps.execute();
             System.out.println("Usuario ok");
         } catch (SQLException ex) {
@@ -49,8 +47,9 @@ public class UsuarioDAO {
 
     public List<Usuario> listar() {
         sql = "SELECT * FROM usuario u INNER JOIN tipo_usuario t ON u.tipocod = t.codigo "
-                + "INNER JOIN bairro b ON b.codigo = u.bairrocod ";
+                + " INNER JOIN endereco e on e.codigo = u.enderecocod";
         List<Usuario> list = new ArrayList<>();
+        EnderecoDAO eDao = new EnderecoDAO();
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -66,13 +65,14 @@ public class UsuarioDAO {
                 u.setCpf(rs.getString("u.cpf"));
                 u.setEmail(rs.getString("u.email"));
                 u.setTelefone(rs.getString("u.telefone"));
-                u.setRua(rs.getString("u.rua"));
-                u.setNumero(rs.getString("u.numero"));
-                u.setCep(rs.getString("u.cep"));
                 u.setRg(rs.getString("u.rg"));
                 u.setStatus(rs.getString("u.status"));
-                u.setBairrocod(rs.getString("b.codigo"));
-                u.setBairroNome(rs.getString("b.nome"));
+                if (rs.getString("u.enderecocod") != null) {
+                    int enderecocod = rs.getInt("u.enderecocod");
+                    u.setEndereco(rs.getString("u.enderecocod"));
+                    u.setE(eDao.buscarPorCod(enderecocod));
+                }
+
                 list.add(u);
             }
         } catch (SQLException ex) {
@@ -84,20 +84,15 @@ public class UsuarioDAO {
     }
 
     public void alterar(Usuario u) {
-        sql = "UPDATE usuario SET nome = ?, login = ?, senha = ?, bairrocod = ?, "
-                + " email = ?, rua = ?, cep = ?, numero = ?, telefone = ? WHERE codigo = ?";
+        sql = "UPDATE usuario SET nome = ?, login = ?, senha = ?, email = ?, telefone = ? WHERE codigo = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, u.getNome());
             ps.setString(2, u.getLogin());
             ps.setString(3, u.getSenha());
-            ps.setString(4, u.getBairrocod());
-            ps.setString(5, u.getEmail());
-            ps.setString(6, u.getRua());
-            ps.setString(7, u.getCep());
-            ps.setString(8, u.getNumero());
-            ps.setString(9, u.getTelefone());
-            ps.setInt(10, u.getCodigo());
+            ps.setString(4, u.getEmail());
+            ps.setString(5, u.getTelefone());
+            ps.setInt(6, u.getCodigo());
             ps.executeUpdate();
             System.out.println("Usuario alterado");
         } catch (SQLException ex) {
@@ -106,7 +101,7 @@ public class UsuarioDAO {
             ConnectionFactory.close(con, ps);
         }
     }
-    
+
     public void alterarStatus(Usuario u) {
         sql = "UPDATE usuario SET status = ? WHERE codigo = ?";
         try {
@@ -122,33 +117,33 @@ public class UsuarioDAO {
         }
     }
 
-    public Usuario logar(Usuario u){
+    public Usuario logar(Usuario u) {
         sql = "SELECT * FROM usuario WHERE login = ? and senha = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, u.getLogin());
             ps.setString(2, u.getSenha());
             rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 int codigo = rs.getInt("codigo");
                 u = getForId(codigo);
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             ConnectionFactory.closeAll(con, ps, rs);
         }
         return u;
     }
-    
-    public Usuario getForId(int cod){
+
+    public Usuario getForId(int cod) {
         sql = "SELECT * FROM usuario WHERE codigo = ?";
         Usuario u = null;
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, cod);
             rs = ps.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 u = new Usuario();
                 u.setCodigo(rs.getInt("codigo"));
                 u.setNome(rs.getString("nome"));
@@ -161,13 +156,36 @@ public class UsuarioDAO {
         }
         return u;
     }
+
     public static void main(String[] args) {
         UsuarioDAO d = new UsuarioDAO();
         Usuario u = new Usuario();
-        u.setSenha("senhaetal");
-        u.setLogin("paulo.silva");
-        u = d.logar(u);
-        System.out.println(u);
+        Endereco e = new Endereco();
+        EnderecoDAO edao = new EnderecoDAO();
+
+//        e.setRua("Endereco rua");
+//        e.setNumero("Endereco numero");
+//        e.setCep("Endereco cep");
+//        e.setBairrocod("1");
+//        u.setEndereco(String.valueOf(edao.salvar(e)));
+//
+//        u.setNome("Nome com endereco");
+//        u.setLogin("login enderoco");
+//        u.setSenha("senha enderoco");
+//        u.setTipocod(2);
+//        u.setCpf("912.349.321-34");
+//        u.setEmail("marcelo@gmail.com");
+//        u.setRg("0912390-0");
+//        u.setTelefone("(23) 91234-0000");
+//        d.salvar(u);
+        List<Usuario> list = d.listar();
+        for (Usuario us : list) {
+            System.out.println("Nome "+us);
+            if (u.getE() != null) {
+                System.out.println(us.getE().getRua());
+            }
+        }
+
     }
 
 }

@@ -150,7 +150,6 @@
                                     <th>Tipo</th>
                                     <th>Login</th>
                                     <th>Email</th>
-                                    <th>Rg</th>
                                     <th>Status</th>
                                     <th>Ação</th>
                                 </tr>
@@ -168,7 +167,6 @@
                                     <td><%=u.getTipoDesc()%></td>
                                     <td><%=u.getLogin()%></td>
                                     <td><%=u.getEmail()%></td>
-                                    <td><%=u.getRg()%></td>
                                     <td><%=u.getStatus()%></td>
                                     <td class="text-center">
                                         <a href="#" data-toggle="modal" data-cod="<%=u.getCodigo()%>"
@@ -225,11 +223,11 @@
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <label  class="form-label">Rua/Logradouro</label>
-                                                        <input type="text" value="<%=u.getRua()%>" class="form-control" required name="txtrua" placeholder="Rua/Logradouro"/>
+                                                        <input type="text" value="<%=u.getE().getRua()%>" class="form-control" required name="txtrua" placeholder="Rua/Logradouro"/>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <label  class="form-label">Número</label>
-                                                        <input type="text" value="<%=u.getNumero()%>" class="form-control" required name="txtnumero" placeholder="Número da casa"/>
+                                                        <input type="text" value="<%=u.getE().getNumero()%>" class="form-control" required name="txtnumero" placeholder="Número da casa"/>
                                                     </div>
                                                     
                                                     
@@ -238,12 +236,13 @@
                                                     
 
                                                     <div class="col-sm-6">
-                                                        <% String cep = u.getCep().replace("-", "");%>
+                                                        <% String cep = u.getE().getCep().replace("-", "");%>
                                                         <label class="form-label">CEP</label>
                                                         <input type="text" value="<%=cep%>" class="form-control" required name="txtcep" placeholder="CEP"
                                                                data-mask="99999-999" pattern="[0-9]{5}-[0-9]{3}"/>
 
                                                         <input type="hidden" name="codigo" value="<%=u.getCodigo()%>"/>
+                                                        <input type="hidden" name="endcod" value="<%=u.getEndereco()%>"/>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label  class="form-label">Bairro</label>
@@ -252,7 +251,7 @@
                                                             <%
                                                                 String selected = "selected";
                                                                 for (Bairro b : bDao.listar()) {
-                                                                    if (u.getBairroNome().equals(b.getNome())) {
+                                                                    if (u.getE().getBairrocod().equals(b.getNome())) {
                                                                         selected = "selected";
                                                                     } else {
                                                                         selected = "";

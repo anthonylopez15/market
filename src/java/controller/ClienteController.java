@@ -1,6 +1,7 @@
 
 package controller;
 
+import dao.EnderecoDAO;
 import dao.UsuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Endereco;
 import models.Usuario;
 
 
@@ -21,6 +23,8 @@ public class ClienteController extends HttpServlet {
             
             Usuario u = new Usuario();
             UsuarioDAO udao = new UsuarioDAO();
+            Endereco e = new Endereco();
+            EnderecoDAO eDao = new EnderecoDAO();
             
             String codigo = null, nome = null, login = null, senha = null, telefone = null;
             String email = null, rua = null,  numero = null, cep = null, bairro = null;
@@ -67,10 +71,11 @@ public class ClienteController extends HttpServlet {
                     u.setTipocod(2);
                     u.setEmail(email);
                     u.setTelefone(telefone);
-                    u.setRua(rua);
-                    u.setNumero(numero);
-                    u.setCep(cep);
-                    u.setBairrocod(bairro);
+                    e.setRua(rua);
+                    e.setNumero(numero);
+                    e.setCep(cep);
+                    e.setBairrocod(bairro);
+                    u.setEndereco(String.valueOf(eDao.salvar(e)));
                     udao.salvar(u);
                     msg = "Cadastro realizado com sucesso, faça login.";
                     url = "login.jsp";
@@ -79,9 +84,7 @@ public class ClienteController extends HttpServlet {
                     u.setLogin(login);
                     u.setSenha(senha);
                     u.setEmail(email);
-                    u.setRua(rua);
-                    u.setCep(cep);
-                    u.setBairrocod(bairro);
+//                    u.setsairrocod(bairro);
                     u.setCodigo(Integer.parseInt(codigo));
                     udao.alterar(u);
                     msg = "Dados alterados.";   
@@ -92,9 +95,9 @@ public class ClienteController extends HttpServlet {
                 request.setAttribute("msg", msg);
                 request.setAttribute("alert", alerta);
                 request.getRequestDispatcher(url).forward(request, response);
-            } catch (Exception e) {
+            } catch (NumberFormatException | ServletException | IOException ex) {
                 request.setAttribute("alert", "alert-danger");
-                request.setAttribute("msg", "Um erro acontenceu " + e.getMessage());
+                request.setAttribute("msg", "Um erro acontenceu " + ex.getMessage());
                 request.getRequestDispatcher("principal.jsp").forward(request, response);
             }
         }

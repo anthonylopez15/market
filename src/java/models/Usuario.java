@@ -11,13 +11,16 @@ public class Usuario {
     private String cpf;
     private String email;
     private String telefone;
-    private String rua;
-    private String bairroNome;
-    private String bairrocod;
-    private String cep;
+//    private String rua;
+//    private String bairroNome;
+//    private String bairrocod;
+//    private String cep;
     private String rg;
     private String status;
-    private String numero;
+//    private String numero;
+    
+    private String endereco;
+    private Endereco e;
 
     public String getTelefone() {
         return telefone;
@@ -29,21 +32,9 @@ public class Usuario {
     
     
 
-    public String getNumero() {
-        return numero;
-    }
+    
 
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getRua() {
-        return rua;
-    }
-
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
+   
     
     
 
@@ -128,35 +119,33 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getBairrocod() {
-        return bairrocod;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setBairrocod(String bairrocod) {
-        this.bairrocod = bairrocod;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
-    public String getCep() {
-        return cep;
+    public Endereco getE() {
+        return e;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
+    public void setE(Endereco e) {
+        this.e = e;
     }
-
     
-
-    public String getBairroNome() {
-        return bairroNome;
-    }
-
-    public void setBairroNome(String bairroNome) {
-        this.bairroNome = bairroNome;
-    }
-
+    
+    
     @Override
     public String toString() {
         return nome;
     }
+
+//    @Override
+//    public String toString() {
+//        return "Usuario{" + "codigo=" + codigo + ", nome=" + nome + ", login=" + login + ", senha=" + senha + ", tipocod=" + tipocod + ", tipoDesc=" + tipoDesc + ", cpf=" + cpf + ", email=" + email + ", telefone=" + telefone + ", rua=" + rua + ", bairroNome=" + bairroNome + ", bairrocod=" + bairrocod + ", cep=" + cep + ", rg=" + rg + ", status=" + status + ", numero=" + numero + ", endereco=" + endereco + ", e=" + e + '}';
+//    }
+    
 
 }

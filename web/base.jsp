@@ -40,7 +40,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="login.jsp">Entrar</a></li>
-                        <li><a href="cadastrar-se.jsp">Registrar-se</a></li>
+                        <li><a href="cadastrar-se.jsp">Cadastrar-se</a></li>
                     </ul>
                 </div>
             </div>
