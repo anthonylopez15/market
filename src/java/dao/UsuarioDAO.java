@@ -154,6 +154,7 @@ public class UsuarioDAO {
                 u.setNome(rs.getString("nome"));
                 u.setLogin(rs.getString("login"));
                 u.setTipocod(rs.getInt("tipocod"));
+                u.setStatus(rs.getString("status"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);

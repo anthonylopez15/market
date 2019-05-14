@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/PROJETOS/market/web/base.jsp</file>
-            <file>file:/D:/PROJETOS/market/src/java/controller/SessionController.java</file>
-            <file>file:/D:/PROJETOS/market/web/cadastrar-se.jsp</file>
-            <file>file:/D:/PROJETOS/market/src/java/controller/ClienteController.java</file>
-            <file>file:/D:/PROJETOS/market/src/java/dao/UsuarioDAO.java</file>
+            <file>file:/D:/Projetos/market/src/java/dao/UsuarioDAO.java</file>
+            <file>file:/D:/Projetos/market/web/base.jsp</file>
+            <file>file:/D:/Projetos/market/src/java/controller/SessionController.java</file>
         </group>
     </open-files>
 </project-private>

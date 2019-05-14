@@ -36,19 +36,26 @@ public class SessionController extends HttpServlet {
                     u.setLogin(login);
                     u.setSenha(senha);
                     u = udao.logar(u);
-                    if (u.getNome() != null && u.getTipocod() == 1) {
-                        System.out.println("Usuario " + u);
-                        url = "admin.jsp";
-                        msg = u.getNome() + ", seja bem-vindo ao sistema.";
-                    } else if (u.getNome() != null && u.getTipocod() == 2) {
-                        System.out.println("Usuario " + u);
-                        url = "principal.jsp";
-                        msg = "Login realizado com sucesso.";
+                    if (u.getStatus().equals("Ativado")) {
 
+                        if (u.getNome() != null && u.getTipocod() == 1) {
+                            System.out.println("Usuario " + u);
+                            url = "admin.jsp";
+                            msg = u.getNome() + ", seja bem-vindo ao sistema.";
+                        } else if (u.getNome() != null && u.getTipocod() == 2) {
+                            System.out.println("Usuario " + u);
+                            url = "principal.jsp";
+                            msg = "Login realizado com sucesso.";
+
+                        } else {
+                            alerta = "alert-danger";
+                            url = "login.jsp";
+                            msg = "Login ou senha errada.";
+                        }
                     } else {
                         alerta = "alert-danger";
                         url = "login.jsp";
-                        msg = "Login ou senha errada.";
+                        msg = "Conta desativada.";
                     }
                 } else if (acao.equals("sair")) {
                     session.removeAttribute("usuario");
