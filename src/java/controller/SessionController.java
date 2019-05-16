@@ -36,15 +36,14 @@ public class SessionController extends HttpServlet {
                     u.setLogin(login);
                     u.setSenha(senha);
                     u = udao.logar(u);
-                    if (u.getStatus().equals("Ativado")) {
-
+                    if (u != null) {
                         if (u.getNome() != null && u.getTipocod() == 1) {
                             System.out.println("Usuario " + u);
                             url = "admin.jsp";
                             msg = u.getNome() + ", seja bem-vindo ao sistema.";
                         } else if (u.getNome() != null && u.getTipocod() == 2) {
                             System.out.println("Usuario " + u);
-                            url = "principal.jsp";
+                            url = "index.jsp";
                             msg = "Login realizado com sucesso.";
 
                         } else {
@@ -52,12 +51,8 @@ public class SessionController extends HttpServlet {
                             url = "login.jsp";
                             msg = "Login ou senha errada.";
                         }
-                    } else {
-                        alerta = "alert-danger";
-                        url = "login.jsp";
-                        msg = "Conta desativada.";
-                    }
-                } else if (acao.equals("sair")) {
+                    } 
+                }else if (acao.equals("sair")) {
                     session.removeAttribute("usuario");
                     u = null;
                     url = "login.jsp";
@@ -70,7 +65,7 @@ public class SessionController extends HttpServlet {
                 request.getRequestDispatcher(url).forward(request, response);
             } catch (Exception e) {
                 request.setAttribute("alert", "alert-danger");
-                request.setAttribute("msg", "Um erro acontenceu " + e.fillInStackTrace());
+                request.setAttribute("msg", "Um erro acontenceu " + e.getMessage());
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         }

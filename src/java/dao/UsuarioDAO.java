@@ -118,7 +118,7 @@ public class UsuarioDAO {
     }
 
     public Usuario logar(Usuario u) {
-        sql = "SELECT * FROM usuario WHERE login = ? and senha = ?";
+        sql = "SELECT * FROM usuario WHERE login = ? and senha = ? and status = 'Ativado'";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, u.getLogin());
@@ -157,11 +157,11 @@ public class UsuarioDAO {
         return u;
     }
 
-    public static void main(String[] args) {
-        UsuarioDAO d = new UsuarioDAO();
-        Usuario u = new Usuario();
-        Endereco e = new Endereco();
-        EnderecoDAO edao = new EnderecoDAO();
+//    public static void main(String[] args) {
+//        UsuarioDAO d = new UsuarioDAO();
+//        Usuario u = new Usuario();
+//        Endereco e = new Endereco();
+//        EnderecoDAO edao = new EnderecoDAO();
 
 //        e.setRua("Endereco rua");
 //        e.setNumero("Endereco numero");
@@ -178,14 +178,14 @@ public class UsuarioDAO {
 //        u.setRg("0912390-0");
 //        u.setTelefone("(23) 91234-0000");
 //        d.salvar(u);
-        List<Usuario> list = d.listar();
-        for (Usuario us : list) {
-            System.out.println("Nome "+us);
-            if (u.getE() != null) {
-                System.out.println(us.getE().getRua());
-            }
-        }
-
-    }
+//        List<Usuario> list = d.listar();
+//        for (Usuario us : list) {
+//            System.out.println("Nome "+us);
+//            if (u.getE() != null) {
+//                System.out.println(us.getE().getRua());
+//            }
+//        }
+//
+//    }
 
 }

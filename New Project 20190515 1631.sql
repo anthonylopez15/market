@@ -60,7 +60,7 @@ CREATE TABLE `endereco` (
   PRIMARY KEY (`codigo`),
   KEY `FK_endereco_bairro` (`bairrocod`),
   CONSTRAINT `FK_endereco_bairro` FOREIGN KEY (`bairrocod`) REFERENCES `bairro` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `endereco`
@@ -77,7 +77,8 @@ INSERT INTO `endereco` (`codigo`,`rua`,`numero`,`cep`,`bairrocod`) VALUES
  (7,'rua super','numero super','21343-123',4),
  (8,'rua super','numero super','21343-123',4),
  (9,'Avenida Maceió','L-327','21343-123',3),
- (10,'Rua Igarape manaus','12','21343-123',1);
+ (10,'Rua Igarape manaus','12','21343-123',1),
+ (11,'Avenida Joaquim Nabuco','12','69020-030',2);
 /*!40000 ALTER TABLE `endereco` ENABLE KEYS */;
 
 
@@ -270,7 +271,7 @@ CREATE TABLE `usuario` (
   KEY `FK_usuario_endereco` (`enderecocod`),
   CONSTRAINT `FK_usuario_endereco` FOREIGN KEY (`enderecocod`) REFERENCES `endereco` (`codigo`),
   CONSTRAINT `FK_usuario_tipo` FOREIGN KEY (`tipocod`) REFERENCES `tipo_usuario` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `usuario`
@@ -292,8 +293,9 @@ INSERT INTO `usuario` (`codigo`,`nome`,`login`,`senha`,`tipocod`,`cpf`,`email`,`
  (12,'marcelo silva','marcelo1234','marcelo123',1,'912.349.321-34','marcelo@gmail.com','0912390-0','Ativado','(92) 91234-9919',NULL),
  (13,'usuario cliente','usuariocliente','usuariocliente',2,NULL,'usuario@gmail.com',NULL,'Ativado','(92) 30340-0324',NULL),
  (15,'Nome com endereco alt','login enderoco alt','senha enderocoalt',2,'912.349.321-34','marceloalt@gmail.com','0912390-0','Ativado','(23) 91234-2123',1),
- (16,'manolo teste','poqwer1234','poqwer1324',1,'234.912.394-12','teste345@gmail.com','9239412-9','Ativado','(99) 12340-3210',2),
- (17,'criando cliente','opa1234123l','1234918234',2,NULL,'clientealt@gmail.com',NULL,'Ativado','(12) 39412-9341',3);
+ (16,'manolo teste','manolouser','1234',2,'234.912.394-12','teste345@gmail.com','9239412-9','Ativado','(99) 12340-3210',2),
+ (17,'criando cliente','opa1234123l','1234918234',2,NULL,'clientealt@gmail.com',NULL,'Ativado','(12) 39412-9341',3),
+ (18,'qwer','fgsgf','23452345',2,NULL,'teste_santillan@gmail.com',NULL,'Ativado','(43) 52454-3234',11);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 

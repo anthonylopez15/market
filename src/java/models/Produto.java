@@ -6,6 +6,7 @@ public class Produto {
     private String nome;
     private String descricao;
     private Marca marcacod;
+    private String marca;
     private String status;
 
     public Produto() {
@@ -20,6 +21,13 @@ public class Produto {
         this.codigo = codigo;
         this.nome = nome;
         this.marcacod = marcacod;
+    }
+
+    public Produto(Integer codigo, String nome, String descricao, String marca) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.marca = marca;
     }
 
     public String getDescricao() {
@@ -60,6 +68,14 @@ public class Produto {
 
     public void setMarcacod(Marca marcacod) {
         this.marcacod = marcacod;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     @Override

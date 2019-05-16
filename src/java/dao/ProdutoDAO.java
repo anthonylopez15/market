@@ -39,7 +39,7 @@ public class ProdutoDAO {
         }
         return p;
     }
-    
+
     public Produto alterar(Produto p) {
         sql = "UPDATE produto set nome = ?,  descricao = ?, status = ? where codigo = ?";
 
@@ -60,7 +60,7 @@ public class ProdutoDAO {
     }
 
     public List<Produto> listar(String status) {
-        sql = "SELECT * FROM produto p left join marca m on m.codigo = p.marcacod where p.status = '"+ status +"' ";
+        sql = "SELECT * FROM produto p left join marca m on m.codigo = p.marcacod where p.status = '" + status + "' ";
         List<Produto> list = new ArrayList<>();
         try {
             ps = con.prepareStatement(sql);
@@ -85,6 +85,7 @@ public class ProdutoDAO {
         }
         return list;
     }
+
     public List<Produto> listAll() {
         sql = "SELECT * FROM produto p left join marca m on m.codigo = p.marcacod";
         List<Produto> list = new ArrayList<>();
@@ -112,4 +113,34 @@ public class ProdutoDAO {
         return list;
     }
 
+    public List<Produto> pesquisarPorNome(String nome) {
+        sql = "SELECT * FROM produto p INNER JOIN marca m on m.codigo = p.marcacod WHERE p.nome like '%"+nome+"%' AND p.status = 'Ativo' ";
+        List<Produto> listar = new ArrayList<>();
+        try {
+            ps = con.prepareStatement(sql);
+//            ps.setString(1, nome);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int codigo = rs.getInt("p.codigo");
+                String produto = rs.getString("p.nome");
+                String descricao = rs.getString("p.descricao");
+                String marca = rs.getString("m.nome");
+                Produto p = new Produto(codigo, produto, descricao, marca);
+                listar.add(p);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeAll(con, ps, rs);
+        }
+        return listar;
+    }
+
+    public static void main(String[] args) {
+        ProdutoDAO dao = new ProdutoDAO();
+        for (Produto p : dao.pesquisarPorNome("leite")) {
+            System.out.println(">> " + p.getNome());
+        }
+    }
 }

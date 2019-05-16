@@ -117,10 +117,10 @@ public class MarcaDAO {
         return m;
     }
 
-    public static void main(String[] args) {
-        MarcaDAO dao = new MarcaDAO();
-        List<Marca> listar = dao.listaMarcas();
-        Marca m = new Marca();
-
-    }
+//    public static void main(String[] args) {
+//        MarcaDAO dao = new MarcaDAO();
+//        List<Marca> listar = dao.listaMarcas();
+//        Marca m = new Marca();
+//
+//    }
 }

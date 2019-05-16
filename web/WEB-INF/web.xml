@@ -28,6 +28,10 @@
         <servlet-name>ClienteController</servlet-name>
         <servlet-class>controller.ClienteController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PesquisaController</servlet-name>
+        <servlet-class>controller.PesquisaController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProdutoController</servlet-name>
         <url-pattern>/produto</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>ClienteController</servlet-name>
         <url-pattern>/cliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PesquisaController</servlet-name>
+        <url-pattern>/pesquisa</url-pattern>
     </servlet-mapping>
     <session-config>
         <!--        <session-timeout>
