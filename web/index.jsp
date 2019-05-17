@@ -1,3 +1,4 @@
+<%@page import="models.ListaCompra"%>
 <%@page import="dao.Carrinho"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -9,9 +10,10 @@
 <%
 ProdutoDAO dao = new ProdutoDAO();
 List<Produto> listaProdutos = new ArrayList<>();
-if(request.getAttribute("listProdutos") != null){
-    listaProdutos = (List<Produto>) request.getAttribute("listProdutos");
+if(session.getAttribute("listProdutos") != null){
+    listaProdutos = (List<Produto>) session.getAttribute("listProdutos");
 }
+
 %>
   <div class="content-wrapper">
     <div class="container">
@@ -42,8 +44,8 @@ if(request.getAttribute("listProdutos") != null){
             <div class="row">
                 <!--INÍCIO DO MENU -->
                 <div class="col-md-8 col-xs-12">
-                        <% for (Produto p: listaProdutos){ %>    
-                    <form action="pesquisa" method="get">
+                    <% for (Produto p: listaProdutos){ %>    
+                    <form action="pesquisa" method="post">
                         <div class="menu-item-info-box">
                             <span class="menu-item-info-box-icon"><img src="static/assets/img/foods/cupcake.png"></span>
 
@@ -51,10 +53,10 @@ if(request.getAttribute("listProdutos") != null){
                               <span class="menu-item-info-box-text"><%=p.getNome()%> - <%=p.getMarca()%></span>
                               <span class="menu-item-info-box-detail"><%=p.getDescricao()%></span>
                               <!--<span class="menu-item-info-box-price">Qtd : 1</span>-->
-                              <input type="text" value="<%=p.getNome()%>" name="nome" />
-                              <input type="text" value="<%=p.getCodigo()%>" name="codigo" />
-                              <input type="text" value="<%=p.getDescricao()%>" name="descricao" />
-                              <input type="text" value="<%=p.getMarca()%>" name="marca" />
+                              <input type="hidden" value="<%=p.getNome()%>" name="nome" />
+                              <input type="hidden" value="<%=p.getCodigo()%>" name="codigo" />
+                              <input type="hidden" value="<%=p.getDescricao()%>" name="descricao" />
+                              <input type="hidden" value="<%=p.getMarca()%>" name="marca" />
                               <button type="submit" value="add" name="acao" class="btn btn-info">
                                   <i class="fa fa-plus-circle"></i> Adicionar
                               </button>
@@ -63,17 +65,17 @@ if(request.getAttribute("listProdutos") != null){
                           </div>
                         <!-- /.info-box -->
                     </form>
-                        <%}%>
+                    <%}%>
                 </div>
                     
                
-                <div class="col-md-4 col-xs-12 " >
+                <% Carrinho carrinho = (Carrinho) session.getAttribute("carrinho"); %>
+                <div class="col-md-4 col-xs-12" >
                   <!--INICIO DO CARRINHO-->
                   <div class="box box-solid">
                     <div class="box-header">
                       <i class="fa fa-shopping-cart"></i>
 
-                      <% Carrinho carrinho = (Carrinho) session.getAttribute("carrinho"); %>
                       <h3 class="box-title">Carrinho de produtos</h3>
                     </div>
                     <!-- /.box-header -->
@@ -81,29 +83,25 @@ if(request.getAttribute("listProdutos") != null){
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                            <%  List<Produto> itens = null;
+                            <%  List<ListaCompra> itens = null;
                             if (carrinho != null) {
                                 itens = carrinho.getItems();
-                                for(Produto p: itens){
+                                for(ListaCompra item: itens){
                             %>
                                 <tr>
-                                  <th style="width:60%"><%=p.getNome()%></th>
-                                  <td class="text-right">Qtde 2</td>
+                                  <th style="width:60%"><%=item.getProduto().getNome()%> - <%=item.getProduto().getMarca()%></th>
+                                  <td class="text-right">Qtde: <%=item.getQuantidade()%></td>
                                 </tr>
                                 <%}
                             }%>
-                            <tr>
-                                  <th style="width:60%">opaa</th>
-                                  <td class="text-right">Qtde 2</td>
-                                </tr>
                             </tbody>
                         </table>
                       </div>
                     </div>
                     <div class="box-footer">
                         <div class="pull-right">
-                          <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> Limpar</button>
-                          <a href="order.html" class="btn btn-success"><i class="fa fa-credit-card"></i> Fechar Pedido</a>
+                            <a type="button" href="pesquisa?acao=removerCarrinho" class="btn btn-danger"><i class="fa fa-trash"></i> Limpar</a>
+                            <a href="order.html" class="btn btn-success"><i class="fa fa-credit-card"></i> Fechar Carrinho</a>
                         </div>
                     </div>
                 </div>

@@ -114,7 +114,7 @@ public class ProdutoDAO {
     }
 
     public List<Produto> pesquisarPorNome(String nome) {
-        sql = "SELECT * FROM produto p INNER JOIN marca m on m.codigo = p.marcacod WHERE p.nome like '%"+nome+"%' AND p.status = 'Ativo' ";
+        sql = "SELECT * FROM produto p INNER JOIN marca m on m.codigo = p.marcacod WHERE p.nome like '%" + nome + "%' AND p.status = 'Ativo' ";
         List<Produto> listar = new ArrayList<>();
         try {
             ps = con.prepareStatement(sql);
@@ -137,10 +137,29 @@ public class ProdutoDAO {
         return listar;
     }
 
-    public static void main(String[] args) {
-        ProdutoDAO dao = new ProdutoDAO();
-        for (Produto p : dao.pesquisarPorNome("leite")) {
-            System.out.println(">> " + p.getNome());
+    public Produto buscarPorCodigo(String codigo) {
+        sql = "SELECT * FROM produto p INNER JOIN marca m on m.codigo = p.marcacod WHERE p.codigo = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, codigo);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                int cod = rs.getInt("p.codigo");
+                String produto = rs.getString("p.nome");
+                String descricao = rs.getString("p.descricao");
+                String marca = rs.getString("m.nome");
+                Produto p = new Produto(cod, produto, descricao, marca);
+                return p;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
+
+//    public static void main(String[] args) {
+//        ProdutoDAO dao = new ProdutoDAO();
+//        Produto p = dao.buscarPorCodigo(4);
+//        System.out.println(">>" + p.getNome());
+//    }
 }

@@ -24,7 +24,7 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="index.jsp" class="navbar-brand"><b>Pesquisa de Mercadoria</b></a>
+          <a href="pesquisa?acao" class="navbar-brand"><b>Pesquisa de Mercadoria</b></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>

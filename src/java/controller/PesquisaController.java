@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import models.ListaCompra;
 import models.Produto;
 
 public class PesquisaController extends HttpServlet {
@@ -20,7 +21,7 @@ public class PesquisaController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             ProdutoDAO pDao = new ProdutoDAO();
-            Produto item;
+            ListaCompra item;
             String pesquisa = "", url = null, codigo = null, nome = null, marca = null, descricao = null;
 
             try {
@@ -43,14 +44,14 @@ public class PesquisaController extends HttpServlet {
                 }
                 HttpSession session = request.getSession();
                 Carrinho carrinho = (Carrinho) session.getAttribute("carrinho");
-
                 String acao = request.getParameter("acao");
                 if (acao.equals("buscar")) {
                     List<Produto> list = pDao.pesquisarPorNome(pesquisa);
-                    request.setAttribute("listProdutos", list);
+                    session.setAttribute("listProdutos", list);
                     url = "index.jsp";
                 } else if (acao.equals("add")) {
-                    item = new Produto(Integer.parseInt(codigo), nome, descricao, marca);
+                    Produto p = pDao.buscarPorCodigo(codigo);
+                    item = new ListaCompra(p, 1);
                     if (carrinho == null) {
                         carrinho = new Carrinho(item);
                         session.setAttribute("carrinho", carrinho);
@@ -58,8 +59,13 @@ public class PesquisaController extends HttpServlet {
                         carrinho.addItem(item);
                     }
                     url = "index.jsp";
+                } else if (acao.equals("removerCarrinho")) {
+                    session.removeAttribute("carrinho");
+                    session.removeAttribute("listProdutos");
+                    url = "index.jsp";
+                }else{
+                    session.removeAttribute("listProdutos");
                 }
-
                 request.getRequestDispatcher(url).forward(request, response);
             } catch (Exception e) {
                 request.getRequestDispatcher("index.jsp").forward(request, response);

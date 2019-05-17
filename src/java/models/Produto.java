@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class Produto {
 
     private Integer codigo;
@@ -81,6 +83,28 @@ public class Produto {
     @Override
     public String toString() {
         return nome + " - " + marcacod;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.codigo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Produto other = (Produto) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
+            return false;
+        }
+        return true;
     }
 
 }
