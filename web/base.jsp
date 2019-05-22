@@ -11,9 +11,11 @@
   <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <link rel="stylesheet" href="static/assets/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="static/assets/css/skins/_all-skins.min.css">
-  <link rel="stylesheet" href="static/assets/css/meat.css">
+<!--    <link rel="stylesheet" href="static/assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="static/assets/css/ionicons.min.css">-->
+  <link rel="stylesheet" href="novo/assets/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="novo/assets/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="novo/assets/css/meat.css">
 
 </head>
 

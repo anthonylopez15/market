@@ -101,7 +101,7 @@ if(session.getAttribute("listProdutos") != null){
                     <div class="box-footer">
                         <div class="pull-right">
                             <a type="button" href="pesquisa?acao=removerCarrinho" class="btn btn-danger"><i class="fa fa-trash"></i> Limpar</a>
-                            <a href="order.html" class="btn btn-success"><i class="fa fa-credit-card"></i> Fechar Carrinho</a>
+                            <a href="#" class="btn btn-success"><i class="fa fa-credit-card"></i> Fechar Carrinho</a>
                         </div>
                     </div>
                 </div>
@@ -120,11 +120,11 @@ if(session.getAttribute("listProdutos") != null){
 </div>
 <!-- ./wrapper -->
 
-<script src="static/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="static/bootstrap/js/bootstrap.min.js"></script>
-<script src="static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="static/plugins/fastclick/fastclick.js"></script>
-<script src="static/assets/js/app.min.js"></script>
-<script src="static/assets/js/demo.js"></script>
+<script src="novo/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="novo/bootstrap/js/bootstrap.min.js"></script>
+<script src="novo/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="novo/plugins/fastclick/fastclick.js"></script>
+<script src="novo/assets/js/app.min.js"></script>
+<script src="novo/assets/js/demo.js"></script>
 </body>
 </html>

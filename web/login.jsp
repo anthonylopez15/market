@@ -46,11 +46,11 @@
   <c:import url="footer.jsp"/>
 </div>
 
-<script src="static/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="static/bootstrap/js/bootstrap.min.js"></script>
-<script src="static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="static/plugins/fastclick/fastclick.js"></script>
-<script src="static/assets/js/app.min.js"></script>
-<script src="static/assets/js/demo.js"></script>
+<script src="novo/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="novo/bootstrap/js/bootstrap.min.js"></script>
+<script src="novo/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="novo/plugins/fastclick/fastclick.js"></script>
+<script src="novo/assets/js/app.min.js"></script>
+<script src="novo/assets/js/demo.js"></script>
 </body>
 </html>
