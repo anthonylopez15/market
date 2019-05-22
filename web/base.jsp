@@ -13,9 +13,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 <!--    <link rel="stylesheet" href="static/assets/css/font-awesome.min.css">
   <link rel="stylesheet" href="static/assets/css/ionicons.min.css">-->
-  <link rel="stylesheet" href="novo/assets/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="novo/assets/css/skins/_all-skins.min.css">
-  <link rel="stylesheet" href="novo/assets/css/meat.css">
+  <link rel="stylesheet" href="design/assets/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="design/assets/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="design/assets/css/meat.css">
 
 </head>
 

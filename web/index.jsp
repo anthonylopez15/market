@@ -120,11 +120,11 @@ if(session.getAttribute("listProdutos") != null){
 </div>
 <!-- ./wrapper -->
 
-<script src="novo/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="novo/bootstrap/js/bootstrap.min.js"></script>
-<script src="novo/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="novo/plugins/fastclick/fastclick.js"></script>
-<script src="novo/assets/js/app.min.js"></script>
-<script src="novo/assets/js/demo.js"></script>
+<script src="design/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="design/bootstrap/js/bootstrap.min.js"></script>
+<script src="design/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="design/plugins/fastclick/fastclick.js"></script>
+<script src="design/assets/js/app.min.js"></script>
+<script src="design/assets/js/demo.js"></script>
 </body>
 </html>
