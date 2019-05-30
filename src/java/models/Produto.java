@@ -31,6 +31,11 @@ public class Produto {
         this.descricao = descricao;
         this.marca = marca;
     }
+    public Produto(Integer codigo, String nome, String marcacod) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.marca = marcacod;
+    }
 
     public String getDescricao() {
         return descricao;

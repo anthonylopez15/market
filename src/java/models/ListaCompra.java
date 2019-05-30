@@ -1,58 +1,56 @@
 
 package models;
 
-import java.util.Objects;
+import java.util.Date;
+import java.util.List;
 
 public class ListaCompra {
 
-    private Produto produto;
-    private int quantidade;
+    private int codigo;
+    private Usuario user;
+    private Date datahora;
+    private String supermercado;
+    private List<ItemProduto> listProdutos;
 
-    public ListaCompra() {
-    }
-    
-    public ListaCompra(Produto produto, int quantidade) {
-        this.produto = produto;
-        this.quantidade = quantidade;
-    }
-    public Produto getProduto() {
-        return produto;
+    public int getCodigo() {
+        return codigo;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public Usuario getUser() {
+        return user;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setUser(Usuario user) {
+        this.user = user;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 19 * hash + Objects.hashCode(this.produto);
-        return hash;
+    public Date getDatahora() {
+        return datahora;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ListaCompra other = (ListaCompra) obj;
-        if (!Objects.equals(this.produto, other.produto)) {
-            return false;
-        }
-        return true;
+    public void setDatahora(Date datahora) {
+        this.datahora = datahora;
     }
-    
-    
+
+    public String getSupermercado() {
+        return supermercado;
+    }
+
+    public void setSupermercado(String supermercado) {
+        this.supermercado = supermercado;
+    }
+
+    public List<ItemProduto> getListProdutos() {
+        return listProdutos;
+    }
+
+    public void setListProdutos(List<ItemProduto> listProdutos) {
+        this.listProdutos = listProdutos;
+    }
+
     
 }

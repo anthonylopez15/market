@@ -2,33 +2,38 @@ package dao;
 
 import connection.ConnectionFactory;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Estoque;
+import models.ItemProduto;
+import models.ListaCompra;
 import models.Marca;
 import models.Produto;
 import models.Supermercado;
+import models.Usuario;
 
 public class SupermercadoDAO {
-    
+
     private String sql;
     private final Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
-    
+
     public SupermercadoDAO() {
         this.con = ConnectionFactory.conecta();
     }
-    
+
     public Supermercado salvar(Supermercado s) {
         sql = "insert into supermercado (nome, enderecocod) values (?,?) ";
-        
+
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, s.getNome());
@@ -45,10 +50,10 @@ public class SupermercadoDAO {
         }
         return s;
     }
-    
+
     public Supermercado alterar(Supermercado s) {
         sql = "update supermercado set nome = ?, status = ? WHERE codigo = ? ";
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, s.getNome());
@@ -62,7 +67,7 @@ public class SupermercadoDAO {
         }
         return s;
     }
-    
+
     public boolean addProdutoEstoque(Estoque e) {
         sql = "INSERT INTO estoque(supermercado, produto, preco) values (?,?,?)";
         try {
@@ -79,7 +84,7 @@ public class SupermercadoDAO {
         }
         return false;
     }
-    
+
     public List<Estoque> listarEstoquePorSupermercado(int codigo) {
         sql = "select * from estoque e inner join supermercado s on s.codigo = e.supermercado "
                 + "inner join produto p on p.codigo = e.produto "
@@ -121,7 +126,7 @@ public class SupermercadoDAO {
             Logger.getLogger(SupermercadoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public Supermercado getProCodigo(int cod) {
         sql = "select * from supermercado where codigo = ? ";
         Supermercado s = null;
@@ -142,7 +147,7 @@ public class SupermercadoDAO {
 //        }
         return s;
     }
-    
+
     public List<Supermercado> listar() {
         sql = "SELECT * FROM supermercado s inner join endereco e on s.enderecocod = e.codigo";
         List<Supermercado> list = new ArrayList<>();
@@ -154,7 +159,7 @@ public class SupermercadoDAO {
                 Supermercado s = new Supermercado();
                 s.setCodigo(rs.getInt("s.codigo"));
                 s.setNome(rs.getString("s.nome"));
-                if(rs.getString("s.enderecocod") != null){
+                if (rs.getString("s.enderecocod") != null) {
                     int enderecoId = rs.getInt("s.enderecocod");
                     s.setEnderecoM(eDao.buscarPorCod(enderecoId));
                     s.setEnderecocod(rs.getString("s.enderecocod"));
@@ -169,18 +174,88 @@ public class SupermercadoDAO {
         }
         return list;
     }
-    
+
+    public List<Supermercado> listarAll() {
+        sql = "SELECT * FROM supermercado  s where status = 'Ativo' ";
+        List<Supermercado> list = new ArrayList<>();
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Supermercado s = new Supermercado();
+                s.setCodigo(rs.getInt("s.codigo"));
+                s.setNome(rs.getString("s.nome"));
+                s.setStatus(rs.getString("s.status"));
+                list.add(s);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao listar supermercado " + ex.getMessage());
+        }
+        return list;
+    }
+
+    public ListaCompra criarListaCompra(Usuario user) {
+        sql = "INSERT INTO listacompras(usuariocod, datahora) VALUES (?, now())";
+        ListaCompra compra = new ListaCompra();
+        try {
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, user.getCodigo());
+            ps.executeUpdate();
+            rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                compra.setCodigo(rs.getInt(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SupermercadoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return compra;
+    }
+
+    public boolean addItens(ItemProduto item, ListaCompra compra) {
+        sql = "INSERT INTO itemproduto(compracod, produto, quantidade) VALUES (?, ?, ?) ";
+        boolean valor = false;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, compra.getCodigo());
+            ps.setInt(2, item.getProduto().getCodigo());
+            ps.setInt(3, item.getQuantidade());
+            valor = ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(SupermercadoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return valor;
+    }
+
+    public ItemProduto pesquisarProduto(String supermercado, String produto) {
+        sql = "SELECT * FROM estoque e INNER JOIN produto p on p.codigo=e.produto INNER JOIN marca m on p.marcacod = m.codigo "
+                + "where e.supermercado = ? and e.produto = ? ";
+        ItemProduto i = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, supermercado);
+            ps.setString(2, produto);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                i = new ItemProduto();
+                Produto p = new Produto(rs.getInt("p.codigo"), rs.getString("p.nome"), rs.getString("m.nome"));
+                Estoque e = new Estoque();
+                e.setPreco(rs.getDouble("e.preco"));
+                e.setProduto(p);
+                i.setEstoque(e);
+                i.setProduto(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SupermercadoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return i;
+    }
+
 //    public static void main(String[] args) {
 //        SupermercadoDAO dao = new SupermercadoDAO();
-//        List<Estoque> list = dao.listarEstoquePorSupermercado(1);
-//        
-//        if (!list.isEmpty()) {
-//            for (Estoque e : list) {
-//                System.out.println(e);
-//            }
-//        } else {
-//            System.out.println("Vazio");
+//        List<Supermercado> l = dao.listarAll();
+//        for (Supermercado s : l) {
+//            System.out.println(">> " + s.toString());
 //        }
-//        
+//
 //    }
 }

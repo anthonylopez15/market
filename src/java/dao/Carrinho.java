@@ -1,25 +1,21 @@
-
 package dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import models.ListaCompra;
-import models.Produto;
+import models.ItemProduto;
 
 public class Carrinho {
-    
 
+    private List<ItemProduto> items = new ArrayList<>();
 
-    private List<ListaCompra> items = new ArrayList<>();
-
-    public Carrinho(ListaCompra item) {
+    public Carrinho(ItemProduto item) {
         this.addItem(item);
     }
 
-    public void addItem(ListaCompra item) {
+    public void addItem(ItemProduto item) {
         if (items.contains(item)) {
             int indice = items.indexOf(item);
-            ListaCompra temp = (ListaCompra) items.get(indice);
+            ItemProduto temp = (ItemProduto) items.get(indice);
             int quantidade = temp.getQuantidade();
             temp.setQuantidade(quantidade + 1);
         } else {
@@ -27,20 +23,21 @@ public class Carrinho {
         }
     }
 
-    public void removeItem(Produto item) {
-        if (items.contains(item))
+    public void removeItem(ItemProduto item) {
+        if (items.contains(item)) {
             items.remove(item);
+        }
     }
 
     public double calcularValorTotal() {
         double precoTotal = 0;
-        for(ListaCompra itemAtual: items) {
-            //precoTotal += itemAtual.getServicoCod().getPreco();
+        for (ItemProduto itemAtual : items) {
+            precoTotal += itemAtual.getPreco();
         }
         return precoTotal;
     }
 
-    public List<ListaCompra> getItems() {
+    public List<ItemProduto> getItems() {
         return items;
     }
 }
