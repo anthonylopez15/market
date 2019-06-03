@@ -9,8 +9,9 @@ public class ListaCompra {
     private int codigo;
     private Usuario user;
     private Date datahora;
-    private String supermercado;
+    private String supermercado_str;
     private List<ItemProduto> listProdutos;
+    private Supermercado supermercado;
 
     public int getCodigo() {
         return codigo;
@@ -36,13 +37,7 @@ public class ListaCompra {
         this.datahora = datahora;
     }
 
-    public String getSupermercado() {
-        return supermercado;
-    }
-
-    public void setSupermercado(String supermercado) {
-        this.supermercado = supermercado;
-    }
+    
 
     public List<ItemProduto> getListProdutos() {
         return listProdutos;
@@ -52,5 +47,22 @@ public class ListaCompra {
         this.listProdutos = listProdutos;
     }
 
+    public String getSupermercado_str() {
+        return supermercado_str;
+    }
+
+    public void setSupermercado_str(String supermercado_str) {
+        this.supermercado_str = supermercado_str;
+    }
+
+    public Supermercado getSupermercado() {
+        return supermercado;
+    }
+
+    public void setSupermercado(Supermercado supermercado) {
+        this.supermercado = supermercado;
+    }
+
+    
     
 }

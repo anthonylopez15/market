@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Projetos/market/web/template/detail-restaurant-reviews.html</file>
+            <file>file:/D:/Projetos/market/web/pesquisa_produtos.jsp</file>
             <file>file:/D:/Projetos/market/src/java/dao/SupermercadoDAO.java</file>
             <file>file:/D:/Projetos/market/web/index.jsp</file>
-            <file>file:/D:/Projetos/market/src/java/models/ItemProduto.java</file>
             <file>file:/D:/Projetos/market/src/java/controller/PesquisaController.java</file>
-            <file>file:/D:/Projetos/market/src/java/models/Supermercado.java</file>
         </group>
     </open-files>
 </project-private>

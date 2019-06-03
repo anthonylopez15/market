@@ -11,34 +11,52 @@
     <div class="container">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-
-            </h1>
+            <div class='form-label alert 
+                 <%
+                     if (request.getAttribute("alert") != null) {
+                         out.print(request.getAttribute("alert"));
+                     }
+                 %>
+                 <%
+                     if (request.getAttribute("msg") == null) {
+                         out.print("hidden");
+                     }
+                 %>
+                 '>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%=request.getAttribute("msg")%>
+            </div>
         </section>
         <%
-//            List<ListaCompra> listCompra = new ArrayList<>();
-            List<ListaCompra> listCompra = (List<ListaCompra>) request.getAttribute("listCompra");
+            List<ListaCompra> listCompra = (List<ListaCompra>) session.getAttribute("listCompra");
             Carrinho carrinho = (Carrinho) session.getAttribute("carrinho");
             List<ItemProduto> itens = carrinho.getItems();
         %>
+        
         <!-- Main content -->
         <section class="content">
 
             <div class="row">
-                <!-- INICIO DO CONTEUDO -->
-                <!--For-->
                 
                 <%  
                     NumberFormat formatadorMoeda = NumberFormat.getCurrencyInstance();
                     for (ListaCompra ite : listCompra) {
+                    
                     int tam = ite.getListProdutos().size();
                     double total = 0;
                 %>
-                <div class="col-xs-12 col-sm-6">
+                
+                <div class="col-xs-12 col-md-6">
 
                     <div class="box box-solid">
                         <div class="box-header with-border">
-                            <span class="btn btn-instagram pull-right"><a href="#" class="fa fa-save"></a></i> Imprimir</span>
+
+                            <a class="btn btn-instagram pull-right 
+                               <% if(tam == 0){ out.print("hidden");} %>"  
+                               target="_blank" href="pesquisa?acao=salvarLista&item=<%=listCompra.indexOf(ite)%>">
+                                <i class="fa fa-save"></i> Imprimir
+                            </a>
+
                             <div class="user-block">
                                 <img alt="User Image" class="img-circle" src="design/img/reactions/loved.png">
                                 <span class="username"><%=ite.getSupermercado()%></span>
@@ -88,8 +106,7 @@
                 
                 <!--FIM DO CONTEUDO -->
             </div>
-
-
+                
         </section>
         <!-- /.content -->
     </div>

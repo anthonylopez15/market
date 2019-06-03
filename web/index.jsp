@@ -18,6 +18,23 @@ if(session.getAttribute("listProdutos") != null){
 %>
   <div class="content-wrapper">
     <div class="container">
+        <section class="content-header">
+            <div class='form-label alert 
+                 <%
+                     if (request.getAttribute("alert") != null) {
+                         out.print(request.getAttribute("alert"));
+                     }
+                 %>
+                 <%
+                     if (request.getAttribute("msg") == null) {
+                         out.print("hidden");
+                     }
+                 %>
+                 '>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%=request.getAttribute("msg")%>
+            </div>
+        </section>
 
         <section class="content">
 
@@ -31,7 +48,7 @@ if(session.getAttribute("listProdutos") != null){
                             <form method="get" action="pesquisa">
                                 <div class="form-group">
                                     <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Pesquisar</label>
-                                    <input type="text" class="form-control" name="q" id="inputSuccess" placeholder="Digite o nome do produto">
+                                    <input type="text" class="form-control" required name="q" id="inputSuccess" placeholder="Digite o nome do produto">
                                     <button class="hidden" type="submit" name="acao" value="buscar"></button>
                                     <span class="help-block"></span>
                                 </div>
@@ -46,7 +63,7 @@ if(session.getAttribute("listProdutos") != null){
                 <!--INÍCIO DO MENU -->
                 <div class="col-md-8 col-xs-12">
                     <% for (Produto p : listaProdutos) {%>    
-                    <form action="pesquisa" method="post">
+                    <form action="pesquisa" method="get">
                         <div class="menu-item-info-box">
                             <!--<span class="menu-item-info-box-icon"><img src="static/assets/img/foods/cupcake.png"></span>-->
 

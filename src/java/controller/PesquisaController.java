@@ -30,11 +30,11 @@ public class PesquisaController extends HttpServlet {
             SupermercadoDAO sDao = new SupermercadoDAO();
             ItemProduto item;
             String pesquisa = "", index = null, url = null, codigo = null,
-                    nome = null, marca = null, descricao = null;
+                    nome = null, marca = null, descricao = null, msg = null, alert = null;
             try {
 
                 if (request.getParameter("q") != null) {
-                    pesquisa = request.getParameter("q");
+                    pesquisa = request.getParameter("q").trim();
                 }
                 if (request.getParameter("codigo") != null) {
                     codigo = request.getParameter("codigo");
@@ -52,11 +52,14 @@ public class PesquisaController extends HttpServlet {
                     index = request.getParameter("item");
                 }
                 HttpSession session = request.getSession();
+                Usuario u = (Usuario) session.getAttribute("usuario");
                 Carrinho carrinho = (Carrinho) session.getAttribute("carrinho");
                 String acao = request.getParameter("acao");
                 if (acao.equals("buscar")) {
-                    List<Produto> list = pDao.pesquisarPorNome(pesquisa);
-                    session.setAttribute("listProdutos", list);
+                    if (!pesquisa.equals("")) {
+                        List<Produto> list = pDao.pesquisarPorNome(pesquisa);
+                        session.setAttribute("listProdutos", list);
+                    }
                     url = "index.jsp";
                 } else if (acao.equals("add")) {
                     Produto p = pDao.buscarPorCodigo(codigo);
@@ -67,10 +70,14 @@ public class PesquisaController extends HttpServlet {
                     } else {
                         carrinho.addItem(item);
                     }
+                    msg = "Produto adicionado";
+                    alert = "alert-success";
                     url = "index.jsp";
                 } else if (acao.equals("removerCarrinho")) {
                     session.removeAttribute("carrinho");
                     session.removeAttribute("listProdutos");
+//                    msg = "Lista de produto vazia.";
+//                    alert = "alert-info";
                     url = "index.jsp";
                 } else if (acao.equals("remover")) {
                     List<ItemProduto> items = carrinho.getItems();
@@ -82,16 +89,11 @@ public class PesquisaController extends HttpServlet {
                         url = "index.jsp";
                     }
                 } else if (acao.equals("pesquisarItens")) {
-                    Usuario u = (Usuario) session.getAttribute("usuario");
                     if (u != null) {
-                        ListaCompra compra = sDao.criarListaCompra(u);
+                        
                         List<ItemProduto> items = carrinho.getItems();
-//                        for (ItemProduto i: items){
-//                           sDao.addItens(i, compra);
-//                        }
 
                         List<Supermercado> listSuper = sDao.listarAll();
-//                        List<ItemProduto> listPesquisa = new ArrayList<>();
                         List<ListaCompra> listCompra = new ArrayList<>();
                         for (Supermercado s : listSuper) {
                             ListaCompra cart = new ListaCompra();
@@ -106,29 +108,37 @@ public class PesquisaController extends HttpServlet {
                                 }
 
                             }
-                            cart.setSupermercado(s.getNome());
+                            cart.setSupermercado(s);
                             cart.setListProdutos(listPesquisa);
                             listCompra.add(cart);
                         }
-                        for (ListaCompra ite : listCompra) {
-                            System.out.println(">>>>>" + ite.getSupermercado() + ">>>>>");
-                            for (ItemProduto p : ite.getListProdutos()) {
-                                System.out.println("\t>> " + p.getProduto().getNome() 
-                                        + " - " + p.getProduto().getMarca()+ " - " + p.getEstoque().getPreco()
-                                        + " - Qtde = " + p.getQuantidade());
-                            }
-                        }
-                        request.setAttribute("listCompra", listCompra);
+
+                        session.setAttribute("listCompra", listCompra);
                         url = "pesquisa_produtos.jsp";
+                    
                     } else {
                         url = "login.jsp";
                     }
+                } else if (acao.equals("salvarLista")) {
+                    List<ListaCompra> listCompra = (List<ListaCompra>) session.getAttribute("listCompra");
+                    ListaCompra temp = (ListaCompra) listCompra.get(Integer.valueOf(index)); // Está vindo da view (Tela)
+                    ListaCompra compra = sDao.criarListaCompra(u, temp.getSupermercado()); // Retorna a compra criada no banco
+
+                    for (ItemProduto i : temp.getListProdutos()) {
+                        sDao.addItens(i, compra);
+                    }
+
+                    url = "pesquisa_produtos.jsp";
 
                 } else {
                     session.removeAttribute("listProdutos");
                 }
+                request.setAttribute("msg", msg);
+                request.setAttribute("alert", alert);
                 request.getRequestDispatcher(url).forward(request, response);
             } catch (Exception e) {
+                request.setAttribute("alert", "alert-danger");
+                request.setAttribute("msg", "Um erro acontenceu - " + e.getLocalizedMessage());
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             }
         }

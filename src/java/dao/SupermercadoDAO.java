@@ -194,12 +194,13 @@ public class SupermercadoDAO {
         return list;
     }
 
-    public ListaCompra criarListaCompra(Usuario user) {
-        sql = "INSERT INTO listacompras(usuariocod, datahora) VALUES (?, now())";
+    public ListaCompra criarListaCompra(Usuario user, Supermercado s) {
+        sql = "INSERT INTO listacompras(usuariocod, datahora, supermercado) VALUES (?, now(), ?) ";
         ListaCompra compra = new ListaCompra();
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, user.getCodigo());
+            ps.setInt(2, s.getCodigo());
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -212,13 +213,14 @@ public class SupermercadoDAO {
     }
 
     public boolean addItens(ItemProduto item, ListaCompra compra) {
-        sql = "INSERT INTO itemproduto(compracod, produto, quantidade) VALUES (?, ?, ?) ";
+        sql = "INSERT INTO itemproduto(compracod, produto, preco, quantidade) VALUES (?, ?, ?, ?) ";
         boolean valor = false;
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, compra.getCodigo());
             ps.setInt(2, item.getProduto().getCodigo());
-            ps.setInt(3, item.getQuantidade());
+            ps.setDouble(3, item.getEstoque().getPreco());
+            ps.setInt(4, item.getQuantidade());
             valor = ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(SupermercadoDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -256,6 +258,14 @@ public class SupermercadoDAO {
 //        for (Supermercado s : l) {
 //            System.out.println(">> " + s.toString());
 //        }
+    //                        for (ListaCompra ite : listCompra) {
+//                            System.out.println(">>>>>" + ite.getSupermercado() + ">>>>>");
+//                            for (ItemProduto p : ite.getListProdutos()) {
+//                                System.out.println("\t>> " + p.getProduto().getNome()
+//                                        + " - " + p.getProduto().getMarca() + " - " + p.getEstoque().getPreco()
+//                                        + " - Qtde = " + p.getQuantidade());
+//                            }
+//                        }
 //
 //    }
 }
