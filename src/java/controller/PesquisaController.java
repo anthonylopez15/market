@@ -1,12 +1,20 @@
 package controller;
 
+import connection.ConnectionFactory;
 import dao.Carrinho;
+import dao.GeradorDeRelatorios;
 import dao.ProdutoDAO;
 import dao.SupermercadoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -70,14 +78,11 @@ public class PesquisaController extends HttpServlet {
                     } else {
                         carrinho.addItem(item);
                     }
-                    msg = "Produto adicionado";
                     alert = "alert-success";
                     url = "index.jsp";
                 } else if (acao.equals("removerCarrinho")) {
                     session.removeAttribute("carrinho");
                     session.removeAttribute("listProdutos");
-//                    msg = "Lista de produto vazia.";
-//                    alert = "alert-info";
                     url = "index.jsp";
                 } else if (acao.equals("remover")) {
                     List<ItemProduto> items = carrinho.getItems();
@@ -90,7 +95,7 @@ public class PesquisaController extends HttpServlet {
                     }
                 } else if (acao.equals("pesquisarItens")) {
                     if (u != null) {
-                        
+
                         List<ItemProduto> items = carrinho.getItems();
 
                         List<Supermercado> listSuper = sDao.listarAll();
@@ -115,20 +120,10 @@ public class PesquisaController extends HttpServlet {
 
                         session.setAttribute("listCompra", listCompra);
                         url = "pesquisa_produtos.jsp";
-                    
+
                     } else {
                         url = "login.jsp";
                     }
-                } else if (acao.equals("salvarLista")) {
-                    List<ListaCompra> listCompra = (List<ListaCompra>) session.getAttribute("listCompra");
-                    ListaCompra temp = (ListaCompra) listCompra.get(Integer.valueOf(index)); // Está vindo da view (Tela)
-                    ListaCompra compra = sDao.criarListaCompra(u, temp.getSupermercado()); // Retorna a compra criada no banco
-
-                    for (ItemProduto i : temp.getListProdutos()) {
-                        sDao.addItens(i, compra);
-                    }
-
-                    url = "pesquisa_produtos.jsp";
 
                 } else {
                     session.removeAttribute("listProdutos");

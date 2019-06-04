@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lista_compra" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2fa16d76-d9c7-4dde-bd92-22d516b035e1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="lista_codigo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[$F{listacompras_codigo}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="usuario_codigo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[$F{listacompras_usuariocod}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     listacompras.`codigo` AS listacompras_codigo,
+     listacompras.`usuariocod` AS listacompras_usuariocod,
+     listacompras.`datahora` AS listacompras_datahora,
+     listacompras.`supermercado` AS listacompras_supermercado,
+     itemproduto.`compracod` AS itemproduto_compracod,
+     itemproduto.`produto` AS itemproduto_produto,
+     itemproduto.`preco` AS itemproduto_preco,
+     itemproduto.`quantidade` AS itemproduto_quantidade,
+     supermercado.`codigo` AS supermercado_codigo,
+     supermercado.`nome` AS supermercado_nome,
+     supermercado.`status` AS supermercado_status,
+     supermercado.`enderecocod` AS supermercado_enderecocod,
+     bairro.`codigo` AS bairro_codigo,
+     bairro.`nome` AS bairro_nome,
+     bairro.`status` AS bairro_status,
+     produto.`codigo` AS produto_codigo,
+     produto.`nome` AS produto_nome,
+     produto.`marcacod` AS produto_marcacod,
+     produto.`status` AS produto_status,
+     produto.`descricao` AS produto_descricao,
+     marca.`codigo` AS marca_codigo,
+     marca.`nome` AS marca_nome,
+     marca.`status` AS marca_status,
+     endereco.`codigo` AS endereco_codigo,
+     endereco.`rua` AS endereco_rua,
+     endereco.`numero` AS endereco_numero,
+     endereco.`cep` AS endereco_cep,
+     endereco.`bairrocod` AS endereco_bairrocod,
+     usuario.`codigo` AS usuario_codigo,
+     usuario.`nome` AS usuario_nome,
+     usuario.`login` AS usuario_login,
+     usuario.`senha` AS usuario_senha,
+     usuario.`tipocod` AS usuario_tipocod,
+     usuario.`cpf` AS usuario_cpf,
+     usuario.`email` AS usuario_email,
+     usuario.`rg` AS usuario_rg,
+     usuario.`status` AS usuario_status,
+     usuario.`telefone` AS usuario_telefone,
+     usuario.`enderecocod` AS usuario_enderecocod,
+     (itemproduto.`preco` * itemproduto.`quantidade`) AS subtotal
+FROM
+     listacompras INNER JOIN itemproduto ON listacompras.codigo = itemproduto.compracod
+     INNER JOIN supermercado ON listacompras.supermercado = supermercado.codigo
+     INNER JOIN usuario ON listacompras.usuariocod = usuario.codigo
+     INNER JOIN endereco ON endereco.codigo = supermercado.enderecocod
+     INNER JOIN bairro bairro ON endereco.bairrocod = bairro.codigo
+     INNER JOIN produto ON itemproduto.produto = produto.codigo
+     INNER JOIN marca ON produto.marcacod = marca.codigo
+     where listacompras.codigo = $P{lista_codigo} and listacompras.usuariocod = $P{usuario_codigo};]]>
+	</queryString>
+	<field name="listacompras_codigo" class="java.lang.Long"/>
+	<field name="listacompras_usuariocod" class="java.lang.Long"/>
+	<field name="listacompras_datahora" class="java.sql.Timestamp"/>
+	<field name="listacompras_supermercado" class="java.lang.Long"/>
+	<field name="itemproduto_compracod" class="java.lang.Long"/>
+	<field name="itemproduto_produto" class="java.lang.Long"/>
+	<field name="itemproduto_preco" class="java.math.BigDecimal"/>
+	<field name="itemproduto_quantidade" class="java.lang.Long"/>
+	<field name="supermercado_codigo" class="java.lang.Long"/>
+	<field name="supermercado_nome" class="java.lang.String"/>
+	<field name="supermercado_status" class="java.lang.String"/>
+	<field name="supermercado_enderecocod" class="java.lang.Long"/>
+	<field name="bairro_codigo" class="java.lang.Long"/>
+	<field name="bairro_nome" class="java.lang.String"/>
+	<field name="bairro_status" class="java.lang.String"/>
+	<field name="produto_codigo" class="java.lang.Long"/>
+	<field name="produto_nome" class="java.lang.String"/>
+	<field name="produto_marcacod" class="java.lang.Long"/>
+	<field name="produto_status" class="java.lang.String"/>
+	<field name="produto_descricao" class="java.lang.String"/>
+	<field name="marca_codigo" class="java.lang.Long"/>
+	<field name="marca_nome" class="java.lang.String"/>
+	<field name="marca_status" class="java.lang.String"/>
+	<field name="endereco_codigo" class="java.lang.Long"/>
+	<field name="endereco_rua" class="java.lang.String"/>
+	<field name="endereco_numero" class="java.lang.String"/>
+	<field name="endereco_cep" class="java.lang.String"/>
+	<field name="endereco_bairrocod" class="java.lang.Long"/>
+	<field name="usuario_codigo" class="java.lang.Long"/>
+	<field name="usuario_nome" class="java.lang.String"/>
+	<field name="usuario_login" class="java.lang.String"/>
+	<field name="usuario_senha" class="java.lang.String"/>
+	<field name="usuario_tipocod" class="java.lang.Long"/>
+	<field name="usuario_cpf" class="java.lang.String"/>
+	<field name="usuario_email" class="java.lang.String"/>
+	<field name="usuario_rg" class="java.lang.String"/>
+	<field name="usuario_status" class="java.lang.String"/>
+	<field name="usuario_telefone" class="java.lang.String"/>
+	<field name="usuario_enderecocod" class="java.lang.Long"/>
+	<field name="subtotal" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="140" y="-1" width="277" height="73" uuid="d5d560c7-ac18-492c-984b-043b50d8848b"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font size="26" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Sistema de Pesquisa de mercado]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="140" y="82" width="258" height="20" uuid="abc7eb45-58c4-4e7e-bc15-fa2e931cdc21"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{supermercado_nome}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="140" y="102" width="196" height="20" uuid="95c97d38-9971-451a-9090-d00a37c8bd24"/>
+				<textFieldExpression><![CDATA[$F{endereco_rua}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="381" y="102" width="70" height="19" uuid="83cba622-c82d-42f1-828a-710cbe437da2"/>
+				<textFieldExpression><![CDATA[$F{endereco_numero}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="14" y="-1" width="116" height="115" uuid="fa965441-a48b-4fa7-aee1-977d69d89bef"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="465" y="102" width="73" height="20" uuid="c200d231-b65a-4ed1-8792-6e26e0340d94"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="462" y="82" width="76" height="20" uuid="83826b1f-7d10-453e-8a90-0565dbabb195"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="96fad9b0-aaf5-4ec5-99e0-3fdb5131bde0"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="45" height="15" forecolor="#736343" uuid="5c37c181-c45e-411e-b570-b7b0b9850f84"/>
+				<text><![CDATA[Lista ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="60" y="0" width="138" height="15" forecolor="#736343" uuid="58eded9b-f75c-4d51-8fd9-580b5709f37f"/>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="333" y="0" width="84" height="15" forecolor="#736343" uuid="164c0840-c8a7-43ac-903a-0630bad1d47c"/>
+				<text><![CDATA[Preço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="417" y="0" width="33" height="15" forecolor="#736343" uuid="49620566-bbe8-4e7d-8c53-0774aedcafc3"/>
+				<text><![CDATA[Qtde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="238" y="0" width="71" height="15" forecolor="#736343" uuid="5f3615fb-f392-41c5-aa60-842200c64c40"/>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="467" y="1" width="85" height="15" forecolor="#736343" uuid="3b4230cd-dd18-494d-a5d6-f1409b557899"/>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="4709efe5-fbc8-4af2-bac7-e280db502bd1"/>
+				<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+					<reportElement x="469" y="0" width="85" height="15" uuid="9eb0a2b6-bc8c-4801-9fc1-8d9b54eb75a1"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="61" y="0" width="137" height="15" uuid="7ad52931-c57f-4d68-ae0c-11ee8cdd88bd"/>
+					<textFieldExpression><![CDATA[$F{produto_nome}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="0" y="0" width="44" height="15" uuid="ad5c93ab-9462-4ec5-9ba6-80c9faa64740"/>
+					<textFieldExpression><![CDATA[$F{listacompras_codigo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+					<reportElement style="Detail" x="332" y="0" width="85" height="15" uuid="7fca5af2-f593-40f2-bf5e-8e1a83337244"/>
+					<textFieldExpression><![CDATA[$F{itemproduto_preco}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="238" y="0" width="71" height="15" uuid="1f5ee357-df95-4ccb-863e-a030bc311d8e"/>
+					<textFieldExpression><![CDATA[$F{marca_nome}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="417" y="0" width="34" height="15" uuid="a29e930a-efea-4030-923d-bef0ae03ff9e"/>
+					<textFieldExpression><![CDATA[$F{itemproduto_quantidade}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="b1e8a82c-0e59-461c-b867-cee06a28c1ee"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="97086404-e4b3-4ce7-9657-9f7986a7a33a"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="73d9e281-9820-4190-85dc-cf223729ad57"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="cc93311c-d190-41d7-8eb3-96a932926e89"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="240619cd-e680-4f90-9897-9ba6b4b5cb18"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

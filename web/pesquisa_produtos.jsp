@@ -53,7 +53,7 @@
 
                             <a class="btn btn-instagram pull-right 
                                <% if(tam == 0){ out.print("hidden");} %>"  
-                               target="_blank" href="pesquisa?acao=salvarLista&item=<%=listCompra.indexOf(ite)%>">
+                               target="_blank" href="relatorios?acao=salvarLista&item=<%=listCompra.indexOf(ite)%>">
                                 <i class="fa fa-save"></i> Imprimir
                             </a>
 
