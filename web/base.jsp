@@ -46,8 +46,9 @@
                         <%=u.getLogin()%> <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="download">
-                        <li><a href="#">Alterar dados</a></li>
-                        <li><a href="">Desativar conta</a></li>
+                        <li><a href="editar_conta.jsp">Alterar dados</a></li>
+                        <li><a href="cliente?acao=desativar">Desativar conta</a></li>
+                        <li><a href="#">Lista de compras</a></li>
                         <li><a href="session?acao=sair">Sair</a></li>
                     </ul>
                 </li>

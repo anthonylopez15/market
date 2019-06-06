@@ -43,7 +43,9 @@
                             <i class="fa fa-user fa-fw"></i> <%=usuario%> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu dropdown-user">
-
+                            <li>
+                                <a href="index.jsp" ><i class="fa fa-book fa-fw"></i> Pagina cliente</a>
+                            </li>
                             <li>
                                 <a href="session?acao=sair" ><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                             </li>

@@ -11,13 +11,8 @@ public class Usuario {
     private String cpf;
     private String email;
     private String telefone;
-//    private String rua;
-//    private String bairroNome;
-//    private String bairrocod;
-//    private String cep;
     private String rg;
     private String status;
-//    private String numero;
     
     private String endereco;
     private Endereco e;
@@ -29,15 +24,7 @@ public class Usuario {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
-    
-
-    
-
    
-    
-    
-
     public String getRg() {
         return rg;
     }
@@ -137,15 +124,14 @@ public class Usuario {
     
     
     
-    @Override
-    public String toString() {
-        return nome;
-    }
-
 //    @Override
 //    public String toString() {
-//        return "Usuario{" + "codigo=" + codigo + ", nome=" + nome + ", login=" + login + ", senha=" + senha + ", tipocod=" + tipocod + ", tipoDesc=" + tipoDesc + ", cpf=" + cpf + ", email=" + email + ", telefone=" + telefone + ", rua=" + rua + ", bairroNome=" + bairroNome + ", bairrocod=" + bairrocod + ", cep=" + cep + ", rg=" + rg + ", status=" + status + ", numero=" + numero + ", endereco=" + endereco + ", e=" + e + '}';
+//        return nome;
 //    }
-    
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "codigo=" + codigo + ", nome=" + nome + ", login=" + login + ", senha=" + senha + ", tipocod=" + tipocod + ", tipoDesc=" + tipoDesc + ", cpf=" + cpf + ", email=" + email + ", telefone=" + telefone + ", rg=" + rg + ", status=" + status + ", endereco=" + endereco + ", e=" + e + '}';
+    }
 
 }

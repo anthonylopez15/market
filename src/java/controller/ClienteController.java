@@ -1,4 +1,3 @@
-
 package controller;
 
 import dao.EnderecoDAO;
@@ -9,28 +8,28 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.Endereco;
 import models.Usuario;
 
-
 public class ClienteController extends HttpServlet {
 
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+
+            HttpSession session = request.getSession();
             Usuario u = new Usuario();
             UsuarioDAO udao = new UsuarioDAO();
             Endereco e = new Endereco();
             EnderecoDAO eDao = new EnderecoDAO();
-            
+
             String codigo = null, nome = null, login = null, senha = null, telefone = null;
-            String email = null, rua = null,  numero = null, cep = null, bairro = null;
-            
+            String email = null, rua = null, numero = null, cep = null, bairro = null, end_cod = null;
+
             String msg = null, alerta = "alert-success", url = "";
-  //        Nome, telefone, e-mail, endereço(rua, número e cep) e Bairro
+            //        Nome, telefone, e-mail, endereço(rua, número e cep) e Bairro
             try {
                 if (request.getParameter("codigo") != null) {
                     codigo = request.getParameter("codigo");
@@ -62,7 +61,10 @@ public class ClienteController extends HttpServlet {
                 if (request.getParameter("txtbairro") != null) {
                     bairro = request.getParameter("txtbairro").trim();
                 }
-                
+                if (request.getParameter("endcod") != null) {
+                    end_cod = request.getParameter("endcod").trim();
+                }
+
                 String acao = request.getParameter("acao");
                 if (acao.equals("cadastrar")) {
                     u.setNome(nome);
@@ -81,43 +83,53 @@ public class ClienteController extends HttpServlet {
                     url = "login.jsp";
                 } else if (acao.equals("alterar")) {
                     u.setNome(nome);
-                    u.setLogin(login);
                     u.setSenha(senha);
                     u.setEmail(email);
-//                    u.setsairrocod(bairro);
+                    u.setTelefone(telefone);
+                    e.setRua(rua);
+                    e.setNumero(numero);
+                    e.setCep(cep);
+                    e.setBairrocod(bairro);
+                    e.setCodigo(Integer.valueOf(end_cod));
+                    eDao.alterar(e);
                     u.setCodigo(Integer.parseInt(codigo));
-                    udao.alterar(u);
-                    msg = "Dados alterados.";   
-                    url = "principal.jsp";
+                    udao.alterarCliente(u);
+                    msg = "Dados alterados com sucesso.";
+                } else if (acao.equals("desativar")) {
+                    int cod = (int) session.getAttribute("codigo");
+                    u.setStatus("Desativado");
+                    u.setCodigo(cod);
+                    udao.alterarStatus(u);
+                    session.removeAttribute("usuario");
+                    session.removeAttribute("codigo");
+                    url = "login.jsp";
+                    msg = "Você desativou sua conta.";
                 } else {
 
                 }
                 request.setAttribute("msg", msg);
                 request.setAttribute("alert", alerta);
                 request.getRequestDispatcher(url).forward(request, response);
-            } catch (NumberFormatException | ServletException | IOException ex) {
+            } catch (Exception ex) {
                 request.setAttribute("alert", "alert-danger");
                 request.setAttribute("msg", "Um erro acontenceu " + ex.getMessage());
-                request.getRequestDispatcher("principal.jsp").forward(request, response);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             }
         }
     }
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     public String getServletInfo() {
         return "Short description";

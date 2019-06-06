@@ -38,11 +38,9 @@ public class SessionController extends HttpServlet {
                     u = udao.logar(u);
                     if (u != null) {
                         if (u.getNome() != null && u.getTipocod() == 1) {
-                            System.out.println("Usuario " + u);
                             url = "admin.jsp";
                             msg = u.getNome() + ", seja bem-vindo ao sistema.";
                         } else if (u.getNome() != null && u.getTipocod() == 2) {
-                            System.out.println("Usuario " + u);
                             url = "index.jsp";
                             msg = "Login realizado com sucesso.";
 
@@ -51,6 +49,7 @@ public class SessionController extends HttpServlet {
                             url = "login.jsp";
                             msg = "Login ou senha errada.";
                         }
+                        session.setAttribute("codigo", u.getCodigo());
                     } 
                 }else if (acao.equals("sair")) {
                     session.removeAttribute("usuario");

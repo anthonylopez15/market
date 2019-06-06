@@ -1,3 +1,4 @@
+
 package dao;
 
 import connection.ConnectionFactory;
@@ -116,6 +117,23 @@ public class UsuarioDAO {
             ConnectionFactory.close(con, ps);
         }
     }
+    public void alterarCliente(Usuario u) {
+        sql = "UPDATE usuario SET nome = ?, senha = ?, email = ?, telefone = ? WHERE codigo = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, u.getNome());
+            ps.setString(2, u.getSenha());
+            ps.setString(3, u.getEmail());
+            ps.setString(4, u.getTelefone());
+            ps.setInt(5, u.getCodigo());
+            ps.executeUpdate();
+            System.out.println("cliente alterado");
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.close(con, ps);
+        }
+    }
 
     public Usuario logar(Usuario u) {
         sql = "SELECT * FROM usuario WHERE login = ? and senha = ? and status = 'Ativado'";
@@ -156,12 +174,43 @@ public class UsuarioDAO {
         }
         return u;
     }
+    public Usuario getAll(int cod) {
+        sql = "SELECT * FROM usuario u INNER JOIN endereco e ON u.enderecocod = e.codigo WHERE u.codigo = ?";
+        Usuario u = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, cod);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                u = new Usuario();
+                u.setCodigo(rs.getInt("u.codigo"));
+                u.setNome(rs.getString("u.nome"));
+                u.setLogin(rs.getString("u.login"));
+                u.setSenha(rs.getString("u.senha"));
+                u.setTipocod(rs.getInt("u.tipocod"));
+                u.setCpf(rs.getString("u.cpf"));
+                u.setEmail(rs.getString("u.email"));
+                u.setRg(rs.getString("u.rg"));
+                u.setStatus(rs.getString("u.status"));
+                u.setTelefone(rs.getString("u.telefone"));
+                Endereco e = new Endereco();
+                e.setCodigo(rs.getInt("e.codigo"));
+                e.setRua(rs.getString("e.rua"));
+                e.setNumero(rs.getString("e.numero"));
+                e.setCep(rs.getString("e.cep"));
+                e.setBairrocod(rs.getString("e.bairrocod"));
+                u.setE(e);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return u;
+    }
 
-//    public static void main(String[] args) {
-//        UsuarioDAO d = new UsuarioDAO();
-//        Usuario u = new Usuario();
-//        Endereco e = new Endereco();
-//        EnderecoDAO edao = new EnderecoDAO();
+    public static void main(String[] args) {
+        UsuarioDAO d = new UsuarioDAO();
+        Usuario u = d.getAll(17);
+        System.out.println(">> " + u);
 
 //        e.setRua("Endereco rua");
 //        e.setNumero("Endereco numero");
@@ -185,7 +234,7 @@ public class UsuarioDAO {
 //                System.out.println(us.getE().getRua());
 //            }
 //        }
-//
-//    }
+
+    }
 
 }

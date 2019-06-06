@@ -13,9 +13,11 @@
 
 
 <%
-    if (session.getAttribute("usuario") == null) {
-        //response.sendRedirect("login.jsp");
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
+    if(usuario.getTipocod() == 2){
+        response.sendRedirect("index.jsp");
     }
+    
 %>
 <div id="page-wrapper">
     <div class="container-fluid">

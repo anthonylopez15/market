@@ -1,26 +1,17 @@
 package controller;
 
-import connection.ConnectionFactory;
 import dao.Carrinho;
-import dao.GeradorDeRelatorios;
 import dao.ProdutoDAO;
 import dao.SupermercadoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Estoque;
 import models.ItemProduto;
 import models.ListaCompra;
 import models.Produto;
