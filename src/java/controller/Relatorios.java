@@ -72,11 +72,21 @@ public class Relatorios extends HttpServlet {
 
                     GeradorDeRelatorios gerador = new GeradorDeRelatorios(ConnectionFactory.conecta());
                     gerador.geraPdf(jrxml, parametros, response);
-                }else{
+                } else {
                     request.setAttribute("msg", "Não foi possível gerar o relatório");
                     request.setAttribute("alert", "alert-danger");
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
+            } else if (acao.equals("listarClientes")) {
+                ServletContext contexto = request.getServletContext();
+                jrxml = contexto.getRealPath("/ireport/relatorio_clientes.jrxml");
+                String logo = contexto.getRealPath("/ireport/shopping-cart.jpg");
+                Map<String, Object> parametros = new HashMap<>();
+
+                parametros.put("logo", logo);
+                parametros.put("tipo_cliente", 2);
+                GeradorDeRelatorios gerador = new GeradorDeRelatorios(ConnectionFactory.conecta());
+                gerador.geraPdf(jrxml, parametros, response);
             }
         } catch (Exception ex) {
             Logger.getLogger(PesquisaController.class.getName()).log(Level.SEVERE, null, ex);

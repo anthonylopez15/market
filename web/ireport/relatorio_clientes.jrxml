@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_clientes" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fe12638c-b3c0-4c57-ac57-5c4aeb9f5cd4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="tipo_cliente" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[$F{usuario_tipocod}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     usuario.`codigo` AS usuario_codigo,
+     usuario.`nome` AS usuario_nome,
+     usuario.`login` AS usuario_login,
+     usuario.`senha` AS usuario_senha,
+     usuario.`tipocod` AS usuario_tipocod,
+     usuario.`cpf` AS usuario_cpf,
+     usuario.`email` AS usuario_email,
+     usuario.`rg` AS usuario_rg,
+     usuario.`status` AS usuario_status,
+     usuario.`telefone` AS usuario_telefone,
+     usuario.`enderecocod` AS usuario_enderecocod,
+     tipo_usuario.`codigo` AS tipo_usuario_codigo,
+     tipo_usuario.`descricao` AS tipo_usuario_descricao,
+     endereco.`codigo` AS endereco_codigo,
+     endereco.`rua` AS endereco_rua,
+     endereco.`numero` AS endereco_numero,
+     endereco.`cep` AS endereco_cep,
+     endereco.`bairrocod` AS endereco_bairrocod,
+     bairro.`codigo` AS bairro_codigo,
+     bairro.`nome` AS bairro_nome,
+     bairro.`status` AS bairro_status
+FROM
+     `tipo_usuario` tipo_usuario INNER JOIN `usuario` usuario ON tipo_usuario.`codigo` = usuario.`tipocod`
+     INNER JOIN `endereco` endereco ON usuario.`enderecocod` = endereco.`codigo`
+     INNER JOIN `bairro` bairro ON endereco.`bairrocod` = bairro.`codigo`
+WHERE usuario.`tipocod` = $P{tipo_cliente}]]>
+	</queryString>
+	<field name="usuario_codigo" class="java.lang.Long"/>
+	<field name="usuario_nome" class="java.lang.String"/>
+	<field name="usuario_login" class="java.lang.String"/>
+	<field name="usuario_senha" class="java.lang.String"/>
+	<field name="usuario_tipocod" class="java.lang.Long"/>
+	<field name="usuario_cpf" class="java.lang.String"/>
+	<field name="usuario_email" class="java.lang.String"/>
+	<field name="usuario_rg" class="java.lang.String"/>
+	<field name="usuario_status" class="java.lang.String"/>
+	<field name="usuario_telefone" class="java.lang.String"/>
+	<field name="usuario_enderecocod" class="java.lang.Long"/>
+	<field name="tipo_usuario_codigo" class="java.lang.Long"/>
+	<field name="tipo_usuario_descricao" class="java.lang.String"/>
+	<field name="endereco_codigo" class="java.lang.Long"/>
+	<field name="endereco_rua" class="java.lang.String"/>
+	<field name="endereco_numero" class="java.lang.String"/>
+	<field name="endereco_cep" class="java.lang.String"/>
+	<field name="endereco_bairrocod" class="java.lang.Long"/>
+	<field name="bairro_codigo" class="java.lang.Long"/>
+	<field name="bairro_nome" class="java.lang.String"/>
+	<field name="bairro_status" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="270" y="0" width="263" height="62" uuid="0754e247-138f-4bb2-815c-b71bd0a3ea12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="36" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Lista de Clientes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="270" y="62" width="263" height="22" uuid="c8586d88-17a8-488f-8d43-cb701f27f91c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Clientes cadastrados no sistema]]></text>
+			</staticText>
+			<image>
+				<reportElement x="16" y="0" width="163" height="108" uuid="244cbf54-f949-45aa-8660-2e3396cfda2e"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="e876ac71-7d32-40eb-a29e-bbd640d4e81f"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="1" y="0" width="123" height="15" forecolor="#736343" uuid="d8459b5f-0b7a-48ef-95e3-e75a4c479dc0"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="124" y="0" width="74" height="15" forecolor="#736343" uuid="68dbbb90-217e-4f6d-a818-b0738edeb289"/>
+				<text><![CDATA[Login]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="199" y="0" width="89" height="15" forecolor="#736343" uuid="7bbfc6bc-4535-4a6c-a815-46a1a32dc0d3"/>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="288" y="0" width="119" height="15" forecolor="#736343" uuid="7f137d6d-a98b-4315-b040-33b92e1180b9"/>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="407" y="0" width="97" height="15" forecolor="#736343" uuid="dde8f99c-3ea5-4c73-bd34-943ae14e245d"/>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="504" y="0" width="116" height="15" forecolor="#736343" uuid="63351da6-9380-4551-adb0-95abda9d6762"/>
+				<text><![CDATA[Rua]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="620" y="0" width="28" height="15" forecolor="#736343" uuid="cc54feef-d0fa-4829-9d14-dba12d676374"/>
+				<text><![CDATA[Nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="648" y="0" width="72" height="15" forecolor="#736343" uuid="bc931557-de1b-4b16-af00-98a075116b7f"/>
+				<text><![CDATA[CEP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="720" y="0" width="72" height="15" forecolor="#736343" uuid="dfc982e8-8fd8-472a-a474-f92548acafde"/>
+				<text><![CDATA[Bairro]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="3a7eac15-82d5-4074-8d79-f9c7cf56b46e"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="1" y="0" width="123" height="15" uuid="8c324d09-6414-4672-84dd-64d29879c8b2"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{usuario_nome}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="124" y="0" width="75" height="15" uuid="97feb0ff-e0d4-49a9-b919-917864774c30"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{usuario_login}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="199" y="0" width="89" height="15" uuid="c3d796ec-368f-452a-bfd6-ff6a2797eb82"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{usuario_cpf}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="288" y="0" width="119" height="15" uuid="fe7634dc-8773-4fea-a17c-bbdefbbe50bf"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{usuario_email}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="407" y="0" width="97" height="15" uuid="a2b87ee2-f141-4f8c-90dd-ffa10445a7d0"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{usuario_telefone}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="504" y="0" width="116" height="15" uuid="eb70ba3f-e57b-4695-98f7-bc77999d61c3"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{endereco_rua}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="620" y="0" width="28" height="15" uuid="0cfa6174-2029-481a-a421-d980b39e758b"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{endereco_numero}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="648" y="0" width="72" height="15" uuid="60bf8e61-c96f-473c-a18e-362adbc94047"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{endereco_cep}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="720" y="0" width="72" height="15" uuid="7d7b2923-1674-4c58-972b-101c5623ec79"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{bairro_nome}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="09e0ef38-89cf-4ede-8d5c-4f5cf16420f2"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="8d5ce13e-37aa-4752-9ff6-cdcc593d5159"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343" uuid="e36ba5ac-dc4b-4c63-8f69-f90fde4a4d17"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343" uuid="13622439-5bf2-4f88-a360-9ff882c0844b"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="c7a47863-055e-4969-acb6-a512810fe8e3"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

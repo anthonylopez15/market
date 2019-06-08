@@ -124,7 +124,7 @@ FROM
 					<font size="26" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Sistema de Pesquisa de mercado]]></text>
+				<text><![CDATA[Sistema de Pesquisa de mercadoria]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement style="Detail" x="140" y="82" width="258" height="20" uuid="abc7eb45-58c4-4e7e-bc15-fa2e931cdc21"/>

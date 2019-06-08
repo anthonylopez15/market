@@ -24,7 +24,7 @@ public class ProdutoDAO {
     }
 
     public Produto salvar(Produto p) {
-        sql = "INSERT INTO produto(nome, marcacod) values (?, ?, ?)";
+        sql = "INSERT INTO produto(nome, descricao, marcacod) values (?, ?, ?)";
 
         try {
             ps = con.prepareStatement(sql);

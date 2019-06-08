@@ -78,6 +78,12 @@
                                 <a href="#"><i class="fa fa-fw fa-pencil"></i> Gerar Relatórios<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level fa-ul">
                                     <li>
+                                        <a href="relatorios?acao=listarClientes" target="_blank"><i class="fa fa-fw fa-edit"></i> Listar Clientes </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-fw fa-edit"></i> Relatório 1 </a>
+                                    </li>
+                                    <li>
                                         <a href="#"><i class="fa fa-fw fa-edit"></i> Relatório 1 </a>
                                     </li>
 
