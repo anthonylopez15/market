@@ -58,13 +58,13 @@
                                 <input type="text" class="form-control" name="txtrua"required placeholder="Rua "/>
                             </p>
                             <p>
-                                <input type="text" class="form-control" name="numero"required placeholder="Número "/>
+                                <input type="text" class="form-control" name="txtnumero"required placeholder="Número "/>
                             </p>
                             <p>
-                                <input type="text" class="form-control" name="cep"required placeholder="CEP "
+                                <input type="text" class="form-control" name="txtcep"required placeholder="CEP "
                                        data-bv-notempty-message="Campo obrigatório." data-mask="99999-999" pattern="[0-9]{5}-[0-9]{3}"/>
                             </p>
-                            <select class="form-control" required id="marca" name="bairro">
+                            <select class="form-control" required id="marca" name="txtbairro">
                                 <option value="" selected> Selecione a Bairro </option>
                                 <%
                                     BairroDAO bDao = new BairroDAO();
