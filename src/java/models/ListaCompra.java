@@ -12,6 +12,8 @@ public class ListaCompra {
     private String supermercado_str;
     private List<ItemProduto> listProdutos;
     private Supermercado supermercado;
+    public double total;
+    public String qtd_prod;
 
     public int getCodigo() {
         return codigo;

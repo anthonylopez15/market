@@ -2,13 +2,11 @@ package dao;
 
 import connection.ConnectionFactory;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -252,20 +250,67 @@ public class SupermercadoDAO {
         return i;
     }
 
-//    public static void main(String[] args) {
-//        SupermercadoDAO dao = new SupermercadoDAO();
-//        List<Supermercado> l = dao.listarAll();
-//        for (Supermercado s : l) {
-//            System.out.println(">> " + s.toString());
-//        }
-    //                        for (ListaCompra ite : listCompra) {
-//                            System.out.println(">>>>>" + ite.getSupermercado() + ">>>>>");
-//                            for (ItemProduto p : ite.getListProdutos()) {
-//                                System.out.println("\t>> " + p.getProduto().getNome()
-//                                        + " - " + p.getProduto().getMarca() + " - " + p.getEstoque().getPreco()
-//                                        + " - Qtde = " + p.getQuantidade());
-//                            }
-//                        }
-//
-//    }
+    public List<ListaCompra> minhaLista(int codigoUser) {
+        sql = "select l.codigo, l.datahora, s.nome, sum(i.preco * i.quantidade) as Total, count(i.produto) as Qtde_Produtos "
+                + "from listacompras l "
+                + "    inner JOIN usuario u on l.usuariocod = u.codigo "
+                + "    inner join supermercado s on l.supermercado = s.codigo "
+                + "    inner join itemproduto i on l.codigo = i.compracod "
+                + "where  u.codigo = ? "
+                + "group by l.codigo ";
+        List<ListaCompra> list = new ArrayList<>();
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, codigoUser);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ListaCompra compra = new ListaCompra();
+                compra.setCodigo(rs.getInt("l.codigo"));
+                compra.setDatahora(rs.getDate("l.datahora"));
+                compra.setSupermercado_str(rs.getString("s.nome"));
+                compra.total = rs.getDouble("Total");
+                compra.qtd_prod = rs.getString("Qtde_Produtos");
+                list.add(compra);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SupermercadoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<ItemProduto> itensProdutosCompra(int compraCod) {
+        sql = "select i.compracod, p.nome, i.quantidade, i.preco, (i.preco * i.quantidade) as Subtotal "
+                + "from itemproduto i "
+                + "         inner join produto p on i.produto = p.codigo "
+                + "where i.compracod = ? ";
+        List<ItemProduto> list = new ArrayList<>();
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, compraCod);
+            rs = ps.executeQuery();
+            while (rs.next()) {                
+                ItemProduto item = new ItemProduto();
+                item.listaCompra = rs.getString("i.compracod");
+                item.produto_nome = rs.getString("p.nome");
+                item.setQuantidade(rs.getInt("i.quantidade"));
+                item.setPreco(rs.getDouble("i.preco"));
+                item.subtotal = rs.getDouble("Subtotal");
+                list.add(item);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SupermercadoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        SupermercadoDAO dao = new SupermercadoDAO();
+        List<ItemProduto> l = dao.itensProdutosCompra(440);
+
+        for (ItemProduto c : l) {
+            System.out.println(">>>>>>>>>>>>>>>>>");
+            System.out.println("Produto : " + c.produto_nome);
+        }
+
+    }
 }

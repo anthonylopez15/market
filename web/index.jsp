@@ -45,7 +45,7 @@ if(session.getAttribute("listProdutos") != null){
                             <h2 class="page-header">
                                 <i class="fa fa-shopping-cart"></i> Pesquisar produtos
                             </h2>
-                            <form method="get" action="pesquisa">
+                            <form method="post" action="pesquisa">
                                 <div class="form-group">
                                     <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Pesquisar</label>
                                     <input type="text" class="form-control" required name="q" id="inputSuccess" placeholder="Digite o nome do produto">

@@ -104,9 +104,11 @@ public class PesquisaController extends HttpServlet {
                                 }
 
                             }
-                            cart.setSupermercado(s);
-                            cart.setListProdutos(listPesquisa);
-                            listCompra.add(cart);
+                            if (!listPesquisa.isEmpty()) {
+                                cart.setSupermercado(s);
+                                cart.setListProdutos(listPesquisa);
+                                listCompra.add(cart);
+                            }
                         }
 
                         session.setAttribute("listCompra", listCompra);

@@ -1,6 +1,7 @@
 
 package models;
 
+import java.text.NumberFormat;
 import java.util.Objects;
 
 public class ItemProduto {
@@ -10,6 +11,9 @@ public class ItemProduto {
     private int quantidade;
     private double preco;
     private Estoque estoque;
+    public String listaCompra;
+    public double subtotal;
+    public String produto_nome;
     
     public ItemProduto() {
     }
@@ -85,6 +89,12 @@ public class ItemProduto {
         return "ItemProduto{" + "produto=" + produto.getNome() + '}';
     }
     
-    
+    public String getitens(){
+        NumberFormat formatadorMoeda = NumberFormat.getCurrencyInstance();
+        return "Produto: " + produto_nome + " - \t" 
+                + "Quantidade: " + quantidade + " - \t" 
+                + "Preço Unitário: " + formatadorMoeda.format(preco) + " - \t" 
+                + " Subtotal: " + formatadorMoeda.format(subtotal);
+    }
     
 }

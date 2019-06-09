@@ -60,18 +60,18 @@
                             <div class="user-block">
                                 <img alt="User Image" class="img-circle" src="design/img/reactions/loved.png">
                                 <span class="username"><%=ite.getSupermercado()%></span>
-                                <span class="description"><%=tam%> produto(s) encontrado(s) de <%=itens.size()%> da sua lista.</span>
+                                <span class="description"><%=tam%> produto(s) encontrado(s) de <%=itens.size()%> do seu carrinho.</span>
                             </div>
                         </div>
 
                         <div class="box-body">
-                            <table class="table col-md-12 table-bordered">
+                            <table class="table table-hover col-md-12">
                                 <thead>
                                     <tr>
                                         <th>Produto</th>
                                         <th>Marca</th>
-                                        <th>Preço</th>
                                         <th>Quantidade</th>
+                                        <th>Preço unitário</th>
                                         <th>Subtotal</th>
                                     </tr>
                                 </thead>
@@ -88,14 +88,14 @@
                                     <tr>
                                         <td><%=p.getProduto().getNome()%></td>
                                         <td><%=p.getProduto().getMarca()%></td>
-                                        <td><%=preco%></td>
                                         <td><%=p.getQuantidade()%></td>
+                                        <td><%=preco%></td>
                                         <td><%=subtotal_str%></td>
                                     </tr>
 
                                 </tbody>
                                 <% total = total +  subtotal; %>
-                                <%}%>
+                                <%}%>                                                    
                             </table>
                             <span class="review-score pull-right"><i class="fa fa-money"></i> Total: <%=formatadorMoeda.format(total)%></span>
                         </div>

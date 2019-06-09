@@ -5,10 +5,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:import url="base.jsp"/>
 
-<%  
-UsuarioDAO udao = new UsuarioDAO();
-int codigo = (int) session.getAttribute("codigo");
-Usuario u = udao.getAll(codigo);
+<%
+    UsuarioDAO udao = new UsuarioDAO();
+    int codigo = (int) session.getAttribute("codigo");
+    Usuario u = udao.getAll(codigo);
 %>
 
 <div class="content-wrapper">
@@ -97,9 +97,36 @@ Usuario u = udao.getAll(codigo);
                             <div class="col-sm-6">
                                 <button type="submit" class="btn btn-primary" id="sombrabtn" 
                                         value="alterar" name="acao">Alterar</button>
+                                <a href="#"  class="btn btn-danger" 
+                                   data-toggle="modal" data-cod="1" data-target="#1"> Desativar conta</a>
                             </div>
                         </div>
+                        <div class="modal fade" id="1"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h3 class="modal-title" id="myModalLabel">Confirmar</h3>
+                                    </div>
+                                    
+                                    <div class="modal-body">
+                                        <div class="row form-group">
+                                            <div class="col-lg-12">
+                                                <label for="cNome" class="form-label">Deseja realmente desativar sua conta?</label>
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn" id="sombrabtn" data-dismiss="modal">Fechar</button>
+                                        <a type="button" href="cliente?acao=desativar" class="btn btn-danger" >Sim</a>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
