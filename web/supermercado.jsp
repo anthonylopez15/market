@@ -200,7 +200,8 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn" id="sombrabtn" data-dismiss="modal">Fechar</button>
+                                                <a type="button" target="_blank" href="supermercado?acao=estoque&txtcod=<%=s.getCodigo()%>" 
+                                                   class="btn btn-default" id="sombrabtn" >Listar produtos</a>
                                                 <a type="submit" class="btn btn-success" id="sombrabtn"
                                                    href="supermercado?acao=addProdutos&txtcod=<%=s.getCodigo()%>"value="addProdutos" name="acao">Adicionar Produtos</a>
                                                 <button type="submit" class="btn btn-primary" id="sombrabtn" 

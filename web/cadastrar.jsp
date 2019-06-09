@@ -103,14 +103,14 @@
 <!-- ./wrapper -->
 
 
-<script src="static/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="design/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="resources/js/bootstrapValidator.js" type="text/javascript" ></script>
 <script type="text/javascript" src="resources/js/jquery.mask.js"></script>
-<script src="static/bootstrap/js/bootstrap.min.js"></script>
-<script src="static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="static/plugins/fastclick/fastclick.js"></script>
-<script src="static/assets/js/app.min.js"></script>
-<script src="static/assets/js/demo.js"></script>
+<script src="design/bootstrap/js/bootstrap.min.js"></script>
+<script src="design/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="design/plugins/fastclick/fastclick.js"></script>
+<script src="design/assets/js/app.min.js"></script>
+<script src="design/assets/js/demo.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#defaultForm').bootstrapValidator();

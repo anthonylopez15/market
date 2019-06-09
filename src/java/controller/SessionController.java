@@ -40,25 +40,25 @@ public class SessionController extends HttpServlet {
                         if (u.getNome() != null && u.getTipocod() == 1) {
                             url = "admin.jsp";
                             msg = u.getNome() + ", seja bem-vindo ao sistema.";
+                            session.setAttribute("codigo", u.getCodigo());
+                            session.setAttribute("usuario", u);
                         } else if (u.getNome() != null && u.getTipocod() == 2) {
                             url = "index.jsp";
                             msg = "Login realizado com sucesso.";
-
+                            session.setAttribute("codigo", u.getCodigo());
+                            session.setAttribute("usuario", u);
                         } else {
                             alerta = "alert-danger";
                             url = "login.jsp";
                             msg = "Login ou senha errada.";
                         }
-                        session.setAttribute("codigo", u.getCodigo());
-                    } 
-                }else if (acao.equals("sair")) {
+                    }
+                } else if (acao.equals("sair")) {
                     session.removeAttribute("usuario");
-                    u = null;
                     url = "login.jsp";
                     msg = "Você desgolou do sitema.";
                     alerta = "alert-info";
                 }
-                session.setAttribute("usuario", u);
                 request.setAttribute("msg", msg);
                 request.setAttribute("alert", alerta);
                 request.getRequestDispatcher(url).forward(request, response);
