@@ -257,7 +257,8 @@ public class SupermercadoDAO {
                 + "    inner join supermercado s on l.supermercado = s.codigo "
                 + "    inner join itemproduto i on l.codigo = i.compracod "
                 + "where  u.codigo = ? "
-                + "group by l.codigo ";
+                + "group by l.codigo "
+                + "order by l.datahora desc";
         List<ListaCompra> list = new ArrayList<>();
         try {
             ps = con.prepareStatement(sql);

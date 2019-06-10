@@ -5,6 +5,8 @@ import dao.GeradorDeRelatorios;
 import dao.SupermercadoDAO;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +89,35 @@ public class Relatorios extends HttpServlet {
                 parametros.put("tipo_cliente", 2);
                 GeradorDeRelatorios gerador = new GeradorDeRelatorios(ConnectionFactory.conecta());
                 gerador.geraPdf(jrxml, parametros, response);
+            } else if (acao.equals("compraPeriodo")) {
+                String d_inicial = request.getParameter("datainicial");
+                String d_final = request.getParameter("datafinal");
+                
+                d_inicial = d_inicial + " 00:00:00";
+                d_final = d_final + " 23:59:59";
+                
+                System.out.println(">> " + d_inicial + " - - "+ d_final);
+                
+                ServletContext contexto = request.getServletContext();
+                jrxml = contexto.getRealPath("/ireport/report_compras.jrxml");
+                String logo = contexto.getRealPath("/ireport/shopping-cart.jpg");
+                Map<String, Object> parametros = new HashMap<>();
+                
+                SimpleDateFormat formatador = new SimpleDateFormat("yyyyy-MM-dd HH:mm:ss");
+                Date data_inicialConvertida = formatador.parse(d_inicial);
+                Date data_finalConvertida = formatador.parse(d_final);
+
+                System.out.println(">> " + data_inicialConvertida + " - - "+ data_finalConvertida);
+                
+                parametros.put("logo", logo);
+                parametros.put("data_ini", d_inicial);
+                parametros.put("data_fim", d_final);
+                
+                GeradorDeRelatorios gerador = new GeradorDeRelatorios(ConnectionFactory.conecta());
+                gerador.geraPdf(jrxml, parametros, response);
+                
             }
+
         } catch (Exception ex) {
             Logger.getLogger(PesquisaController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("alert", "alert-danger");

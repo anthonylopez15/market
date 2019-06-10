@@ -81,11 +81,11 @@
                                         <a href="relatorios?acao=listarClientes" target="_blank"><i class="fa fa-fw fa-edit"></i> Listar Clientes </a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="fa fa-fw fa-edit"></i> Relatório 1 </a>
+                                        <a href="relatorio_compra.jsp"><i class="fa fa-fw fa-edit"></i> Relatório de compras </a>
                                     </li>
-                                    <li>
+<!--                                    <li>
                                         <a href="#"><i class="fa fa-fw fa-edit"></i> Relatório 1 </a>
-                                    </li>
+                                    </li>-->
 
                                 </ul>
                             </li>
